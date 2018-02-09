@@ -4849,7 +4849,7 @@ var ProductList = {
 };
 
 ProductList.initGrid();
-var ListPage = {
+var ListPage = Object.assign(ListPage, {
 	"model": {
         "URLParams": "",
         "params": {
@@ -4887,8 +4887,8 @@ var ListPage = {
             }
         }
     }
-}
-var ListPage = {
+});
+var ListPage = Object.assign(ListPage, {
     "services": {
         "filterURL": {
             "toParams": function(filterURL) {
@@ -5030,8 +5030,8 @@ var ListPage = {
             })
         }
     }
-}
-var ListPage = {
+});
+var ListPage = Object.assign(ListPage, {
 	"view": {
         "init": function() {
             var lp_current = ListPage.model.params.current,
@@ -5673,7 +5673,7 @@ var ListPage = {
             }
         }
     }
-}
+});
 if (location.pathname === "/") {
     Modules.$doc.on("click", ".mCycleItemWrapper:first-child", function() {
         window.ga && ga("send", "event", "HomePage", "promo-bnr-click", "first-bnr");

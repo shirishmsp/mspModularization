@@ -1,4 +1,4 @@
-var ListPage = {
+var ListPage = Object.assign(ListPage, {
 	"model": {
         "URLParams": "",
         "params": {
@@ -36,4 +36,4 @@ var ListPage = {
             }
         }
     }
-}
+});

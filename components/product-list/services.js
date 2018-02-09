@@ -1,4 +1,4 @@
-var ListPage = {
+var ListPage = Object.assign(ListPage, {
     "services": {
         "filterURL": {
             "toParams": function(filterURL) {
@@ -140,4 +140,4 @@ var ListPage = {
             })
         }
     }
-}
+});

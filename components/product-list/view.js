@@ -1,4 +1,4 @@
-var ListPage = {
+var ListPage = Object.assign(ListPage, {
 	"view": {
         "init": function() {
             var lp_current = ListPage.model.params.current,
@@ -640,4 +640,4 @@ var ListPage = {
             }
         }
     }
-}
+});
