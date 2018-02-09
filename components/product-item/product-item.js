@@ -1,5 +1,5 @@
 /* RUI:: save product item button - start */
-$doc.on('mousedown', '.js-save-btn', function() {
+Modules.$doc.on('mousedown', '.js-save-btn', function() {
     var $this = $(this),
         mspid = $this.closest(".prdct-item").data("mspid") || $(".prdct-dtl__ttl").data("mspid");
 

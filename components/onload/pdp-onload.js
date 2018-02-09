@@ -81,7 +81,7 @@
 }());
 
 // Clicks outside message boxes should close the msg boxes that are open
-$doc.on('click', 'body', function(event) {
+Modules.$doc.on('click', 'body', function(event) {
     var $msgBox = $('.msg-box'),
         $exception;
     // click NOT on msg box

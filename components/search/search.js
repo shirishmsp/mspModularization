@@ -1,5 +1,5 @@
 /* Search Function/Feature */
-$doc.on("submit", ".js-srch-wdgt__frm", function() {
+Modules.$doc.on("submit", ".js-srch-wdgt__frm", function() {
     var srch_inpt = $(".js-hdr-srch").val();
     var search_type = '';
     if ($('.js-srch-wdgt__frm .search_type').val()) {
@@ -15,7 +15,7 @@ $doc.on("submit", ".js-srch-wdgt__frm", function() {
 });
 
 
-$doc.on("focus", ".srch-wdgt__fld", function() {
+Modules.$doc.on("focus", ".srch-wdgt__fld", function() {
     $(this).autocomplete("search");
 });
 // autocomplete processing end here

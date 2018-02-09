@@ -1,11 +1,11 @@
 headerDropdownsHandlers();
 
-$doc.on("click", hideDropdownContent)
+Modules.$doc.on("click", hideDropdownContent)
     .on("click", ".dropdown .btn-dropdown", toggleDropdownContent);
     
 function headerDropdownsHandlers() {
     var menuShowTimeout;
-    $doc.on('click', 'body, .js-ctgry-btn, .js-drpdwn-menu-wrpr', function(e) {
+    Modules.$doc.on('click', 'body, .js-ctgry-btn, .js-drpdwn-menu-wrpr', function(e) {
         var data, time, now, diffTime, loadingTimeout;
 
         e.stopPropagation();
@@ -13,7 +13,7 @@ function headerDropdownsHandlers() {
         if (!$('.drpdwn-menu-wrpr--show').length && $(this).hasClass("js-ctgry-btn")) {
             $('.js-drpdwn-menu-wrpr').addClass('drpdwn-menu-wrpr--show');
             $('.js-drpdwn-menu-ovrly').addClass('drpdwn-menu-ovrly--show');
-            if ($win.height() < $(".drpdwn-menu").height() + $('.js-drpdwn-menu-wrpr').offset().top) {
+            if (Modules.$win.height() < $(".drpdwn-menu").height() + $('.js-drpdwn-menu-wrpr').offset().top) {
                 $(".js-drpdwn-menu-wrpr").addClass("drpdwn-menu-wrpr--s");
             }
             if ($('.drpdwn-menu').data('processed') == 'done' && location.hash !== '#forcepopup') {

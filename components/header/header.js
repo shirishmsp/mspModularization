@@ -1,6 +1,6 @@
 (function headerSPEvent() {
 
-    $doc.on('click', '.js-lylty-hdr', function() {
+    Modules.$doc.on('click', '.js-lylty-hdr', function() {
         var partialLogin = getCookie("partial_login");
 
         var gaEvent = partialLogin ? "Partial-Login-Click" : "Loyalty-Header-Click";

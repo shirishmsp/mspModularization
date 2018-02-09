@@ -180,10 +180,10 @@ var Popout = {
 
 /* ************** 2. Actions/Events: ************** */
 
-$doc.on("click", ".js-qpop-cls", qPopCloseHandler);
-$doc.on("click", ".js-qpop-clck", qPopClickHandler);
-$doc.on("click", ".js-wdgt-flt__bttn", widgetFilterButtonHandler);
-$doc.on("click", ".js-Popout-close", popoutCloseHandler);
+Modules.$doc.on("click", ".js-qpop-cls", qPopCloseHandler);
+Modules.$doc.on("click", ".js-qpop-clck", qPopClickHandler);
+Modules.$doc.on("click", ".js-wdgt-flt__bttn", widgetFilterButtonHandler);
+Modules.$doc.on("click", ".js-Popout-close", popoutCloseHandler);
 
 /* ************** 4. Functions: ************** */
 

@@ -10,9 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script data-main="./dist/modules-bundle" src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.18/require.min.js"></script>
     <script>
-        require(['modules-bundle'], function(Modules) {
-            console.log(Modules);
-        });
+        require(['modules-bundle'], function(Modules) { console.log(Modules); });
     	require(['modules-bundle', 'all-non-module-components']);
     </script>
 </body>

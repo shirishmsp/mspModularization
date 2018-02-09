@@ -451,7 +451,7 @@ $(document).ready(function() {
     /* Initialize QnA Page functionality: */
     QnA.init();
 
-    $doc.on("click", ".js-user-answr__more-answr", function() {
+    Modules.$doc.on("click", ".js-user-answr__more-answr", function() {
         var state = $(this).data("state"),
             question_id = $(this).parents(".js-user-answrs").data("question-id"),
             answers_count = $(this).parents(".js-qstn-answr").data("ans-count"),
@@ -472,7 +472,7 @@ $(document).ready(function() {
         $(this).parent().parent().find(".user-answrs__answr").toggleClass("user-answrs__answr--show");
     });
 
-    $doc.on("submit", ".js-ask-qstn__frm", function() {
+    Modules.$doc.on("submit", ".js-ask-qstn__frm", function() {
         $(".js-ask-qstn").click();
         return false;
     });
@@ -490,7 +490,7 @@ $('body').on('click', '.js-ask-qstn', function(e) {
     }
 });
 
-$doc.on("keyup", ".js-qstn-txt", function() {
+Modules.$doc.on("keyup", ".js-qstn-txt", function() {
     console.log($(this).val().length);
     var queryLength = $(this).val().length;
     $(".qna__ask-wrpr").removeClass("qna__ask-wrpr-err");
@@ -501,8 +501,8 @@ $doc.on("keyup", ".js-qstn-txt", function() {
 });
 
 //If header is scrollable then dont hide the subheader
-$win.scroll(MSP.utils.throttle(function(e) {
-    var scrollTop = $win.scrollTop(),
+Modules.$win.scroll(MSP.utils.throttle(function(e) {
+    var scrollTop = Modules.$win.scrollTop(),
         delta = 5,
         $subHeader = $('.sub-hdr'),
         $header = $('.hdr'),
@@ -571,7 +571,7 @@ $win.scroll(MSP.utils.throttle(function(e) {
             $(".ad-sdbr").addClass("ad-sdbr--top");
         } else {
             // Scroll Up
-            if (scrollTop + $win.height() < $doc.height()) {
+            if (scrollTop + Modules.$win.height() < Modules.$doc.height()) {
                 $subHeader.removeClass('not-vsbl');
                 $header.removeClass('hdr--sld');
                 $(".ad-sdbr").removeClass("ad-sdbr--top");
@@ -622,25 +622,25 @@ function validInput(e) {
     }
 }
 
-$doc.on("focus", ".js-qstn-txt", function () {
+Modules.$doc.on("focus", ".js-qstn-txt", function () {
    
     if (window.ga) {
         ga('send', 'event', 'QNA', 'focus', 'search-input');
     }
 });
 
-$doc.one("click", ".js-qna__srch-kywrd", function() {
+Modules.$doc.one("click", ".js-qna__srch-kywrd", function() {
     if(window.QnASearch) {
         QnASearch.data.searchWordsArr = QnASearch.buildFunction.init(QnASearch.settings.qnaApi());
     }
 });
 
-$doc.on("click", ".js-qna__srch-kywrd", function() {
+Modules.$doc.on("click", ".js-qna__srch-kywrd", function() {
     window.ga && ga('send', 'event', 'qna', 'click', 'qna-suggested-search');
     $('.js-qstn-txt').val($(this).text()).trigger('input');
 });
 
-$doc.on("click", ".js-more-answr", function () {
+Modules.$doc.on("click", ".js-more-answr", function () {
     var state = $(this).data("state"),
         question_id = $(this).parents(".qna__item").data("qid") || $(this).parents(".qna__item").data("question-id"),
         answers_count = $(this).parents(".qna__item").data("ans-count");
@@ -659,7 +659,7 @@ $doc.on("click", ".js-more-answr", function () {
 });
 
 
-$doc.off('.qns__frm').on("submit", ".qna__frm", function (e) {
+Modules.$doc.off('.qns__frm').on("submit", ".qna__frm", function (e) {
     if (!validInput(e)) {
         return false;
     }
@@ -673,11 +673,11 @@ $('body').on('click' , '.js-ask-qstn' , function (e) {
     }
 })
 
-$doc.on("click", ".js-qna-bbl", function(){
+Modules.$doc.on("click", ".js-qna-bbl", function(){
     $(this).hide();
 });
 
-$doc.on("click", ".js-ask-qstn__submit", function (e) {
+Modules.$doc.on("click", ".js-ask-qstn__submit", function (e) {
     e.preventDefault();
     var emailInput = $(".ask-qstn-form__ttl").val(),
         quesInput = $(".ask-qstn-form__desc").val(),
@@ -717,7 +717,7 @@ $(document).on("click", ".js-qna__rqst-answr", function(e) {
     openPopup('/review/qna/popup/request_answer.php?source=desktop_q_list&q_id=' + questionId);
 });
 
-$doc.on("focus", ".js-qstn-txt", function() {
+Modules.$doc.on("focus", ".js-qstn-txt", function() {
     if (window.ga) {
         ga('send', 'event', 'QNA', 'focus', 'search-input');
     }

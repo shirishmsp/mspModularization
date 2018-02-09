@@ -1,7 +1,7 @@
 
 /* RUI:: added classes of new UI to the existing handlers - start */
 // binding keys start here
-$doc.keyup(function(e) {
+Modules.$doc.keyup(function(e) {
     if (e.keyCode == 27) { //esc button
         if ($('.browse-popup-cont.show, .drpdwn-menu-ovrly--show').length !== 0) {
             $('.browse-menu-btn .js-ctgry-btn').click(); //if browse menu is displayed close it  
@@ -20,7 +20,7 @@ $doc.keyup(function(e) {
     }
 });
 
-$doc.keydown(function(e) {
+Modules.$doc.keydown(function(e) {
     if (e.altKey) { // checking for alt key
         var key = String.fromCharCode(e.keyCode).toLowerCase();
         switch (key) {
@@ -44,8 +44,8 @@ $doc.keydown(function(e) {
 // OLD MSP.JS CODE --> Category dropdown: browse menu --> for old headers on non-comparables pages
 // KEPT FOR COMPATIBILITY.
 // browse menu processing start here
-$doc.ready(function() {
-    $doc.on('click', '.browse-menu-btn, .browse-popup-cont', function(e) {
+Modules.$doc.ready(function() {
+    Modules.$doc.on('click', '.browse-menu-btn, .browse-popup-cont', function(e) {
         var left = $('.browse-menu-btn')
             .offset()
             .left;
@@ -119,7 +119,7 @@ $doc.ready(function() {
         }
     });
 
-    $doc.on('click', '.browse-popup', function(e) {
+    Modules.$doc.on('click', '.browse-popup', function(e) {
         e.stopPropagation();
     });
     // browse menu processing end here

@@ -2,9 +2,9 @@
     var $priceGraph = $("[data-id='price-history']");
     if ($priceGraph.length) {
         var offsetTop = $priceGraph.offset().top;
-        $win.on("scroll.lazyGraph", MSP.utils.throttle(function () {
-            if ($win.scrollTop() + window.innerHeight > offsetTop) {
-                $win.off("scroll.lazyGraph");
+        Modules.$win.on("scroll.lazyGraph", MSP.utils.throttle(function () {
+            if (Modules.$win.scrollTop() + window.innerHeight > offsetTop) {
+                Modules.$win.off("scroll.lazyGraph");
                 $.ajax({
                     "url": "/msp/processes/property/ui-factory/msp_generate_pricegraph.php",
                     "data": {

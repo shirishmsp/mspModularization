@@ -1,4 +1,4 @@
-$doc.ready(function() {
+Modules.$doc.ready(function() {
     $(".js-shr-dl").on("click", function() {
         var tltp = $(".prdct-dtl__tlbr-shr-tltp");
         tltp.toggleClass("hide");

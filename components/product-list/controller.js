@@ -58,7 +58,7 @@ var ListPage = {
                 });
 
                 // onclick a non-price multi value filter.
-                $doc.on("click", ".fltr:not([data-groupname='price']) .js-fltr-val--mltpl input:not([disabled])", function() {
+                Modules.$doc.on("click", ".fltr:not([data-groupname='price']) .js-fltr-val--mltpl input:not([disabled])", function() {
                     var groupName = $(this).closest(".fltr").data("groupname");
 
                     if (filterGroupQueue.length === 0) {
@@ -79,7 +79,7 @@ var ListPage = {
                 });
 
                 // onclick a non-price single value filter.
-                $doc.on("click", ".fltr:not([data-groupname='price']) .js-fltr-val--sngl input:not([disabled])", function() {
+                Modules.$doc.on("click", ".fltr:not([data-groupname='price']) .js-fltr-val--sngl input:not([disabled])", function() {
                     var groupName = $(this).closest(".fltr").data("groupname");
                     if (filterGroupQueue.length === 0) {
                         $.merge(filterGroupQueue, $(this).closest(".fltr").find(".fltr-val__inpt:checked"));
@@ -98,7 +98,7 @@ var ListPage = {
                 });
 
                 // onclick a price single value filter.
-                $doc.on("click", ".fltr[data-groupname='price'] .js-fltr-val--sngl input:not([disabled])", function() {
+                Modules.$doc.on("click", ".fltr[data-groupname='price'] .js-fltr-val--sngl input:not([disabled])", function() {
                     var filterVal = $(this).attr("value"),
                         values = filterVal.split(";"),
                         minPrice = parseInt(values[0], 10),
@@ -116,7 +116,7 @@ var ListPage = {
                 });
 
                 // clear all apllied filters in a filtergroup
-                $doc.on("click", ".fltr__cler", function() {
+                Modules.$doc.on("click", ".fltr__cler", function() {
                     var $currentGroup = $(this).closest(".fltr"),
                         groupname = $currentGroup.data("groupname"),
                         $activeFilters = $currentGroup.find(".fltr-val__inpt:checked");
@@ -159,7 +159,7 @@ var ListPage = {
                 }
 
                 // edit min and max price numbers in inputfiled
-                $doc.on("change", ".js-fltr-prc__inpt-min, .js-fltr-prc__inpt-max", function() {
+                Modules.$doc.on("change", ".js-fltr-prc__inpt-min, .js-fltr-prc__inpt-max", function() {
                     $(".fltr-val__inpt[name=price]").prop('checked', false);
                     var numRegEx = /^[0-9]+$/,
                         $minPriceInpt = $(".js-fltr-prc__inpt-min"),
@@ -258,7 +258,7 @@ var ListPage = {
                 }());
 
                 // sorting options.
-                $doc.on("change", ".js-list-sort", function() {
+                Modules.$doc.on("change", ".js-list-sort", function() {
                     var sortVal = $(this).val();
                     lp_changes.add.sort = sortVal;
 
@@ -267,7 +267,7 @@ var ListPage = {
                 });
 
                 // pagination.
-                $doc.on("click", ".js-pgntn__item", function() {
+                Modules.$doc.on("click", ".js-pgntn__item", function() {
                     if (!$(this).hasClass("pgntn__item--crnt")) {
                         var pgno = $(this).data("pgno");
                         lp_changes.add.page = pgno;

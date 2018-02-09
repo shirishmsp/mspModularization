@@ -1,6 +1,6 @@
 define(["modules-bundle"],function(Modules){
 
-/* Decide whether to show or hide sidebar ads */
+return /* Decide whether to show or hide sidebar ads */
 ;
 (function sidebarAdsHandler() {
     var sidebarAds = function(gptId) {
@@ -28,7 +28,7 @@ define(["modules-bundle"],function(Modules){
         });
     }
 })();
-$doc.ready(function() {
+Modules.$doc.ready(function() {
     $(".js-shr-dl").on("click", function() {
         var tltp = $(".prdct-dtl__tlbr-shr-tltp");
         tltp.toggleClass("hide");
@@ -87,12 +87,12 @@ $('.cptr-eml-card__btn').click(function() {
 });
 headerDropdownsHandlers();
 
-$doc.on("click", hideDropdownContent)
+Modules.$doc.on("click", hideDropdownContent)
     .on("click", ".dropdown .btn-dropdown", toggleDropdownContent);
     
 function headerDropdownsHandlers() {
     var menuShowTimeout;
-    $doc.on('click', 'body, .js-ctgry-btn, .js-drpdwn-menu-wrpr', function(e) {
+    Modules.$doc.on('click', 'body, .js-ctgry-btn, .js-drpdwn-menu-wrpr', function(e) {
         var data, time, now, diffTime, loadingTimeout;
 
         e.stopPropagation();
@@ -100,7 +100,7 @@ function headerDropdownsHandlers() {
         if (!$('.drpdwn-menu-wrpr--show').length && $(this).hasClass("js-ctgry-btn")) {
             $('.js-drpdwn-menu-wrpr').addClass('drpdwn-menu-wrpr--show');
             $('.js-drpdwn-menu-ovrly').addClass('drpdwn-menu-ovrly--show');
-            if ($win.height() < $(".drpdwn-menu").height() + $('.js-drpdwn-menu-wrpr').offset().top) {
+            if (Modules.$win.height() < $(".drpdwn-menu").height() + $('.js-drpdwn-menu-wrpr').offset().top) {
                 $(".js-drpdwn-menu-wrpr").addClass("drpdwn-menu-wrpr--s");
             }
             if ($('.drpdwn-menu').data('processed') == 'done' && location.hash !== '#forcepopup') {
@@ -223,7 +223,7 @@ function toggleDropdownContent() {
 
 /* RUI:: added classes of new UI to the existing handlers - start */
 // binding keys start here
-$doc.keyup(function(e) {
+Modules.$doc.keyup(function(e) {
     if (e.keyCode == 27) { //esc button
         if ($('.browse-popup-cont.show, .drpdwn-menu-ovrly--show').length !== 0) {
             $('.browse-menu-btn .js-ctgry-btn').click(); //if browse menu is displayed close it  
@@ -242,7 +242,7 @@ $doc.keyup(function(e) {
     }
 });
 
-$doc.keydown(function(e) {
+Modules.$doc.keydown(function(e) {
     if (e.altKey) { // checking for alt key
         var key = String.fromCharCode(e.keyCode).toLowerCase();
         switch (key) {
@@ -266,8 +266,8 @@ $doc.keydown(function(e) {
 // OLD MSP.JS CODE --> Category dropdown: browse menu --> for old headers on non-comparables pages
 // KEPT FOR COMPATIBILITY.
 // browse menu processing start here
-$doc.ready(function() {
-    $doc.on('click', '.browse-menu-btn, .browse-popup-cont', function(e) {
+Modules.$doc.ready(function() {
+    Modules.$doc.on('click', '.browse-menu-btn, .browse-popup-cont', function(e) {
         var left = $('.browse-menu-btn')
             .offset()
             .left;
@@ -341,7 +341,7 @@ $doc.ready(function() {
         }
     });
 
-    $doc.on('click', '.browse-popup', function(e) {
+    Modules.$doc.on('click', '.browse-popup', function(e) {
         e.stopPropagation();
     });
     // browse menu processing end here
@@ -368,7 +368,7 @@ $doc.ready(function() {
 
 (function headerSPEvent() {
 
-    $doc.on('click', '.js-lylty-hdr', function() {
+    Modules.$doc.on('click', '.js-lylty-hdr', function() {
         var partialLogin = getCookie("partial_login");
 
         var gaEvent = partialLogin ? "Partial-Login-Click" : "Loyalty-Header-Click";
@@ -554,7 +554,7 @@ function windowLogin(pageType, queryParams){
 }
 
 
-$doc.on("click", ".js-lgn", function() {
+Modules.$doc.on("click", ".js-lgn", function() {
     var windowParams = "?destUrl=" + encodeURIComponent(window.location.href);
     if ((window.screenTop || window.screenY)) {
         windowParams += "&close=1";
@@ -731,7 +731,7 @@ function update_ui() {
     }, 2000);
 }
 
-$doc.on('mouseenter', '.drpdwn-wdgt', function() {
+Modules.$doc.on('mouseenter', '.drpdwn-wdgt', function() {
     if (!$(this).hasClass('loggedIn')) {
         $(".drpdwn-wdgt").addClass('loggedOut');
     }
@@ -826,7 +826,7 @@ function logoutme() {
     update_ui();
 }
 
-$doc.on("click", ".js-lylty-signup, .js-trck-sign-up", function() {
+Modules.$doc.on("click", ".js-lylty-signup, .js-trck-sign-up", function() {
     if ($(this).hasClass("js-trck-sign-up-cb")) {
         window.ga && ga("send", "event", "Loyalty", "click", "PDP-signup", "cashback");
     }
@@ -1507,7 +1507,7 @@ function logLoginPageEvents(action, label) {
 }
 
 //Event Hadler for Logout
-$doc.on("click", ".js-user-lgt", function() {
+Modules.$doc.on("click", ".js-user-lgt", function() {
     logoutme();
 });
 // Login UI update on page load. Will be shifted to msp.js when login is unified with Fashion.
@@ -1691,7 +1691,7 @@ if ($(".sdbr-login").length) {
 }
 
 // Check again when single goes live
-$doc.ready(function() {
+Modules.$doc.ready(function() {
     $(".sdbr-login").length && sdbrWlcmPage.init();
     $(".demo-login").length && extnsnWlcmPage.init();
 
@@ -1750,7 +1750,7 @@ if ($(".ftr__lylty").has(".js-lylty-cnt").length) {
     }
 })();
 
-$doc.on("click", ".js-hghlghtr-link", function() {
+Modules.$doc.on("click", ".js-hghlghtr-link", function() {
     var highlighterID = $(this).data("highlight-id"),
         highlighterData = localStorage.highlighterData ? JSON.parse(localStorage.highlighterData) : {};
     highlighterData[highlighterID] = highlighterData[highlighterID] ? highlighterData[highlighterID] : {};
@@ -1949,7 +1949,7 @@ setTimeout(function(){
 }());
 
 // Clicks outside message boxes should close the msg boxes that are open
-$doc.on('click', 'body', function(event) {
+Modules.$doc.on('click', 'body', function(event) {
     var $msgBox = $('.msg-box'),
         $exception;
     // click NOT on msg box
@@ -2380,15 +2380,15 @@ elementSlider = {
     });
 
     // Select text inside node on clicking it.
-    $doc.on("click", ".js-slct-trgr", function() {
+    Modules.$doc.on("click", ".js-slct-trgr", function() {
         MSP.utils.selectText($(this));
     });
 
-    $doc.on("click", ".js-sldr__prvs", function() {
+    Modules.$doc.on("click", ".js-sldr__prvs", function() {
         elementSlider.slide(this, "left");
     });
 
-    $doc.on("click", ".js-sldr__next", function() {
+    Modules.$doc.on("click", ".js-sldr__next", function() {
         elementSlider.slide(this, "right");
     });
     /* RUI:: new component for horizonal scrollable sections - end */
@@ -2543,9 +2543,9 @@ elementSlider = {
     var $priceGraph = $("[data-id='price-history']");
     if ($priceGraph.length) {
         var offsetTop = $priceGraph.offset().top;
-        $win.on("scroll.lazyGraph", MSP.utils.throttle(function () {
-            if ($win.scrollTop() + window.innerHeight > offsetTop) {
-                $win.off("scroll.lazyGraph");
+        Modules.$win.on("scroll.lazyGraph", MSP.utils.throttle(function () {
+            if (Modules.$win.scrollTop() + window.innerHeight > offsetTop) {
+                Modules.$win.off("scroll.lazyGraph");
                 $.ajax({
                     "url": "/msp/processes/property/ui-factory/msp_generate_pricegraph.php",
                     "data": {
@@ -2656,7 +2656,7 @@ $(document).on('click', '.js-instatab-popup', function(e) {
 });
 
 
-$doc.ready(function() {
+Modules.$doc.ready(function() {
     // Only email capture popup on GTS:
     $(document).on('click', '.js-gts-only-email-popup', function(e) {
         e.preventDefault();
@@ -2821,7 +2821,7 @@ var PriceTable = {
         /* Price Table handlers for new UI */
 
 
-        $doc.on("click", ".js-expnd-grid", function() {
+        Modules.$doc.on("click", ".js-expnd-grid", function() {
 
 
             if (PriceTable.dataPoints.cardLoading) {
@@ -2866,7 +2866,7 @@ var PriceTable = {
             $detailCard.toggleClass("js-has-data");
         });
 
-        $doc.on("click", ".js-expnd-offr", function() {
+        Modules.$doc.on("click", ".js-expnd-offr", function() {
 
 
             if (PriceTable.dataPoints.cardLoading) {
@@ -2898,7 +2898,7 @@ var PriceTable = {
             $detailCard.toggleClass("js-has-data");
         });
 
-        $doc.on("click", ".js-cls-grid", function() {
+        Modules.$doc.on("click", ".js-cls-grid", function() {
             $(this).parent().css("height", "0px");
         });
 
@@ -2914,7 +2914,7 @@ var PriceTable = {
             alignPriceCards(showAll);
         }
 
-        $doc.on("click", ".js-more-strs", function() {
+        Modules.$doc.on("click", ".js-more-strs", function() {
             $button = $(this);
             PriceTable.update.allCards(PriceTable.dataPoints.prevColor).done(function(response) {
                 toggleCards($button);
@@ -2924,7 +2924,7 @@ var PriceTable = {
         /* End of Price table handlers for new UI*/
 
         // select color and updatePage.
-        $doc.on("click", ".avlbl-clrs__inpt", (function() {
+        Modules.$doc.on("click", ".avlbl-clrs__inpt", (function() {
             PriceTable.dataPoints.prevColor = PriceTable.dataPoints.getSelectedColor();
 
             return function() {
@@ -2960,7 +2960,7 @@ var PriceTable = {
         })());
 
         // clear selected color and updatePage.
-        $doc.on("click", ".prdct-dtl__vrnt-clr .prdct-dtl__vrnt-cler", function() {
+        Modules.$doc.on("click", ".prdct-dtl__vrnt-clr .prdct-dtl__vrnt-cler", function() {
             var $variant = $(".prdct-dtl__ttl-vrnt"),
                 model = PriceTable.dataPoints.variant.model,
                 size = PriceTable.dataPoints.variant.size;
@@ -2982,7 +2982,7 @@ var PriceTable = {
         });
 
         // load the variant page selected.
-        $doc.on("click", ".avlbl-sizes__item", function() {
+        Modules.$doc.on("click", ".avlbl-sizes__item", function() {
             var $this = $(this);
             if (!$this.hasClass("avlbl-sizes__item--slctd") && !$this.parents(".avlbl-sizes").hasClass("avlbl-sizes--no-slct")) {
                 window.location.href = $this.data("href");
@@ -2990,7 +2990,7 @@ var PriceTable = {
         });
 
         // switch between recommended, online, offline pricetables.
-        $doc.on("click", ".js-ctgry-inpt", (function() {
+        Modules.$doc.on("click", ".js-ctgry-inpt", (function() {
             return function() {
                 var $this = $(this),
                     previousValue = PriceTable.dataPoints.previousCategory,
@@ -3008,21 +3008,21 @@ var PriceTable = {
         })());
 
         // trigger offline area switcher
-        $doc.on("click", ".prdct-dtl__slr-offln-area", function() {
+        Modules.$doc.on("click", ".prdct-dtl__slr-offln-area", function() {
             $(".usr_location__wrpr").trigger("click");
             return false;
         });
 
         // online and offline stores - user choice
-        $doc.on('click', '.js-offln-click', function() {
+        Modules.$doc.on('click', '.js-offln-click', function() {
             $('.js-ctgry-inpt[value="offline"]').trigger('click');
         });
-        $doc.on('click', '.js-onln-click', function() {
+        Modules.$doc.on('click', '.js-onln-click', function() {
             $('.js-ctgry-inpt[value="online"]').trigger('click');
         });
 
         // apply filters to current pricetable.
-        $doc.on("click", ".prc-tbl__fltrs-inpt", function() {
+        Modules.$doc.on("click", ".prc-tbl__fltrs-inpt", function() {
             PriceTable.update.byFilter(undefined, {
                 "latitude": window.localStorage.userLatitude,
                 "longitude": window.localStorage.userLongitude
@@ -3032,7 +3032,7 @@ var PriceTable = {
         // sort current pricetable.
         ;
         (function pricetableSortingHandlers() {
-            $doc.on("change", ".js-prc-tbl__sort", function() {
+            Modules.$doc.on("change", ".js-prc-tbl__sort", function() {
                 var newSortby = $(this).val(),
                     category = newSortby.split(":")[0],
                     $updatedColumn = $(".prc-tbl-hdr__clm[data-sort-category='" + category + "']");
@@ -3051,7 +3051,7 @@ var PriceTable = {
                 PriceTable.sort(newSortby);
             });
 
-            $doc.on("click", ".prc-tbl-hdr__clm[data-sort-value]", function() {
+            Modules.$doc.on("click", ".prc-tbl-hdr__clm[data-sort-value]", function() {
                 var newSortby = $(this).data("sort-value");
 
                 // change sort dropdown value to trigger pricetable update accordingly.
@@ -3087,7 +3087,7 @@ var PriceTable = {
         }());
 
         // show more stores.
-        $doc.on('click', '.js-prc-tbl__show-more', function handler() {
+        Modules.$doc.on('click', '.js-prc-tbl__show-more', function handler() {
             var $this = $(this),
                 $inner = $this.find(".prc-card__more-inr"),
                 $priceLines = $(".prc-card").not($this),
@@ -3134,7 +3134,7 @@ var PriceTable = {
         });
 
         /* more offers message box handlers - start */
-        $doc.on("click", ".js-xtrs-msg-box-trgt", function handler(e) {
+        Modules.$doc.on("click", ".js-xtrs-msg-box-trgt", function handler(e) {
             var $popupCont = $(this),
                 $popup = $popupCont.find(".prc-tbl__xtrs-clm-pop"),
                 $row = $(this).closest(".prc-tbl-row"),
@@ -3174,7 +3174,7 @@ var PriceTable = {
             }
         });
 
-        $doc.on("click", ".js-xtrs-msg-box__cls", function() {
+        Modules.$doc.on("click", ".js-xtrs-msg-box__cls", function() {
             var $this = $(this),
                 $xtrasLink = $this.closest('.js-xtrs-msg-box-trgt');
 
@@ -3210,7 +3210,7 @@ var PriceTable = {
                 }
 
                 // clicking on chrome geolocation overlay should remove it.
-                $doc.on("click", ".js-glctn-ovrly", function() {
+                Modules.$doc.on("click", ".js-glctn-ovrly", function() {
                     $(".js-glctn-ovrly").removeClass("js-ovrly--show");
                     $("body").css("overflow", "auto");
                 });
@@ -3683,7 +3683,7 @@ PriceTable.init();
 
 // To Notify user when product becomes available
 // Includes both cases - "Coming soon" as well as "Out of Stock"
-$doc.on('submit', '.js-ntfy-frm', function() {
+Modules.$doc.on('submit', '.js-ntfy-frm', function() {
     var $inputField = $(this).find(".js-ntfy-eml"),
         $errorNode = $(this).find(".js-ntfy-err");
     MSP.utils.validate.form([{
@@ -3709,7 +3709,7 @@ $doc.on('submit', '.js-ntfy-frm', function() {
 });
 
 // if GTS is not a popup target then open storeUrl in new tab.
-$doc.on("click", ".js-prc-tbl__gts-btn", function() {
+Modules.$doc.on("click", ".js-prc-tbl__gts-btn", function() {
     debugger
     var $this = $(this),
         storeUrl = $this.data("url"),
@@ -3723,7 +3723,7 @@ $doc.on("click", ".js-prc-tbl__gts-btn", function() {
     return false;
 });
 
-$doc.on("click", ".js-ntfy-sbmt", function() {
+Modules.$doc.on("click", ".js-ntfy-sbmt", function() {
     var $form = $(this).closest(".js-ntfy-frm"),
         $inputField = $form.find(".js-ntfy-eml"),
         $errorNode = $form.find(".js-ntfy-err");
@@ -3749,7 +3749,7 @@ $doc.on("click", ".js-ntfy-sbmt", function() {
 });
 
 /* Load GA events for GTS Clicks */
-$doc.on('click', '.prc-tbl__btn .js-prc-tbl__gts-btn', function(e) {
+Modules.$doc.on('click', '.prc-tbl__btn .js-prc-tbl__gts-btn', function(e) {
         var $parent = $(this).closest('.prc-tbl');
         if($parent.hasClass('cards')) {
             if($parent.hasClass('full')) {
@@ -4000,7 +4000,7 @@ function updateSidebarPriceTable() {
     } else {
         $mainCol1.prepend(createSidebarPriceTable(storesInfo));
         $sidebar.css('left', (mainLeft + mainCol3Width) + 'px');
-        $win.scroll(MSP.utils.throttle(sidebarScrollEvent, 100));
+        Modules.$win.scroll(MSP.utils.throttle(sidebarScrollEvent, 100));
     }
 
     // ********************
@@ -4058,7 +4058,7 @@ function hideImage(img) {
             $(".prdct-dtl__str-offr li:nth-child(2)").append("<span class='prdct-dtl__shw-ofr js-show-offer'>Show More</span>")
         };
 
-        $doc.on("click", ".js-show-offer", function() {
+        Modules.$doc.on("click", ".js-show-offer", function() {
             var linkText = $(this).text().trim(),
                 newText, index;
             $(".prdct-dtl__offr-sctn").toggleClass("prdct-dtl__offr-sctn--expnd");
@@ -4076,7 +4076,7 @@ function hideImage(img) {
 })();
 
 
-$doc.on("click", ".prc-grid__no-stck-sbmt", function() {
+Modules.$doc.on("click", ".prc-grid__no-stck-sbmt", function() {
     var $inputField = $(this).prev(".prc-grid__no-stck-inpt"),
         $form = $(this).closest(".prc-grid__no-stck-form"),
         $errorNode = $form.find(".js-vldtn-err"),
@@ -4104,7 +4104,7 @@ $doc.on("click", ".prc-grid__no-stck-sbmt", function() {
 
 // show more techspecs.
 if ($(".prdct-dtl__spfctn-more-wrpr").length) {
-    $doc.on("click", ".js-prdct-dtl__spfctn-show-more, .js-prdct-dtl__spfctn-show-less", function() {
+    Modules.$doc.on("click", ".js-prdct-dtl__spfctn-show-more, .js-prdct-dtl__spfctn-show-less", function() {
         var delay = $(this).hasClass("js-prdct-dtl__spfctn-show-less") ? 400 : 0;
         setTimeout(function() {
             $(".js-prdct-dtl__spfctn-show-more").toggle();
@@ -4113,7 +4113,7 @@ if ($(".prdct-dtl__spfctn-more-wrpr").length) {
     });
 }
 
-$doc.on("click", ".js-xpnd-prc-box-item", function() {
+Modules.$doc.on("click", ".js-xpnd-prc-box-item", function() {
     var $this = $(this),
         $thisItem = $this.closest(".prdct-dtl__box-item");
     if (!$thisItem.hasClass("prdct-dtl__box-item--open")) {
@@ -4171,7 +4171,7 @@ $(".prdct-dtl__img-wrpr, .prdct-dtl__thmbnl").on("click", function(e) {
 // Multiple Image Show on Top Section - End
 
 // save to list button handlers - start 
-$doc.on('click', ".prdct-dtl__save", function(e) {
+Modules.$doc.on('click', ".prdct-dtl__save", function(e) {
     loginCallback(function() {
         $(".prdct-dtl__save").addClass("prdct-dtl__save--svd");
         $.get("/users/add_to_list.php", {
@@ -4181,7 +4181,7 @@ $doc.on('click', ".prdct-dtl__save", function(e) {
     return false;
 });
 
-$doc.on("click", ".js-user-lgt", function(e) {
+Modules.$doc.on("click", ".js-user-lgt", function(e) {
     $(".prdct-dtl__save").removeClass("prdct-dtl__save--svd");
 });
 // save to list button handlers - end
@@ -4241,7 +4241,7 @@ $(document).on('click', '.js-windows-app', function(e) {
     return false;
 });
 /* RUI:: save product item button - start */
-$doc.on('mousedown', '.js-save-btn', function() {
+Modules.$doc.on('mousedown', '.js-save-btn', function() {
     var $this = $(this),
         mspid = $this.closest(".prdct-item").data("mspid") || $(".prdct-dtl__ttl").data("mspid");
 
@@ -4316,7 +4316,7 @@ var ListPage = {
                 });
 
                 // onclick a non-price multi value filter.
-                $doc.on("click", ".fltr:not([data-groupname='price']) .js-fltr-val--mltpl input:not([disabled])", function() {
+                Modules.$doc.on("click", ".fltr:not([data-groupname='price']) .js-fltr-val--mltpl input:not([disabled])", function() {
                     var groupName = $(this).closest(".fltr").data("groupname");
 
                     if (filterGroupQueue.length === 0) {
@@ -4337,7 +4337,7 @@ var ListPage = {
                 });
 
                 // onclick a non-price single value filter.
-                $doc.on("click", ".fltr:not([data-groupname='price']) .js-fltr-val--sngl input:not([disabled])", function() {
+                Modules.$doc.on("click", ".fltr:not([data-groupname='price']) .js-fltr-val--sngl input:not([disabled])", function() {
                     var groupName = $(this).closest(".fltr").data("groupname");
                     if (filterGroupQueue.length === 0) {
                         $.merge(filterGroupQueue, $(this).closest(".fltr").find(".fltr-val__inpt:checked"));
@@ -4356,7 +4356,7 @@ var ListPage = {
                 });
 
                 // onclick a price single value filter.
-                $doc.on("click", ".fltr[data-groupname='price'] .js-fltr-val--sngl input:not([disabled])", function() {
+                Modules.$doc.on("click", ".fltr[data-groupname='price'] .js-fltr-val--sngl input:not([disabled])", function() {
                     var filterVal = $(this).attr("value"),
                         values = filterVal.split(";"),
                         minPrice = parseInt(values[0], 10),
@@ -4374,7 +4374,7 @@ var ListPage = {
                 });
 
                 // clear all apllied filters in a filtergroup
-                $doc.on("click", ".fltr__cler", function() {
+                Modules.$doc.on("click", ".fltr__cler", function() {
                     var $currentGroup = $(this).closest(".fltr"),
                         groupname = $currentGroup.data("groupname"),
                         $activeFilters = $currentGroup.find(".fltr-val__inpt:checked");
@@ -4417,7 +4417,7 @@ var ListPage = {
                 }
 
                 // edit min and max price numbers in inputfiled
-                $doc.on("change", ".js-fltr-prc__inpt-min, .js-fltr-prc__inpt-max", function() {
+                Modules.$doc.on("change", ".js-fltr-prc__inpt-min, .js-fltr-prc__inpt-max", function() {
                     $(".fltr-val__inpt[name=price]").prop('checked', false);
                     var numRegEx = /^[0-9]+$/,
                         $minPriceInpt = $(".js-fltr-prc__inpt-min"),
@@ -4516,7 +4516,7 @@ var ListPage = {
                 }());
 
                 // sorting options.
-                $doc.on("change", ".js-list-sort", function() {
+                Modules.$doc.on("change", ".js-list-sort", function() {
                     var sortVal = $(this).val();
                     lp_changes.add.sort = sortVal;
 
@@ -4525,7 +4525,7 @@ var ListPage = {
                 });
 
                 // pagination.
-                $doc.on("click", ".js-pgntn__item", function() {
+                Modules.$doc.on("click", ".js-pgntn__item", function() {
                     if (!$(this).hasClass("pgntn__item--crnt")) {
                         var pgno = $(this).data("pgno");
                         lp_changes.add.page = pgno;
@@ -4822,7 +4822,7 @@ var ProductList = {
         } else if (localStorage.getItem("gridType") === "small") {
             this.setGridType("small");
         }
-        $doc.on("click", ".js-list-hdr-view", function() {
+        Modules.$doc.on("click", ".js-list-hdr-view", function() {
             if ($(this).hasClass("list-hdr-view__prdct-l")) {
                 ProductList.setGridType("large");
             } else {
@@ -5675,7 +5675,7 @@ var ListPage = {
     }
 }
 if (location.pathname === "/") {
-    $doc.on("click", ".mCycleItemWrapper:first-child", function() {
+    Modules.$doc.on("click", ".mCycleItemWrapper:first-child", function() {
         window.ga && ga("send", "event", "HomePage", "promo-bnr-click", "first-bnr");
     });
 }
@@ -6656,7 +6656,7 @@ $(document).ready(function() {
     /* Initialize QnA Page functionality: */
     QnA.init();
 
-    $doc.on("click", ".js-user-answr__more-answr", function() {
+    Modules.$doc.on("click", ".js-user-answr__more-answr", function() {
         var state = $(this).data("state"),
             question_id = $(this).parents(".js-user-answrs").data("question-id"),
             answers_count = $(this).parents(".js-qstn-answr").data("ans-count"),
@@ -6677,7 +6677,7 @@ $(document).ready(function() {
         $(this).parent().parent().find(".user-answrs__answr").toggleClass("user-answrs__answr--show");
     });
 
-    $doc.on("submit", ".js-ask-qstn__frm", function() {
+    Modules.$doc.on("submit", ".js-ask-qstn__frm", function() {
         $(".js-ask-qstn").click();
         return false;
     });
@@ -6695,7 +6695,7 @@ $('body').on('click', '.js-ask-qstn', function(e) {
     }
 });
 
-$doc.on("keyup", ".js-qstn-txt", function() {
+Modules.$doc.on("keyup", ".js-qstn-txt", function() {
     console.log($(this).val().length);
     var queryLength = $(this).val().length;
     $(".qna__ask-wrpr").removeClass("qna__ask-wrpr-err");
@@ -6706,8 +6706,8 @@ $doc.on("keyup", ".js-qstn-txt", function() {
 });
 
 //If header is scrollable then dont hide the subheader
-$win.scroll(MSP.utils.throttle(function(e) {
-    var scrollTop = $win.scrollTop(),
+Modules.$win.scroll(MSP.utils.throttle(function(e) {
+    var scrollTop = Modules.$win.scrollTop(),
         delta = 5,
         $subHeader = $('.sub-hdr'),
         $header = $('.hdr'),
@@ -6776,7 +6776,7 @@ $win.scroll(MSP.utils.throttle(function(e) {
             $(".ad-sdbr").addClass("ad-sdbr--top");
         } else {
             // Scroll Up
-            if (scrollTop + $win.height() < $doc.height()) {
+            if (scrollTop + Modules.$win.height() < Modules.$doc.height()) {
                 $subHeader.removeClass('not-vsbl');
                 $header.removeClass('hdr--sld');
                 $(".ad-sdbr").removeClass("ad-sdbr--top");
@@ -6827,25 +6827,25 @@ function validInput(e) {
     }
 }
 
-$doc.on("focus", ".js-qstn-txt", function () {
+Modules.$doc.on("focus", ".js-qstn-txt", function () {
    
     if (window.ga) {
         ga('send', 'event', 'QNA', 'focus', 'search-input');
     }
 });
 
-$doc.one("click", ".js-qna__srch-kywrd", function() {
+Modules.$doc.one("click", ".js-qna__srch-kywrd", function() {
     if(window.QnASearch) {
         QnASearch.data.searchWordsArr = QnASearch.buildFunction.init(QnASearch.settings.qnaApi());
     }
 });
 
-$doc.on("click", ".js-qna__srch-kywrd", function() {
+Modules.$doc.on("click", ".js-qna__srch-kywrd", function() {
     window.ga && ga('send', 'event', 'qna', 'click', 'qna-suggested-search');
     $('.js-qstn-txt').val($(this).text()).trigger('input');
 });
 
-$doc.on("click", ".js-more-answr", function () {
+Modules.$doc.on("click", ".js-more-answr", function () {
     var state = $(this).data("state"),
         question_id = $(this).parents(".qna__item").data("qid") || $(this).parents(".qna__item").data("question-id"),
         answers_count = $(this).parents(".qna__item").data("ans-count");
@@ -6864,7 +6864,7 @@ $doc.on("click", ".js-more-answr", function () {
 });
 
 
-$doc.off('.qns__frm').on("submit", ".qna__frm", function (e) {
+Modules.$doc.off('.qns__frm').on("submit", ".qna__frm", function (e) {
     if (!validInput(e)) {
         return false;
     }
@@ -6878,11 +6878,11 @@ $('body').on('click' , '.js-ask-qstn' , function (e) {
     }
 })
 
-$doc.on("click", ".js-qna-bbl", function(){
+Modules.$doc.on("click", ".js-qna-bbl", function(){
     $(this).hide();
 });
 
-$doc.on("click", ".js-ask-qstn__submit", function (e) {
+Modules.$doc.on("click", ".js-ask-qstn__submit", function (e) {
     e.preventDefault();
     var emailInput = $(".ask-qstn-form__ttl").val(),
         quesInput = $(".ask-qstn-form__desc").val(),
@@ -6922,7 +6922,7 @@ $(document).on("click", ".js-qna__rqst-answr", function(e) {
     openPopup('/review/qna/popup/request_answer.php?source=desktop_q_list&q_id=' + questionId);
 });
 
-$doc.on("focus", ".js-qstn-txt", function() {
+Modules.$doc.on("focus", ".js-qstn-txt", function() {
     if (window.ga) {
         ga('send', 'event', 'QNA', 'focus', 'search-input');
     }
@@ -7096,7 +7096,7 @@ $(document).ready(function() {
     }
 });
 // expert review page gallery js
-$doc.on("click", "#exprt-rvw__prvw .exprt-rvw__glry-img", function(e) {
+Modules.$doc.on("click", "#exprt-rvw__prvw .exprt-rvw__glry-img", function(e) {
   if(!$(this).parent().hasClass("exprt-rvw__glry-thmbnl")) {
     return;
   }
@@ -7130,7 +7130,7 @@ $doc.on("click", "#exprt-rvw__prvw .exprt-rvw__glry-img", function(e) {
 });
 
 // expert review page gallery js
-$doc.on("click", "#exprt-rvw__prvw .zoom-viewer__arrow", function(e) {
+Modules.$doc.on("click", "#exprt-rvw__prvw .zoom-viewer__arrow", function(e) {
     var imageGallery = $(this).closest(".exprt-rvw__glry"),
       currentImageIndex = $(imageGallery).find(".exprt-rvw__glry-main-img").data("image-index"),
       newImageElement = null;
@@ -7163,7 +7163,7 @@ $(".exprt-rvw__vid-play").on("click", function(e) {
     $container.append('<iframe class="exprt-rvw__vid-iframe" width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' + videoId + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>');
 });
 //Show video on click of thumbnail - End
-$doc.ready(function() {
+Modules.$doc.ready(function() {
     if ($(".usr-rvw-form--sngl").length) {
 
         // this class is being added from php
@@ -7199,7 +7199,7 @@ $doc.ready(function() {
             // enlargeCompressRating(false);
         }
 
-        $doc.on("keyup", ".js-usr-rvw__desc", function(e) {
+        Modules.$doc.on("keyup", ".js-usr-rvw__desc", function(e) {
             if (e.target.value.trim().length > 0) {
                 if ($(".usr-rvw-form__ttl-wrpr-vsbl").length === 0) {
                     $(this).closest(".usr-rvw-form--sngl").find(".usr-rvw-form__ttl-wrpr").slideDown("fast");
@@ -7213,7 +7213,7 @@ $doc.ready(function() {
             }
         });
 
-        $doc.on("mousemove", ".usr-rvw-form__rtng-wrpr .rtng-star", function(e) {
+        Modules.$doc.on("mousemove", ".usr-rvw-form__rtng-wrpr .rtng-star", function(e) {
             var offsetX = parseInt(e.pageX - $(this).offset().left, 10),
                 rating = Math.ceil((offsetX / ratingWidth) * 5) || 1;
 
@@ -7223,7 +7223,7 @@ $doc.ready(function() {
             }
         });
 
-        $doc.on("click", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
+        Modules.$doc.on("click", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
             var inrWidth = $ratingInr.width(),
                 rating = Math.ceil((inrWidth / ratingWidth) * 5) || 1;
 
@@ -7237,7 +7237,7 @@ $doc.ready(function() {
             // enlargeCompressRating(false);
         });
 
-        $doc.on("mouseleave", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
+        Modules.$doc.on("mouseleave", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
             if ($ratingInr.hasClass("rtng-star__inr--rated")) {
                 $ratingRemark.text($ratingRemark.data("remark"));
                 $ratingInr.width($ratingInr.data("width"));
@@ -7247,7 +7247,7 @@ $doc.ready(function() {
             }
         });
 
-        $doc.on("submit", ".usr-rvw-form--sngl", function() {
+        Modules.$doc.on("submit", ".usr-rvw-form--sngl", function() {
             MSP.utils.validate.form([{
                 "type": "rating",
                 "inputField": $(".usr-rvw-form__rtng-inpt"),
@@ -7380,7 +7380,7 @@ $doc.ready(function() {
         isUserDetailsDisplayed = true;
     }
 
-    $doc.on("mousemove", ".usr-rvw-form__rtng-wrpr .rtng-star", function(e) {
+    Modules.$doc.on("mousemove", ".usr-rvw-form__rtng-wrpr .rtng-star", function(e) {
         var offsetX = parseInt(e.pageX - $(this).offset().left, 10),
             rating = Math.ceil((offsetX / ratingWidth) * 5) || 1;
 
@@ -7390,7 +7390,7 @@ $doc.ready(function() {
         }
     });
 
-    $doc.on("click", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
+    Modules.$doc.on("click", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
         var inrWidth = $ratingInr.width(),
             rating = Math.ceil((inrWidth / ratingWidth) * 5) || 1;
 
@@ -7399,7 +7399,7 @@ $doc.ready(function() {
         $ratingInr.data("width", inrWidth).addClass("rtng-star__inr--rated");
     });
 
-    $doc.on("mouseleave", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
+    Modules.$doc.on("mouseleave", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
         if ($ratingInr.hasClass("rtng-star__inr--rated")) {
             $ratingRemark.text($ratingRemark.data("remark"));
             $ratingInr.width($ratingInr.data("width"));
@@ -7409,12 +7409,12 @@ $doc.ready(function() {
         }
     });
 
-    $doc.on("click", ".js-usr-rvw-item-more", function() {
+    Modules.$doc.on("click", ".js-usr-rvw-item-more", function() {
         $(this).hide();
         $(this).closest(".usr-rvw-item__text").find(".usr-rvw-item__text-hide").fadeIn();
     });
 
-    $doc.on("submit", ".usr-rvw-form", function() {
+    Modules.$doc.on("submit", ".usr-rvw-form", function() {
         loginCallback(function() {
             MSP.utils.validate.form([{
                 "type": "rating",
@@ -7474,7 +7474,7 @@ $doc.ready(function() {
     }
 }());
 
-$doc.on("click", ".js-usr-rvw-vote-up, .js-usr-rvw-vote-down", (function() {
+Modules.$doc.on("click", ".js-usr-rvw-vote-up, .js-usr-rvw-vote-down", (function() {
     // private voteReview function that is declared on load.
     function voteReview(voteButton) {
         var reviewId = voteButton.closest(".usr-rvw__bttm__rvw").data("review-id"),
@@ -7504,7 +7504,7 @@ $doc.on("click", ".js-usr-rvw-vote-up, .js-usr-rvw-vote-down", (function() {
     }
 })());
 /* Search Function/Feature */
-$doc.on("submit", ".js-srch-wdgt__frm", function() {
+Modules.$doc.on("submit", ".js-srch-wdgt__frm", function() {
     var srch_inpt = $(".js-hdr-srch").val();
     var search_type = '';
     if ($('.js-srch-wdgt__frm .search_type').val()) {
@@ -7520,7 +7520,7 @@ $doc.on("submit", ".js-srch-wdgt__frm", function() {
 });
 
 
-$doc.on("focus", ".srch-wdgt__fld", function() {
+Modules.$doc.on("focus", ".srch-wdgt__fld", function() {
     $(this).autocomplete("search");
 });
 // autocomplete processing end here
@@ -7758,8 +7758,8 @@ function loadVideoReviews() {
 bindAutoComplete(); // Initializing the autoComplete
 initScrollToTop(); // Scroll to page top
 
-$doc.on("click", ".js-copy", handleCopyText);
-$doc.on("click", ".js-send-email", handleSendEmail);
+Modules.$doc.on("click", ".js-copy", handleCopyText);
+Modules.$doc.on("click", ".js-send-email", handleSendEmail);
 
 /* ************** 4. Functions: ************** */
 
@@ -7940,9 +7940,9 @@ function handleSendEmail() {
 if ($(".body-wrpr").length !== 0) { /* Enable new (RUI) scroll functionality */
     scrollToSectionNoAnimation();
 } else { /* OLD::inpageLinking (Backward Compatibility) */
-    $win.on('hashchange', handleHashChange);
-    $doc.on('click', 'a[href^="#"]', handleAnchorLinkClick);
-    $win.on('load', handleLoadEvent);
+    Modules.$win.on('hashchange', handleHashChange);
+    Modules.$doc.on('click', 'a[href^="#"]', handleAnchorLinkClick);
+    Modules.$win.on('load', handleLoadEvent);
 }
 
 /* ************** 4. Functions: ************** */
@@ -7958,7 +7958,7 @@ function scrollToSectionNoAnimation() {
     }
 
     // on hashchange: act upon the scrollTo and clickElt hash params
-    $win.on('hashchange', function() {
+    Modules.$win.on('hashchange', function() {
         hashObj = queryString(decodeURI(window.location.hash));
         if (hashObj.scrollTo) { scrollToLink(hashObj, false); }
     });
@@ -7995,8 +7995,8 @@ function scrollToSectionNoAnimation() {
     var $pageNav = $(".sctn--page-nvgtn");
     if ($pageNav.length) {
         var stickyPoint = Math.ceil($pageNav.offset().top);
-        $win.scroll(MSP.utils.throttle(function() {
-            if (Math.ceil($win.scrollTop()) > stickyPoint) {
+        Modules.$win.scroll(MSP.utils.throttle(function() {
+            if (Math.ceil(Modules.$win.scrollTop()) > stickyPoint) {
                 $pageNav.addClass("sctn--stcky-nvgtn");
             } else {
                 $pageNav.removeClass("sctn--stcky-nvgtn");
@@ -8004,7 +8004,7 @@ function scrollToSectionNoAnimation() {
         }, 100));
     }
 
-    $doc.on("click", ".js-inpg-link", function(e) {
+    Modules.$doc.on("click", ".js-inpg-link", function(e) {
         var $this = $(this);
         if ($this.data("action") === "disabled") return false;
 
@@ -8019,7 +8019,7 @@ function scrollToSectionNoAnimation() {
     });
 
     // scroll event handler
-    $doc.on("click", ".js-inpg-link[data-href=user-reviews]", function() {
+    Modules.$doc.on("click", ".js-inpg-link[data-href=user-reviews]", function() {
         // a/b testing for video reviews
         // sending 1/5 of users to video reviews
         // and remaining 4/5 of users to user reviews
@@ -8245,10 +8245,10 @@ var Popout = {
 
 /* ************** 2. Actions/Events: ************** */
 
-$doc.on("click", ".js-qpop-cls", qPopCloseHandler);
-$doc.on("click", ".js-qpop-clck", qPopClickHandler);
-$doc.on("click", ".js-wdgt-flt__bttn", widgetFilterButtonHandler);
-$doc.on("click", ".js-Popout-close", popoutCloseHandler);
+Modules.$doc.on("click", ".js-qpop-cls", qPopCloseHandler);
+Modules.$doc.on("click", ".js-qpop-clck", qPopClickHandler);
+Modules.$doc.on("click", ".js-wdgt-flt__bttn", widgetFilterButtonHandler);
+Modules.$doc.on("click", ".js-Popout-close", popoutCloseHandler);
 
 /* ************** 4. Functions: ************** */
 
@@ -8296,19 +8296,19 @@ const pageLeaveTimeout = 4000;
 
 /* ************** 2. Actions/Events: ************** */
 
-$doc.on('click', '.popup-target, .js-popup-trgt', handlePopupTargetClick);
-$doc.on('click', ".chrmcshbck-popup-target, .js-chrmcshbck-popup-trgt", chromePluginPopupTarget); // pln CB offer  
+Modules.$doc.on('click', '.popup-target, .js-popup-trgt', handlePopupTargetClick);
+Modules.$doc.on('click', ".chrmcshbck-popup-target, .js-chrmcshbck-popup-trgt", chromePluginPopupTarget); // pln CB offer  
 
 // This function is to be refactored when single page goes live:
-$doc.on('click', ".loyalty-popup-target, .js-lylty-popup-trgt", loyaltyPopupTarget);
+Modules.$doc.on('click', ".loyalty-popup-target, .js-lylty-popup-trgt", loyaltyPopupTarget);
 
 /* Old: */
-$doc.on('click', '.popup-closebutton', () => closePopup());
-$doc.on('click', '.popup-overlay', handlePopupOverlayClick);
+Modules.$doc.on('click', '.popup-closebutton', () => closePopup());
+Modules.$doc.on('click', '.popup-overlay', handlePopupOverlayClick);
 
 /* New: */
-$doc.on('click', '.pop-up__cls-btn, .popup-optn__link.usr-inputbox__input--lnk', () => closePopup_RUI());
-$doc.on('click', '.pop-up__ovrly', handlePopupOverlayClickRUI);
+Modules.$doc.on('click', '.pop-up__cls-btn, .popup-optn__link.usr-inputbox__input--lnk', () => closePopup_RUI());
+Modules.$doc.on('click', '.pop-up__ovrly', handlePopupOverlayClickRUI);
 
 /* autopopup processing start: */
 setTimeout(() => {
@@ -8755,8 +8755,8 @@ function getAutopopupURL($dataElement) {
     }
     if ($popupData["scroll"] === true) {
         if (window.location.href.indexOf("msp") !== -1 || window.location.href.indexOf("msf") !== -1) {
-            $doc.on('scroll', function(e) {
-                if ($doc.scrollTop() >= $win.height()) {
+            Modules.$doc.on('scroll', function(e) {
+                if (Modules.$doc.scrollTop() >= Modules.$win.height()) {
                     $dataElement.data("popup_id", $popupData["scroll-id"]);
                     openAutoPopupURL($popupData["scroll-url"]);
                 }
@@ -8829,11 +8829,11 @@ function setPopUpCookie() {
 
 /* ************** 2. Actions/Events: ************** */
 
-$doc.on('mouseenter', '.js-tltp', handleMouseEnter);
-$doc.on('mouseleave', '.js-tltp', removeTooltip);
+Modules.$doc.on('mouseenter', '.js-tltp', handleMouseEnter);
+Modules.$doc.on('mouseleave', '.js-tltp', removeTooltip);
 
-$doc.on("click", ".js-msg-box-trgt", showMessageBox);
-$doc.on("click", ".js-msg-box__cls", hideMessageBox);
+Modules.$doc.on("click", ".js-msg-box-trgt", showMessageBox);
+Modules.$doc.on("click", ".js-msg-box__cls", hideMessageBox);
 
 /* ************** 4. Functions: ************** */
 
@@ -8853,28 +8853,28 @@ function handleMouseEnter() {
     if (tooltipDirection === "tltp--top-rght") {
         $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
         $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        if ($tooltip.offset().top - $win.scrollTop() < 0) {
+        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
             $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
             $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
         }
     } else if (tooltipDirection === "tltp--top-left") {
         $tooltip.css('left', $this.offset().left - 4);
         $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        if ($tooltip.offset().top - $win.scrollTop() < 0) {
+        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
             $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
             $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
         }
     } else if (tooltipDirection === "tltp--btm-rght") {
         $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
         $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
-        if ($win.scrollTop() + $win.height() - $tooltip.offset().top < 0) {
+        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
             $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
             $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
         }
     } else if (tooltipDirection === "tltp--btm-left") {
         $tooltip.css('left', $this.offset().left - 4);
         $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
-        if ($win.scrollTop() + $win.height() - $tooltip.offset().top < 0) {
+        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
             $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
             $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
         }

@@ -147,7 +147,7 @@ var PriceTable = {
         /* Price Table handlers for new UI */
 
 
-        $doc.on("click", ".js-expnd-grid", function() {
+        Modules.$doc.on("click", ".js-expnd-grid", function() {
 
 
             if (PriceTable.dataPoints.cardLoading) {
@@ -192,7 +192,7 @@ var PriceTable = {
             $detailCard.toggleClass("js-has-data");
         });
 
-        $doc.on("click", ".js-expnd-offr", function() {
+        Modules.$doc.on("click", ".js-expnd-offr", function() {
 
 
             if (PriceTable.dataPoints.cardLoading) {
@@ -224,7 +224,7 @@ var PriceTable = {
             $detailCard.toggleClass("js-has-data");
         });
 
-        $doc.on("click", ".js-cls-grid", function() {
+        Modules.$doc.on("click", ".js-cls-grid", function() {
             $(this).parent().css("height", "0px");
         });
 
@@ -240,7 +240,7 @@ var PriceTable = {
             alignPriceCards(showAll);
         }
 
-        $doc.on("click", ".js-more-strs", function() {
+        Modules.$doc.on("click", ".js-more-strs", function() {
             $button = $(this);
             PriceTable.update.allCards(PriceTable.dataPoints.prevColor).done(function(response) {
                 toggleCards($button);
@@ -250,7 +250,7 @@ var PriceTable = {
         /* End of Price table handlers for new UI*/
 
         // select color and updatePage.
-        $doc.on("click", ".avlbl-clrs__inpt", (function() {
+        Modules.$doc.on("click", ".avlbl-clrs__inpt", (function() {
             PriceTable.dataPoints.prevColor = PriceTable.dataPoints.getSelectedColor();
 
             return function() {
@@ -286,7 +286,7 @@ var PriceTable = {
         })());
 
         // clear selected color and updatePage.
-        $doc.on("click", ".prdct-dtl__vrnt-clr .prdct-dtl__vrnt-cler", function() {
+        Modules.$doc.on("click", ".prdct-dtl__vrnt-clr .prdct-dtl__vrnt-cler", function() {
             var $variant = $(".prdct-dtl__ttl-vrnt"),
                 model = PriceTable.dataPoints.variant.model,
                 size = PriceTable.dataPoints.variant.size;
@@ -308,7 +308,7 @@ var PriceTable = {
         });
 
         // load the variant page selected.
-        $doc.on("click", ".avlbl-sizes__item", function() {
+        Modules.$doc.on("click", ".avlbl-sizes__item", function() {
             var $this = $(this);
             if (!$this.hasClass("avlbl-sizes__item--slctd") && !$this.parents(".avlbl-sizes").hasClass("avlbl-sizes--no-slct")) {
                 window.location.href = $this.data("href");
@@ -316,7 +316,7 @@ var PriceTable = {
         });
 
         // switch between recommended, online, offline pricetables.
-        $doc.on("click", ".js-ctgry-inpt", (function() {
+        Modules.$doc.on("click", ".js-ctgry-inpt", (function() {
             return function() {
                 var $this = $(this),
                     previousValue = PriceTable.dataPoints.previousCategory,
@@ -334,21 +334,21 @@ var PriceTable = {
         })());
 
         // trigger offline area switcher
-        $doc.on("click", ".prdct-dtl__slr-offln-area", function() {
+        Modules.$doc.on("click", ".prdct-dtl__slr-offln-area", function() {
             $(".usr_location__wrpr").trigger("click");
             return false;
         });
 
         // online and offline stores - user choice
-        $doc.on('click', '.js-offln-click', function() {
+        Modules.$doc.on('click', '.js-offln-click', function() {
             $('.js-ctgry-inpt[value="offline"]').trigger('click');
         });
-        $doc.on('click', '.js-onln-click', function() {
+        Modules.$doc.on('click', '.js-onln-click', function() {
             $('.js-ctgry-inpt[value="online"]').trigger('click');
         });
 
         // apply filters to current pricetable.
-        $doc.on("click", ".prc-tbl__fltrs-inpt", function() {
+        Modules.$doc.on("click", ".prc-tbl__fltrs-inpt", function() {
             PriceTable.update.byFilter(undefined, {
                 "latitude": window.localStorage.userLatitude,
                 "longitude": window.localStorage.userLongitude
@@ -358,7 +358,7 @@ var PriceTable = {
         // sort current pricetable.
         ;
         (function pricetableSortingHandlers() {
-            $doc.on("change", ".js-prc-tbl__sort", function() {
+            Modules.$doc.on("change", ".js-prc-tbl__sort", function() {
                 var newSortby = $(this).val(),
                     category = newSortby.split(":")[0],
                     $updatedColumn = $(".prc-tbl-hdr__clm[data-sort-category='" + category + "']");
@@ -377,7 +377,7 @@ var PriceTable = {
                 PriceTable.sort(newSortby);
             });
 
-            $doc.on("click", ".prc-tbl-hdr__clm[data-sort-value]", function() {
+            Modules.$doc.on("click", ".prc-tbl-hdr__clm[data-sort-value]", function() {
                 var newSortby = $(this).data("sort-value");
 
                 // change sort dropdown value to trigger pricetable update accordingly.
@@ -413,7 +413,7 @@ var PriceTable = {
         }());
 
         // show more stores.
-        $doc.on('click', '.js-prc-tbl__show-more', function handler() {
+        Modules.$doc.on('click', '.js-prc-tbl__show-more', function handler() {
             var $this = $(this),
                 $inner = $this.find(".prc-card__more-inr"),
                 $priceLines = $(".prc-card").not($this),
@@ -460,7 +460,7 @@ var PriceTable = {
         });
 
         /* more offers message box handlers - start */
-        $doc.on("click", ".js-xtrs-msg-box-trgt", function handler(e) {
+        Modules.$doc.on("click", ".js-xtrs-msg-box-trgt", function handler(e) {
             var $popupCont = $(this),
                 $popup = $popupCont.find(".prc-tbl__xtrs-clm-pop"),
                 $row = $(this).closest(".prc-tbl-row"),
@@ -500,7 +500,7 @@ var PriceTable = {
             }
         });
 
-        $doc.on("click", ".js-xtrs-msg-box__cls", function() {
+        Modules.$doc.on("click", ".js-xtrs-msg-box__cls", function() {
             var $this = $(this),
                 $xtrasLink = $this.closest('.js-xtrs-msg-box-trgt');
 
@@ -536,7 +536,7 @@ var PriceTable = {
                 }
 
                 // clicking on chrome geolocation overlay should remove it.
-                $doc.on("click", ".js-glctn-ovrly", function() {
+                Modules.$doc.on("click", ".js-glctn-ovrly", function() {
                     $(".js-glctn-ovrly").removeClass("js-ovrly--show");
                     $("body").css("overflow", "auto");
                 });
@@ -1009,7 +1009,7 @@ PriceTable.init();
 
 // To Notify user when product becomes available
 // Includes both cases - "Coming soon" as well as "Out of Stock"
-$doc.on('submit', '.js-ntfy-frm', function() {
+Modules.$doc.on('submit', '.js-ntfy-frm', function() {
     var $inputField = $(this).find(".js-ntfy-eml"),
         $errorNode = $(this).find(".js-ntfy-err");
     MSP.utils.validate.form([{
@@ -1035,7 +1035,7 @@ $doc.on('submit', '.js-ntfy-frm', function() {
 });
 
 // if GTS is not a popup target then open storeUrl in new tab.
-$doc.on("click", ".js-prc-tbl__gts-btn", function() {
+Modules.$doc.on("click", ".js-prc-tbl__gts-btn", function() {
     debugger
     var $this = $(this),
         storeUrl = $this.data("url"),
@@ -1049,7 +1049,7 @@ $doc.on("click", ".js-prc-tbl__gts-btn", function() {
     return false;
 });
 
-$doc.on("click", ".js-ntfy-sbmt", function() {
+Modules.$doc.on("click", ".js-ntfy-sbmt", function() {
     var $form = $(this).closest(".js-ntfy-frm"),
         $inputField = $form.find(".js-ntfy-eml"),
         $errorNode = $form.find(".js-ntfy-err");
@@ -1075,7 +1075,7 @@ $doc.on("click", ".js-ntfy-sbmt", function() {
 });
 
 /* Load GA events for GTS Clicks */
-$doc.on('click', '.prc-tbl__btn .js-prc-tbl__gts-btn', function(e) {
+Modules.$doc.on('click', '.prc-tbl__btn .js-prc-tbl__gts-btn', function(e) {
         var $parent = $(this).closest('.prc-tbl');
         if($parent.hasClass('cards')) {
             if($parent.hasClass('full')) {

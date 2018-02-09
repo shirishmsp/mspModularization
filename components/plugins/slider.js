@@ -85,15 +85,15 @@ elementSlider = {
     });
 
     // Select text inside node on clicking it.
-    $doc.on("click", ".js-slct-trgr", function() {
+    Modules.$doc.on("click", ".js-slct-trgr", function() {
         MSP.utils.selectText($(this));
     });
 
-    $doc.on("click", ".js-sldr__prvs", function() {
+    Modules.$doc.on("click", ".js-sldr__prvs", function() {
         elementSlider.slide(this, "left");
     });
 
-    $doc.on("click", ".js-sldr__next", function() {
+    Modules.$doc.on("click", ".js-sldr__next", function() {
         elementSlider.slide(this, "right");
     });
     /* RUI:: new component for horizonal scrollable sections - end */

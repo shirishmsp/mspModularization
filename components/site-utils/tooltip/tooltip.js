@@ -1,10 +1,10 @@
 /* ************** 2. Actions/Events: ************** */
 
-$doc.on('mouseenter', '.js-tltp', handleMouseEnter);
-$doc.on('mouseleave', '.js-tltp', removeTooltip);
+Modules.$doc.on('mouseenter', '.js-tltp', handleMouseEnter);
+Modules.$doc.on('mouseleave', '.js-tltp', removeTooltip);
 
-$doc.on("click", ".js-msg-box-trgt", showMessageBox);
-$doc.on("click", ".js-msg-box__cls", hideMessageBox);
+Modules.$doc.on("click", ".js-msg-box-trgt", showMessageBox);
+Modules.$doc.on("click", ".js-msg-box__cls", hideMessageBox);
 
 /* ************** 4. Functions: ************** */
 
@@ -24,28 +24,28 @@ function handleMouseEnter() {
     if (tooltipDirection === "tltp--top-rght") {
         $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
         $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        if ($tooltip.offset().top - $win.scrollTop() < 0) {
+        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
             $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
             $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
         }
     } else if (tooltipDirection === "tltp--top-left") {
         $tooltip.css('left', $this.offset().left - 4);
         $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        if ($tooltip.offset().top - $win.scrollTop() < 0) {
+        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
             $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
             $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
         }
     } else if (tooltipDirection === "tltp--btm-rght") {
         $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
         $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
-        if ($win.scrollTop() + $win.height() - $tooltip.offset().top < 0) {
+        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
             $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
             $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
         }
     } else if (tooltipDirection === "tltp--btm-left") {
         $tooltip.css('left', $this.offset().left - 4);
         $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
-        if ($win.scrollTop() + $win.height() - $tooltip.offset().top < 0) {
+        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
             $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
             $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
         }

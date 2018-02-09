@@ -1,9 +1,9 @@
 if ($(".body-wrpr").length !== 0) { /* Enable new (RUI) scroll functionality */
     scrollToSectionNoAnimation();
 } else { /* OLD::inpageLinking (Backward Compatibility) */
-    $win.on('hashchange', handleHashChange);
-    $doc.on('click', 'a[href^="#"]', handleAnchorLinkClick);
-    $win.on('load', handleLoadEvent);
+    Modules.$win.on('hashchange', handleHashChange);
+    Modules.$doc.on('click', 'a[href^="#"]', handleAnchorLinkClick);
+    Modules.$win.on('load', handleLoadEvent);
 }
 
 /* ************** 4. Functions: ************** */
@@ -19,7 +19,7 @@ function scrollToSectionNoAnimation() {
     }
 
     // on hashchange: act upon the scrollTo and clickElt hash params
-    $win.on('hashchange', function() {
+    Modules.$win.on('hashchange', function() {
         hashObj = queryString(decodeURI(window.location.hash));
         if (hashObj.scrollTo) { scrollToLink(hashObj, false); }
     });
@@ -56,8 +56,8 @@ function scrollToSectionNoAnimation() {
     var $pageNav = $(".sctn--page-nvgtn");
     if ($pageNav.length) {
         var stickyPoint = Math.ceil($pageNav.offset().top);
-        $win.scroll(MSP.utils.throttle(function() {
-            if (Math.ceil($win.scrollTop()) > stickyPoint) {
+        Modules.$win.scroll(MSP.utils.throttle(function() {
+            if (Math.ceil(Modules.$win.scrollTop()) > stickyPoint) {
                 $pageNav.addClass("sctn--stcky-nvgtn");
             } else {
                 $pageNav.removeClass("sctn--stcky-nvgtn");
@@ -65,7 +65,7 @@ function scrollToSectionNoAnimation() {
         }, 100));
     }
 
-    $doc.on("click", ".js-inpg-link", function(e) {
+    Modules.$doc.on("click", ".js-inpg-link", function(e) {
         var $this = $(this);
         if ($this.data("action") === "disabled") return false;
 
@@ -80,7 +80,7 @@ function scrollToSectionNoAnimation() {
     });
 
     // scroll event handler
-    $doc.on("click", ".js-inpg-link[data-href=user-reviews]", function() {
+    Modules.$doc.on("click", ".js-inpg-link[data-href=user-reviews]", function() {
         // a/b testing for video reviews
         // sending 1/5 of users to video reviews
         // and remaining 4/5 of users to user reviews

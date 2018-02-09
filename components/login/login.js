@@ -175,7 +175,7 @@ function windowLogin(pageType, queryParams){
 }
 
 
-$doc.on("click", ".js-lgn", function() {
+Modules.$doc.on("click", ".js-lgn", function() {
     var windowParams = "?destUrl=" + encodeURIComponent(window.location.href);
     if ((window.screenTop || window.screenY)) {
         windowParams += "&close=1";
@@ -352,7 +352,7 @@ function update_ui() {
     }, 2000);
 }
 
-$doc.on('mouseenter', '.drpdwn-wdgt', function() {
+Modules.$doc.on('mouseenter', '.drpdwn-wdgt', function() {
     if (!$(this).hasClass('loggedIn')) {
         $(".drpdwn-wdgt").addClass('loggedOut');
     }
@@ -447,7 +447,7 @@ function logoutme() {
     update_ui();
 }
 
-$doc.on("click", ".js-lylty-signup, .js-trck-sign-up", function() {
+Modules.$doc.on("click", ".js-lylty-signup, .js-trck-sign-up", function() {
     if ($(this).hasClass("js-trck-sign-up-cb")) {
         window.ga && ga("send", "event", "Loyalty", "click", "PDP-signup", "cashback");
     }
@@ -1128,7 +1128,7 @@ function logLoginPageEvents(action, label) {
 }
 
 //Event Hadler for Logout
-$doc.on("click", ".js-user-lgt", function() {
+Modules.$doc.on("click", ".js-user-lgt", function() {
     logoutme();
 });
 // Login UI update on page load. Will be shifted to msp.js when login is unified with Fashion.

@@ -7,19 +7,19 @@ const pageLeaveTimeout = 4000;
 
 /* ************** 2. Actions/Events: ************** */
 
-$doc.on('click', '.popup-target, .js-popup-trgt', handlePopupTargetClick);
-$doc.on('click', ".chrmcshbck-popup-target, .js-chrmcshbck-popup-trgt", chromePluginPopupTarget); // pln CB offer  
+Modules.$doc.on('click', '.popup-target, .js-popup-trgt', handlePopupTargetClick);
+Modules.$doc.on('click', ".chrmcshbck-popup-target, .js-chrmcshbck-popup-trgt", chromePluginPopupTarget); // pln CB offer  
 
 // This function is to be refactored when single page goes live:
-$doc.on('click', ".loyalty-popup-target, .js-lylty-popup-trgt", loyaltyPopupTarget);
+Modules.$doc.on('click', ".loyalty-popup-target, .js-lylty-popup-trgt", loyaltyPopupTarget);
 
 /* Old: */
-$doc.on('click', '.popup-closebutton', () => closePopup());
-$doc.on('click', '.popup-overlay', handlePopupOverlayClick);
+Modules.$doc.on('click', '.popup-closebutton', () => closePopup());
+Modules.$doc.on('click', '.popup-overlay', handlePopupOverlayClick);
 
 /* New: */
-$doc.on('click', '.pop-up__cls-btn, .popup-optn__link.usr-inputbox__input--lnk', () => closePopup_RUI());
-$doc.on('click', '.pop-up__ovrly', handlePopupOverlayClickRUI);
+Modules.$doc.on('click', '.pop-up__cls-btn, .popup-optn__link.usr-inputbox__input--lnk', () => closePopup_RUI());
+Modules.$doc.on('click', '.pop-up__ovrly', handlePopupOverlayClickRUI);
 
 /* autopopup processing start: */
 setTimeout(() => {
@@ -466,8 +466,8 @@ function getAutopopupURL($dataElement) {
     }
     if ($popupData["scroll"] === true) {
         if (window.location.href.indexOf("msp") !== -1 || window.location.href.indexOf("msf") !== -1) {
-            $doc.on('scroll', function(e) {
-                if ($doc.scrollTop() >= $win.height()) {
+            Modules.$doc.on('scroll', function(e) {
+                if (Modules.$doc.scrollTop() >= Modules.$win.height()) {
                     $dataElement.data("popup_id", $popupData["scroll-id"]);
                     openAutoPopupURL($popupData["scroll-url"]);
                 }

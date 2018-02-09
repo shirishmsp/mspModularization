@@ -1,4 +1,4 @@
-$doc.ready(function() {
+Modules.$doc.ready(function() {
     if ($(".usr-rvw-form--sngl").length) {
 
         // this class is being added from php
@@ -34,7 +34,7 @@ $doc.ready(function() {
             // enlargeCompressRating(false);
         }
 
-        $doc.on("keyup", ".js-usr-rvw__desc", function(e) {
+        Modules.$doc.on("keyup", ".js-usr-rvw__desc", function(e) {
             if (e.target.value.trim().length > 0) {
                 if ($(".usr-rvw-form__ttl-wrpr-vsbl").length === 0) {
                     $(this).closest(".usr-rvw-form--sngl").find(".usr-rvw-form__ttl-wrpr").slideDown("fast");
@@ -48,7 +48,7 @@ $doc.ready(function() {
             }
         });
 
-        $doc.on("mousemove", ".usr-rvw-form__rtng-wrpr .rtng-star", function(e) {
+        Modules.$doc.on("mousemove", ".usr-rvw-form__rtng-wrpr .rtng-star", function(e) {
             var offsetX = parseInt(e.pageX - $(this).offset().left, 10),
                 rating = Math.ceil((offsetX / ratingWidth) * 5) || 1;
 
@@ -58,7 +58,7 @@ $doc.ready(function() {
             }
         });
 
-        $doc.on("click", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
+        Modules.$doc.on("click", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
             var inrWidth = $ratingInr.width(),
                 rating = Math.ceil((inrWidth / ratingWidth) * 5) || 1;
 
@@ -72,7 +72,7 @@ $doc.ready(function() {
             // enlargeCompressRating(false);
         });
 
-        $doc.on("mouseleave", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
+        Modules.$doc.on("mouseleave", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
             if ($ratingInr.hasClass("rtng-star__inr--rated")) {
                 $ratingRemark.text($ratingRemark.data("remark"));
                 $ratingInr.width($ratingInr.data("width"));
@@ -82,7 +82,7 @@ $doc.ready(function() {
             }
         });
 
-        $doc.on("submit", ".usr-rvw-form--sngl", function() {
+        Modules.$doc.on("submit", ".usr-rvw-form--sngl", function() {
             MSP.utils.validate.form([{
                 "type": "rating",
                 "inputField": $(".usr-rvw-form__rtng-inpt"),
@@ -215,7 +215,7 @@ $doc.ready(function() {
         isUserDetailsDisplayed = true;
     }
 
-    $doc.on("mousemove", ".usr-rvw-form__rtng-wrpr .rtng-star", function(e) {
+    Modules.$doc.on("mousemove", ".usr-rvw-form__rtng-wrpr .rtng-star", function(e) {
         var offsetX = parseInt(e.pageX - $(this).offset().left, 10),
             rating = Math.ceil((offsetX / ratingWidth) * 5) || 1;
 
@@ -225,7 +225,7 @@ $doc.ready(function() {
         }
     });
 
-    $doc.on("click", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
+    Modules.$doc.on("click", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
         var inrWidth = $ratingInr.width(),
             rating = Math.ceil((inrWidth / ratingWidth) * 5) || 1;
 
@@ -234,7 +234,7 @@ $doc.ready(function() {
         $ratingInr.data("width", inrWidth).addClass("rtng-star__inr--rated");
     });
 
-    $doc.on("mouseleave", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
+    Modules.$doc.on("mouseleave", ".usr-rvw-form__rtng-wrpr .rtng-star", function() {
         if ($ratingInr.hasClass("rtng-star__inr--rated")) {
             $ratingRemark.text($ratingRemark.data("remark"));
             $ratingInr.width($ratingInr.data("width"));
@@ -244,12 +244,12 @@ $doc.ready(function() {
         }
     });
 
-    $doc.on("click", ".js-usr-rvw-item-more", function() {
+    Modules.$doc.on("click", ".js-usr-rvw-item-more", function() {
         $(this).hide();
         $(this).closest(".usr-rvw-item__text").find(".usr-rvw-item__text-hide").fadeIn();
     });
 
-    $doc.on("submit", ".usr-rvw-form", function() {
+    Modules.$doc.on("submit", ".usr-rvw-form", function() {
         loginCallback(function() {
             MSP.utils.validate.form([{
                 "type": "rating",
@@ -309,7 +309,7 @@ $doc.ready(function() {
     }
 }());
 
-$doc.on("click", ".js-usr-rvw-vote-up, .js-usr-rvw-vote-down", (function() {
+Modules.$doc.on("click", ".js-usr-rvw-vote-up, .js-usr-rvw-vote-down", (function() {
     // private voteReview function that is declared on load.
     function voteReview(voteButton) {
         var reviewId = voteButton.closest(".usr-rvw__bttm__rvw").data("review-id"),

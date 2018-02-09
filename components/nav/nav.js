@@ -22,7 +22,7 @@
     }
 })();
 
-$doc.on("click", ".js-hghlghtr-link", function() {
+Modules.$doc.on("click", ".js-hghlghtr-link", function() {
     var highlighterID = $(this).data("highlight-id"),
         highlighterData = localStorage.highlighterData ? JSON.parse(localStorage.highlighterData) : {};
     highlighterData[highlighterID] = highlighterData[highlighterID] ? highlighterData[highlighterID] : {};

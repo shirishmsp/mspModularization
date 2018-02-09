@@ -8,7 +8,7 @@ var ProductList = {
         } else if (localStorage.getItem("gridType") === "small") {
             this.setGridType("small");
         }
-        $doc.on("click", ".js-list-hdr-view", function() {
+        Modules.$doc.on("click", ".js-list-hdr-view", function() {
             if ($(this).hasClass("list-hdr-view__prdct-l")) {
                 ProductList.setGridType("large");
             } else {

@@ -1,8 +1,8 @@
 bindAutoComplete(); // Initializing the autoComplete
 initScrollToTop(); // Scroll to page top
 
-$doc.on("click", ".js-copy", handleCopyText);
-$doc.on("click", ".js-send-email", handleSendEmail);
+Modules.$doc.on("click", ".js-copy", handleCopyText);
+Modules.$doc.on("click", ".js-send-email", handleSendEmail);
 
 /* ************** 4. Functions: ************** */
 

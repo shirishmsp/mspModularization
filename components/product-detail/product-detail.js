@@ -23,7 +23,7 @@ function hideImage(img) {
             $(".prdct-dtl__str-offr li:nth-child(2)").append("<span class='prdct-dtl__shw-ofr js-show-offer'>Show More</span>")
         };
 
-        $doc.on("click", ".js-show-offer", function() {
+        Modules.$doc.on("click", ".js-show-offer", function() {
             var linkText = $(this).text().trim(),
                 newText, index;
             $(".prdct-dtl__offr-sctn").toggleClass("prdct-dtl__offr-sctn--expnd");
@@ -41,7 +41,7 @@ function hideImage(img) {
 })();
 
 
-$doc.on("click", ".prc-grid__no-stck-sbmt", function() {
+Modules.$doc.on("click", ".prc-grid__no-stck-sbmt", function() {
     var $inputField = $(this).prev(".prc-grid__no-stck-inpt"),
         $form = $(this).closest(".prc-grid__no-stck-form"),
         $errorNode = $form.find(".js-vldtn-err"),
@@ -69,7 +69,7 @@ $doc.on("click", ".prc-grid__no-stck-sbmt", function() {
 
 // show more techspecs.
 if ($(".prdct-dtl__spfctn-more-wrpr").length) {
-    $doc.on("click", ".js-prdct-dtl__spfctn-show-more, .js-prdct-dtl__spfctn-show-less", function() {
+    Modules.$doc.on("click", ".js-prdct-dtl__spfctn-show-more, .js-prdct-dtl__spfctn-show-less", function() {
         var delay = $(this).hasClass("js-prdct-dtl__spfctn-show-less") ? 400 : 0;
         setTimeout(function() {
             $(".js-prdct-dtl__spfctn-show-more").toggle();
@@ -78,7 +78,7 @@ if ($(".prdct-dtl__spfctn-more-wrpr").length) {
     });
 }
 
-$doc.on("click", ".js-xpnd-prc-box-item", function() {
+Modules.$doc.on("click", ".js-xpnd-prc-box-item", function() {
     var $this = $(this),
         $thisItem = $this.closest(".prdct-dtl__box-item");
     if (!$thisItem.hasClass("prdct-dtl__box-item--open")) {
@@ -136,7 +136,7 @@ $(".prdct-dtl__img-wrpr, .prdct-dtl__thmbnl").on("click", function(e) {
 // Multiple Image Show on Top Section - End
 
 // save to list button handlers - start 
-$doc.on('click', ".prdct-dtl__save", function(e) {
+Modules.$doc.on('click', ".prdct-dtl__save", function(e) {
     loginCallback(function() {
         $(".prdct-dtl__save").addClass("prdct-dtl__save--svd");
         $.get("/users/add_to_list.php", {
@@ -146,7 +146,7 @@ $doc.on('click', ".prdct-dtl__save", function(e) {
     return false;
 });
 
-$doc.on("click", ".js-user-lgt", function(e) {
+Modules.$doc.on("click", ".js-user-lgt", function(e) {
     $(".prdct-dtl__save").removeClass("prdct-dtl__save--svd");
 });
 // save to list button handlers - end

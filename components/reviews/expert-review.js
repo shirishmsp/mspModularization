@@ -1,5 +1,5 @@
 // expert review page gallery js
-$doc.on("click", "#exprt-rvw__prvw .exprt-rvw__glry-img", function(e) {
+Modules.$doc.on("click", "#exprt-rvw__prvw .exprt-rvw__glry-img", function(e) {
   if(!$(this).parent().hasClass("exprt-rvw__glry-thmbnl")) {
     return;
   }
@@ -33,7 +33,7 @@ $doc.on("click", "#exprt-rvw__prvw .exprt-rvw__glry-img", function(e) {
 });
 
 // expert review page gallery js
-$doc.on("click", "#exprt-rvw__prvw .zoom-viewer__arrow", function(e) {
+Modules.$doc.on("click", "#exprt-rvw__prvw .zoom-viewer__arrow", function(e) {
     var imageGallery = $(this).closest(".exprt-rvw__glry"),
       currentImageIndex = $(imageGallery).find(".exprt-rvw__glry-main-img").data("image-index"),
       newImageElement = null;

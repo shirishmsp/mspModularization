@@ -162,7 +162,7 @@ if ($(".sdbr-login").length) {
 }
 
 // Check again when single goes live
-$doc.ready(function() {
+Modules.$doc.ready(function() {
     $(".sdbr-login").length && sdbrWlcmPage.init();
     $(".demo-login").length && extnsnWlcmPage.init();
 

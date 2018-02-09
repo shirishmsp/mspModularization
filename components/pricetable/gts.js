@@ -65,7 +65,7 @@ $(document).on('click', '.js-instatab-popup', function(e) {
 });
 
 
-$doc.ready(function() {
+Modules.$doc.ready(function() {
     // Only email capture popup on GTS:
     $(document).on('click', '.js-gts-only-email-popup', function(e) {
         e.preventDefault();
