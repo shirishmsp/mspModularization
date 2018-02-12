@@ -1,10 +1,13 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const wrap = require('gulp-wrap-amd');
+const sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('componentsBundler', function() {
-	return gulp.src('components/**/*.js')
+	return gulp.src(['components/**/*.js'])
+		.pipe(sourcemaps.init())
 		.pipe(concat('all-non-module-components.js'))
+		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('dist'))
 })
 

@@ -86,11 +86,11 @@ function throttle(task, timeout, context) {
         needInvoke = true;
         context = context || this;
         if (!timer) {
-            (function() {
+            (function timedFunc() {
                 if (needInvoke) {
                     task.apply(context, args);
                     needInvoke = false;
-                    timer = setTimeout(arguments.callee, timeout);
+                    timer = setTimeout(timedFunc, timeout);
                 } else {
                     timer = null;
                 }

@@ -6,6 +6,24 @@ Modules.$doc.on("click", ".js-send-email", handleSendEmail);
 
 /* ************** 4. Functions: ************** */
 
+function handleCopyText() {
+    $this = $(this);
+    copyText($this, function(){
+        $this.text("COPIED").removeClass("bttn--blue").addClass("bttn--grn");
+    }, function(){
+        //Do something when copying is not supported by browser
+    })
+}
+
+function handleSendEmail(){
+    var address = $(this).data("address"),
+        subject = $(this).data("subject"),
+        body = $(this).data("body"),
+        strMail = 'mailto:' + encodeURIComponent(address) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+    window.open(strMail, "_blank");
+}
+
 function bindAutoComplete() {
     var $searchBox = $(".srch-wdgt"),
         $searchField = $searchBox.find(".js-atcmplt");
