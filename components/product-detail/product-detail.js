@@ -152,7 +152,7 @@ Modules.$doc.on("click", ".js-user-lgt", function(e) {
 // save to list button handlers - end
 
 // Extension install cashback offer for products (incl. mobile category)
-isPluginInstalled().done(function() {
+if(Modules.isInstalled()) {
     if (!$(".prdct-dtl__offr-sctn li").length) {
         $(".prdct-dtl__offr-sctn").hide();
     }
@@ -165,7 +165,7 @@ isPluginInstalled().done(function() {
         $(".prc-grid__upcmng-mbl").removeClass("hide");
         $(".prc-grid__instl-extnsn").addClass("hide");
     }
-}).fail(function() {
+} else {
     if ($(".prdct-dtl__ttl").data("page-type") == "nc") {
         if(dataLayer[0]['min-price-store'] === 'amazon') {
             return;
@@ -196,7 +196,7 @@ isPluginInstalled().done(function() {
         ].join(""));
         window.ga && ga("send", "event", "Comparables", "comparables_single_pv", "js-log-comparables", { nonInteraction: true });
     }
-});
+}
 
 // Windows App popup event handlers:     
 $(document).on('click', '.js-windows-app', function(e) {

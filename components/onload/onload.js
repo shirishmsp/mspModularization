@@ -1,5 +1,5 @@
-if (window.qS && qS.utm_source) {
-    setCookie("utm_source", qS.utm_source, 1);
+if (url.getAQueryParam && url.getAQueryParam('utm_source')) {
+    setCookie("utm_source", url.getAQueryParam('utm_source'), 1);
 }
 
 (function prefillEmailInputs() {
@@ -13,8 +13,8 @@ if (window.qS && qS.utm_source) {
 // Extension Rating Parameter (From mailer) handler:
 (function() {
     var rating;
-    if (qS.extensionrating) {
-        rating = qS.extensionrating.toString();
+    if (url.getAQueryParam('extensionrating')) {
+        rating = url.getAQueryParam('extensionrating').toString();
         window.ga && ga('send', 'event', 'Extension', 'extension-nps-click', rating, { nonInteraction: true });
         openPopup('/promotions/popups/extension_rating_popup.html');
     }
@@ -22,7 +22,7 @@ if (window.qS && qS.utm_source) {
 
 // Mobile number capture popup for users who land on single page
 // from price alert emailer and missed the drop in price
-if (qS && qS.utm_campaign === "PriceAlert") {
+if (url.getAQueryParam && url.getAQueryParam('utm_campaign') === "PriceAlert") {
     var _hash = queryString(window.location.hash);
     if (_hash.price) {
         var $mspSingleTitle = $("#mspSingleTitle");

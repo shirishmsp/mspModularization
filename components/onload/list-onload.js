@@ -34,10 +34,7 @@
 }());
 
 ;(function() {
-    $.when(isPluginInstalled()).then(function() {
-        //success 
-    }, function() {
-        // failure
+    if(!Modules.isInstalled('plugin_id')) {
         if($('.body-wrpr[data-category=computer-pendrive]').length === 1) {
             var _html = ['<div class="sctn chrme-acqstn" style="background: #fff url(//assets.mspcdn.net/msp-ui/icons/chrome-ext.png) no-repeat 12px center/32px;">',
                             '<div class="sctn__inr">',
@@ -55,5 +52,5 @@
                 openPopup('/deals/popup/add-chrome-overlay.html');
             });
         }
-    });
+    }
 }());

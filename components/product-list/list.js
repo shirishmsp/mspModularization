@@ -568,7 +568,7 @@ if($('.list-main').length) {
                         params.rows ? ("&rows=" + params.rows) : "",
                         params.discount ? ("&discount=" + params.discount) : "",
                         params.pageName ? ("&pageName=" + params.pageName) : "",
-                        params.source ? ("&source=" + qS.source) : ""
+                        params.source ? ("&source=" + url.getAQueryParam('source')) : ""
                     ].join("");
                 },
                 "productList": MSP.utils.memoize(function(currentParams) {

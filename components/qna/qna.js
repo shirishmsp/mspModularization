@@ -591,7 +591,7 @@ Modules.$win.scroll(MSP.utils.throttle(function(e) {
 
 
 //When coming for answer ackg email to asker.Clicks on say thanks btn.
-if (qS && qS.ref === "email") {
+if (qS && url.getAQueryParam('ref') === "email") {
     openPopup("/review/qna/popup/thankyou.html");
 }
 

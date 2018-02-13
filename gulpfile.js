@@ -19,7 +19,7 @@ gulp.task('wrapAMD', function() {
 			params: 'Modules'
 		}))
 		.pipe(replace(/return/, function(match, p1, offset, string) {
-			/* Remove the first return statement added by `wrap` */
+			// Remove the first return statement added by `wrap`.
 			return '';
 		}))
 		.pipe(gulp.dest('dist'))

@@ -33,7 +33,7 @@ if ($(".sdbr-login").length) {
                 "options": { "min": 6 },
                 "errorMsg": "Please enter a valid password"
             }]).done(function() {
-                var loylaty_utm_source = qS.utm_source ? qS.utm_source : utmsource;
+                var loylaty_utm_source = url.getAQueryParam('utm_source') ? url.getAQueryParam('utm_source') : utmsource;
                 if ($(".js-chrm-wlcm").length || $(".wlcm-hdr").length) {
                     loylaty_utm_source = "chrome welcome";
                 }

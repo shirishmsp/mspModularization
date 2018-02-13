@@ -1,20 +1,20 @@
 (function setChromeAutoPopup() {
     var validUTMSources = ['pa-transact', 'ps-transact', 'browsing_pa_emailer', 'browsing_ps_emailer'];
-    if (window.qS && validUTMSources.indexOf(qS.utm_source) !== -1) {
-        if (isChrome()) {
-            isPluginInstalled().fail(function(){
+    if (url.getAQueryParam && validUTMSources.indexOf(url.getAQueryParam('utm_source') !== -1)) {
+        if (Modules.Browser.name === 'Chrome') {
+            if(!Modules.isInstalled('plugin_id')) {
                 window.ga && ga("send", "event", "autopopup", "pricedrop", "pdp-pageview", { nonInteraction: true });
                 $('body').attr('data-autopopup', '/promotions/install-extn-auto-popup.php');
-            });
+            }
         }
     }
 }());
 
 // Make extension install compulsory if particular utm_source for the same is set:
 (function() {
-    $.when(isPluginInstalled()).fail(function() {
-        var validFBTag = qS.utm_source === 'FB-DRT-MSP-25CB' || qS.utm_source === 'FB-DRT-MSP' || (qS.utm_source && qS.utm_source.indexOf('acebook') !== -1);
-        if(validFBTag && isChrome()) {
+    if(!Modules.isInstalled('plugin_id')) {
+        var validFBTag = url.getAQueryParam('utm_source') === 'FB-DRT-MSP-25CB' || url.getAQueryParam('utm_source') === 'FB-DRT-MSP' || (url.getAQueryParam('utm_source') && url.getAQueryParam('utm_source').indexOf('acebook') !== -1);
+        if(validFBTag && Modules.Browser.name === 'Chrome') {
             function checkInstallation() {
                 $('.popup-closebutton').addClass('not-vsbl');
                 $('.popup-overlay').addClass('noclose');
@@ -29,7 +29,7 @@
             openPopup('/deals/popup/extension_install_overlay.php?pageSource=fbTaggedSinglePage'); 
             checkInstallation();
         }
-    });
+    }
 })();
 
 (function() {
@@ -40,7 +40,7 @@
 
 
 (function postInstallMailLink() {
-    if(qS.utm_source === 'mail_gtsinstall') {
+    if(url.getAQueryParam('utm_source') === 'mail_gtsinstall') {
         popupDataObj = {
             type: "signup"
         };

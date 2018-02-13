@@ -16,9 +16,9 @@ Modules.$doc.ready(function() {
             $ratingInput = $(".usr-rvw-form__rtng-inpt");
         isUserDetailsDisplayed = false;
 
-        if (window.qS && qS.rating) {
-            var inrWidth = parseInt(qS.rating) * 20,
-                rating = parseInt(qS.rating) || 1,
+        if (url.getAQueryParam && url.getAQueryParam('rating')) {
+            var inrWidth = parseInt(url.getAQueryParam('rating')) * 20,
+                rating = parseInt(url.getAQueryParam('rating')) || 1,
                 remarks = ["Terrible", "Bad", "Average", "Good", "Excellent"];
 
             $ratingRemark.data("remark", remarks[rating - 1]);
@@ -112,9 +112,9 @@ Modules.$doc.ready(function() {
                 }
 
                 // 1st priority: User Email Query String
-                if (window.qS && qS.user) {
+                if (url.getAQueryParam && url.getAQueryParam('user')) {
                     try {
-                        email_id = atob(qS.user); // throws error if unsuccessful
+                        email_id = atob(url.getAQueryParam('user')); // throws error if unsuccessful
                         doAjax(true);
                     } catch (e) {
                         // Error in reading QS email: (Check for email cookie instead first)
@@ -145,7 +145,7 @@ Modules.$doc.ready(function() {
                         type: "POST",
                         url: submit_api,
                         data: {
-                            "mspid": qS.mspid,
+                            "mspid": url.getAQueryParam('mspid'),
                             "title": title,
                             "details": details,
                             "rating_review": rating,

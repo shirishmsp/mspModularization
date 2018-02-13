@@ -500,7 +500,7 @@ function pageLeavePopupBind() {
 function openPageLeaveGTSPopup() {
     if (window.location.pathname.indexOf("/refurbished/") !== 0 && $(".prdct-dtl, .fltr-wrpr1").length) {
         var invalidSources = ["pa-transact", "ps-transact", "browsing_pa_emailer", "browsing_ps_emailer"];
-        if (url.getAQueryParam && invalidSources.indexOf(url.getAQueryParam(utm_source)) === -1) {
+        if (url.getAQueryParam && invalidSources.indexOf(url.getAQueryParam('utm_source')) === -1) {
             setTimeout(function() {
                 $("body").on("mouseleave", function(e) {
                     if (e.pageY < 5 && !Modules.Cookie.get("msp_login") && !$(".pop-up__ovrly, .popup-overlay").length) {

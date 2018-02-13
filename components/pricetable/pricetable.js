@@ -1097,8 +1097,8 @@ Modules.$doc.on('click', '.prc-tbl__btn .js-prc-tbl__gts-btn', function(e) {
         // find lowest price store grid:
         $('.prc-grid[data-pricerank=' + lowestPrice + ']').addClass('prc-grid--lwst-price');
         // find visited store grid:
-        if(qS && qS.utm_medium) {
-            $('.prc-grid[data-storename=' + qS.utm_medium + ']').addClass('prc-grid--vstd-store');
+        if(url.getAQueryParam && url.getAQueryParam('utm_medium')) {
+            $('.prc-grid[data-storename=' + url.getAQueryParam('utm_medium') + ']').addClass('prc-grid--vstd-store');
         }
     }());
 
@@ -1179,20 +1179,19 @@ $(document).on("click", ".prc-grid__instl-extnsn-btn", function(e) {
             if(totalTimeElapsed > 120)
                 clearInterval(checkExtensionInterval);
 
-            isPluginInstalled().done(function() {
-
+            if(Modules.isInstalled('plugin_id')) {
                 $form.hide();
                 $form.siblings(".prc-grid__no-stck-scs").fadeIn();
                 $form.siblings(".prc-grid__no-stck-sub").hide();
 
                 clearInterval(checkExtensionInterval);
-            }).fail(function() {
+            } else {
                 if(totalTimeElapsed > 120){
                     $thisButton.html("Add Extension");
                     $thisButton.removeClass("btn--dsbld");
                     $thisButton.addClass("btn--blue");   
                 }
-            });
+            }
         }, 10000);
 });
 

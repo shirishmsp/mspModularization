@@ -2,9 +2,9 @@ var url = new Modules.Url(); // Common for the whole bundle
 
 (function signupDestUrlAppending() {
     var $this = $('.usr-inputbox__optns-link--dlmtr');
-    if ($this.length && qS.destUrl) {
-        var rdrctUrl = qS.destUrl;
-        rdrctUrl = qS.utm_source ? rdrctUrl + "&utm_source=" + qS.utm_source : rdrctUrl;
+    if ($this.length && url.getAQueryParam('destUrl')) {
+        var rdrctUrl = url.getAQueryParam('destUrl');
+        rdrctUrl = url.getAQueryParam('utm_source') ? rdrctUrl + "&utm_source=" + url.getAQueryParam('utm_source') : rdrctUrl;
         var crntUrl = $this.attr("href");
         $this.attr("href", crntUrl + "?destUrl=" + encodeURIComponent(rdrctUrl));
         return;
@@ -89,7 +89,7 @@ if ($(".demo-login").length) {
                 "errorMsg": "Password must be atleast 6 characters long"
             }]).done(function() {
                 captureEmail($email.val());
-                var loylaty_utm_source = qS.utm_source ? qS.utm_source : utmsource;
+                var loylaty_utm_source = url.getAQueryParam('utm_source') ? url.getAQueryParam('utm_source') : utmsource;
                 if ($(".js-chrm-wlcm").length || $(".wlcm-hdr").length) {
                     loylaty_utm_source = "chrome welcome";
                 }
@@ -409,7 +409,7 @@ function loginme(msg) {
             window.location.href = '/loyalty';
             deleteCookie('u99rs1deal');
         } else {
-            if (!Modules.Cookie.get("chrome_extension_welcome") && !qS.destUrl)
+            if (!Modules.Cookie.get("chrome_extension_welcome") && !url.getAQueryParam('destUrl'))
                 window.location.href = "/loyalty/#tabOpen=how_it_works";
         }
     }
@@ -519,10 +519,10 @@ userFormValidations = (function() {
         redirectLoggedUser: function() {
             var cookieUrl = Modules.Cookie.get("previousUrl");
             deleteCookie("previousUrl");
-            if (qS.close == "1" && window.opener) {
+            if (url.getAQueryParam('close') == "1" && window.opener) {
                     window.opener.postMessage("update_ui","*");
             }
-            window.location = qS.destUrl || cookieUrl || "/";
+            window.location = url.getAQueryParam('destUrl') || cookieUrl || "/";
         }
     };
     var public = {
@@ -616,8 +616,8 @@ userFormValidations = (function() {
                             if (!$('.pop-up__cntnr').length) {
                                 // Not popup
                                 logLoginPageEvents("login-success", "MSP Login.");
-                                var rdrctUrl = qS.destUrl || Modules.Cookie.get("previousUrl") || "/";
-                                rdrctUrl = (qS.destUrl && qS.utm_source && qS.utm_source!="bonusapp") ? rdrctUrl + "?utm_source=" + qS.utm_source : rdrctUrl;
+                                var rdrctUrl = url.getAQueryParam('destUrl') || Modules.Cookie.get("previousUrl") || "/";
+                                rdrctUrl = (url.getAQueryParam('destUrl') && url.getAQueryParam('utm_source') && url.getAQueryParam('utm_source')!="bonusapp") ? rdrctUrl + "?utm_source=" + url.getAQueryParam('utm_source') : rdrctUrl;
                                 window.location.href = rdrctUrl; // Both utm_source & destUrl must be set for redirect.
                                 deleteCookie("previousUrl");
                                 return false;
@@ -664,8 +664,8 @@ userFormValidations = (function() {
                     var signupemail_value = emailField.val(),
                         name_value = $('#signup-form__name').val(),
                         signuppassword_value = pwdField.val(),
-                        signup_utm = Modules.Cookie.get("signup-utm") || ((window.qS && qS.fromEducationPopup) ? "education_popup" : qS.utm_source || qS.ref),
-                        signup_token = qS.utm_source == "chrome_extension_notif_nontrans_loyal" ? qS.signup_token : "";
+                        signup_utm = Modules.Cookie.get("signup-utm") || ((window.qS && url.getAQueryParam('fromEducationPopup')) ? "education_popup" : url.getAQueryParam('utm_source') || url.getAQueryParam('ref')),
+                        signup_token = url.getAQueryParam('utm_source') == "chrome_extension_notif_nontrans_loyal" ? url.getAQueryParam('signup_token') : "";
 
                     $.ajax({
                         type: "POST",
@@ -742,8 +742,8 @@ userFormValidations = (function() {
                                 if (!$('.pop-up__cntnr').length) {
                                     // Not popup
                                     logLoginPageEvents("signup-success", "success");
-                                    var rdrctUrl = qS.destUrl || Modules.Cookie.get("previousUrl") || "/";
-                                    rdrctUrl = (qS.destUrl && qS.utm_source && qS.utm_source!="bonusapp") ? rdrctUrl + "?utm_source=" + qS.utm_source : rdrctUrl;
+                                    var rdrctUrl = url.getAQueryParam('destUrl') || Modules.Cookie.get("previousUrl") || "/";
+                                    rdrctUrl = (url.getAQueryParam('destUrl') && url.getAQueryParam('utm_source') && url.getAQueryParam('utm_source')!="bonusapp") ? rdrctUrl + "?utm_source=" + url.getAQueryParam('utm_source') : rdrctUrl;
                                     window.location.href = rdrctUrl; // Both utm_source & destUrl must be set for redirect.
                                     deleteCookie("previousUrl");
                                     return false;
@@ -828,8 +828,8 @@ userFormValidations = (function() {
 
                     if (resetpassword_value === cnfrmPwdField.val()) {
                         var qS = queryString(window.location.search),
-                            resetemail_value = qS.email,
-                            userHash = qS.user;
+                            resetemail_value = url.getAQueryParam('email'),
+                            userHash = url.getAQueryParam('user');
 
                         $.ajax({
                             type: "POST",
@@ -869,10 +869,10 @@ userFormValidations = (function() {
                 if (Modules.Cookie.get("msp_login")) {
                     var cookieUrl = Modules.Cookie.get("previousUrl");
                     deleteCookie("previousUrl");
-                    if (qS.close == "1" && window.opener) {
+                    if (url.getAQueryParam('close') == "1" && window.opener) {
                         window.opener.postMessage("update_ui","*");
                     }
-                    window.location = qS.destUrl || cookieUrl || "/";
+                    window.location = url.getAQueryParam('destUrl') || cookieUrl || "/";
                 }
 
                 $(".algn-wrpr--form-athntctn .usr-inputbox__form input:eq(0)").focus();
@@ -1144,7 +1144,7 @@ if ($(".sctn--lgn, .usr-inputbox").length) {
 }
 
 var currentPage = window.location.href;
-if ((currentPage.indexOf("users/signup.php") > -1 || currentPage.indexOf("users/login.php")) && qS.source == "refer") {
+if ((currentPage.indexOf("users/signup.php") > -1 || currentPage.indexOf("users/login.php")) && url.getAQueryParam('source') == "refer") {
 
     //Contextual message for singup and login pages
     var $_msg = '<div class="cntxt-info js-cntxt-info">Signup is Required to access Referral Cashback</div>';

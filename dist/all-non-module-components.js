@@ -381,9 +381,9 @@ var url = new Modules.Url(); // Common for the whole bundle
 
 (function signupDestUrlAppending() {
     var $this = $('.usr-inputbox__optns-link--dlmtr');
-    if ($this.length && qS.destUrl) {
-        var rdrctUrl = qS.destUrl;
-        rdrctUrl = qS.utm_source ? rdrctUrl + "&utm_source=" + qS.utm_source : rdrctUrl;
+    if ($this.length && url.getAQueryParam('destUrl')) {
+        var rdrctUrl = url.getAQueryParam('destUrl');
+        rdrctUrl = url.getAQueryParam('utm_source') ? rdrctUrl + "&utm_source=" + url.getAQueryParam('utm_source') : rdrctUrl;
         var crntUrl = $this.attr("href");
         $this.attr("href", crntUrl + "?destUrl=" + encodeURIComponent(rdrctUrl));
         return;
@@ -468,7 +468,7 @@ if ($(".demo-login").length) {
                 "errorMsg": "Password must be atleast 6 characters long"
             }]).done(function() {
                 captureEmail($email.val());
-                var loylaty_utm_source = qS.utm_source ? qS.utm_source : utmsource;
+                var loylaty_utm_source = url.getAQueryParam('utm_source') ? url.getAQueryParam('utm_source') : utmsource;
                 if ($(".js-chrm-wlcm").length || $(".wlcm-hdr").length) {
                     loylaty_utm_source = "chrome welcome";
                 }
@@ -788,7 +788,7 @@ function loginme(msg) {
             window.location.href = '/loyalty';
             deleteCookie('u99rs1deal');
         } else {
-            if (!Modules.Cookie.get("chrome_extension_welcome") && !qS.destUrl)
+            if (!Modules.Cookie.get("chrome_extension_welcome") && !url.getAQueryParam('destUrl'))
                 window.location.href = "/loyalty/#tabOpen=how_it_works";
         }
     }
@@ -898,10 +898,10 @@ userFormValidations = (function() {
         redirectLoggedUser: function() {
             var cookieUrl = Modules.Cookie.get("previousUrl");
             deleteCookie("previousUrl");
-            if (qS.close == "1" && window.opener) {
+            if (url.getAQueryParam('close') == "1" && window.opener) {
                     window.opener.postMessage("update_ui","*");
             }
-            window.location = qS.destUrl || cookieUrl || "/";
+            window.location = url.getAQueryParam('destUrl') || cookieUrl || "/";
         }
     };
     var public = {
@@ -995,8 +995,8 @@ userFormValidations = (function() {
                             if (!$('.pop-up__cntnr').length) {
                                 // Not popup
                                 logLoginPageEvents("login-success", "MSP Login.");
-                                var rdrctUrl = qS.destUrl || Modules.Cookie.get("previousUrl") || "/";
-                                rdrctUrl = (qS.destUrl && qS.utm_source && qS.utm_source!="bonusapp") ? rdrctUrl + "?utm_source=" + qS.utm_source : rdrctUrl;
+                                var rdrctUrl = url.getAQueryParam('destUrl') || Modules.Cookie.get("previousUrl") || "/";
+                                rdrctUrl = (url.getAQueryParam('destUrl') && url.getAQueryParam('utm_source') && url.getAQueryParam('utm_source')!="bonusapp") ? rdrctUrl + "?utm_source=" + url.getAQueryParam('utm_source') : rdrctUrl;
                                 window.location.href = rdrctUrl; // Both utm_source & destUrl must be set for redirect.
                                 deleteCookie("previousUrl");
                                 return false;
@@ -1043,8 +1043,8 @@ userFormValidations = (function() {
                     var signupemail_value = emailField.val(),
                         name_value = $('#signup-form__name').val(),
                         signuppassword_value = pwdField.val(),
-                        signup_utm = Modules.Cookie.get("signup-utm") || ((window.qS && qS.fromEducationPopup) ? "education_popup" : qS.utm_source || qS.ref),
-                        signup_token = qS.utm_source == "chrome_extension_notif_nontrans_loyal" ? qS.signup_token : "";
+                        signup_utm = Modules.Cookie.get("signup-utm") || ((window.qS && url.getAQueryParam('fromEducationPopup')) ? "education_popup" : url.getAQueryParam('utm_source') || url.getAQueryParam('ref')),
+                        signup_token = url.getAQueryParam('utm_source') == "chrome_extension_notif_nontrans_loyal" ? url.getAQueryParam('signup_token') : "";
 
                     $.ajax({
                         type: "POST",
@@ -1121,8 +1121,8 @@ userFormValidations = (function() {
                                 if (!$('.pop-up__cntnr').length) {
                                     // Not popup
                                     logLoginPageEvents("signup-success", "success");
-                                    var rdrctUrl = qS.destUrl || Modules.Cookie.get("previousUrl") || "/";
-                                    rdrctUrl = (qS.destUrl && qS.utm_source && qS.utm_source!="bonusapp") ? rdrctUrl + "?utm_source=" + qS.utm_source : rdrctUrl;
+                                    var rdrctUrl = url.getAQueryParam('destUrl') || Modules.Cookie.get("previousUrl") || "/";
+                                    rdrctUrl = (url.getAQueryParam('destUrl') && url.getAQueryParam('utm_source') && url.getAQueryParam('utm_source')!="bonusapp") ? rdrctUrl + "?utm_source=" + url.getAQueryParam('utm_source') : rdrctUrl;
                                     window.location.href = rdrctUrl; // Both utm_source & destUrl must be set for redirect.
                                     deleteCookie("previousUrl");
                                     return false;
@@ -1207,8 +1207,8 @@ userFormValidations = (function() {
 
                     if (resetpassword_value === cnfrmPwdField.val()) {
                         var qS = queryString(window.location.search),
-                            resetemail_value = qS.email,
-                            userHash = qS.user;
+                            resetemail_value = url.getAQueryParam('email'),
+                            userHash = url.getAQueryParam('user');
 
                         $.ajax({
                             type: "POST",
@@ -1248,10 +1248,10 @@ userFormValidations = (function() {
                 if (Modules.Cookie.get("msp_login")) {
                     var cookieUrl = Modules.Cookie.get("previousUrl");
                     deleteCookie("previousUrl");
-                    if (qS.close == "1" && window.opener) {
+                    if (url.getAQueryParam('close') == "1" && window.opener) {
                         window.opener.postMessage("update_ui","*");
                     }
-                    window.location = qS.destUrl || cookieUrl || "/";
+                    window.location = url.getAQueryParam('destUrl') || cookieUrl || "/";
                 }
 
                 $(".algn-wrpr--form-athntctn .usr-inputbox__form input:eq(0)").focus();
@@ -1523,7 +1523,7 @@ if ($(".sctn--lgn, .usr-inputbox").length) {
 }
 
 var currentPage = window.location.href;
-if ((currentPage.indexOf("users/signup.php") > -1 || currentPage.indexOf("users/login.php")) && qS.source == "refer") {
+if ((currentPage.indexOf("users/signup.php") > -1 || currentPage.indexOf("users/login.php")) && url.getAQueryParam('source') == "refer") {
 
     //Contextual message for singup and login pages
     var $_msg = '<div class="cntxt-info js-cntxt-info">Signup is Required to access Referral Cashback</div>';
@@ -1566,7 +1566,7 @@ if ($(".sdbr-login").length) {
                 "options": { "min": 6 },
                 "errorMsg": "Please enter a valid password"
             }]).done(function() {
-                var loylaty_utm_source = qS.utm_source ? qS.utm_source : utmsource;
+                var loylaty_utm_source = url.getAQueryParam('utm_source') ? url.getAQueryParam('utm_source') : utmsource;
                 if ($(".js-chrm-wlcm").length || $(".wlcm-hdr").length) {
                     loylaty_utm_source = "chrome welcome";
                 }
@@ -1803,10 +1803,7 @@ Modules.$doc.on("click", ".js-hghlghtr-link", function() {
 }());
 
 ;(function() {
-    $.when(isPluginInstalled()).then(function() {
-        //success 
-    }, function() {
-        // failure
+    if(!Modules.isInstalled('plugin_id')) {
         if($('.body-wrpr[data-category=computer-pendrive]').length === 1) {
             var _html = ['<div class="sctn chrme-acqstn" style="background: #fff url(//assets.mspcdn.net/msp-ui/icons/chrome-ext.png) no-repeat 12px center/32px;">',
                             '<div class="sctn__inr">',
@@ -1824,11 +1821,11 @@ Modules.$doc.on("click", ".js-hghlghtr-link", function() {
                 openPopup('/deals/popup/add-chrome-overlay.html');
             });
         }
-    });
+    }
 }());
 
-if (window.qS && qS.utm_source) {
-    setCookie("utm_source", qS.utm_source, 1);
+if (url.getAQueryParam && url.getAQueryParam('utm_source')) {
+    setCookie("utm_source", url.getAQueryParam('utm_source'), 1);
 }
 
 (function prefillEmailInputs() {
@@ -1842,8 +1839,8 @@ if (window.qS && qS.utm_source) {
 // Extension Rating Parameter (From mailer) handler:
 (function() {
     var rating;
-    if (qS.extensionrating) {
-        rating = qS.extensionrating.toString();
+    if (url.getAQueryParam('extensionrating')) {
+        rating = url.getAQueryParam('extensionrating').toString();
         window.ga && ga('send', 'event', 'Extension', 'extension-nps-click', rating, { nonInteraction: true });
         openPopup('/promotions/popups/extension_rating_popup.html');
     }
@@ -1851,7 +1848,7 @@ if (window.qS && qS.utm_source) {
 
 // Mobile number capture popup for users who land on single page
 // from price alert emailer and missed the drop in price
-if (qS && qS.utm_campaign === "PriceAlert") {
+if (url.getAQueryParam && url.getAQueryParam('utm_campaign') === "PriceAlert") {
     var _hash = queryString(window.location.hash);
     if (_hash.price) {
         var $mspSingleTitle = $("#mspSingleTitle");
@@ -1872,21 +1869,21 @@ setTimeout(function(){
 }, 3000);
 (function setChromeAutoPopup() {
     var validUTMSources = ['pa-transact', 'ps-transact', 'browsing_pa_emailer', 'browsing_ps_emailer'];
-    if (window.qS && validUTMSources.indexOf(qS.utm_source) !== -1) {
-        if (isChrome()) {
-            isPluginInstalled().fail(function(){
+    if (url.getAQueryParam && validUTMSources.indexOf(url.getAQueryParam('utm_source') !== -1)) {
+        if (Modules.Browser.name === 'Chrome') {
+            if(!Modules.isInstalled('plugin_id')) {
                 window.ga && ga("send", "event", "autopopup", "pricedrop", "pdp-pageview", { nonInteraction: true });
                 $('body').attr('data-autopopup', '/promotions/install-extn-auto-popup.php');
-            });
+            }
         }
     }
 }());
 
 // Make extension install compulsory if particular utm_source for the same is set:
 (function() {
-    $.when(isPluginInstalled()).fail(function() {
-        var validFBTag = qS.utm_source === 'FB-DRT-MSP-25CB' || qS.utm_source === 'FB-DRT-MSP' || (qS.utm_source && qS.utm_source.indexOf('acebook') !== -1);
-        if(validFBTag && isChrome()) {
+    if(!Modules.isInstalled('plugin_id')) {
+        var validFBTag = url.getAQueryParam('utm_source') === 'FB-DRT-MSP-25CB' || url.getAQueryParam('utm_source') === 'FB-DRT-MSP' || (url.getAQueryParam('utm_source') && url.getAQueryParam('utm_source').indexOf('acebook') !== -1);
+        if(validFBTag && Modules.Browser.name === 'Chrome') {
             function checkInstallation() {
                 $('.popup-closebutton').addClass('not-vsbl');
                 $('.popup-overlay').addClass('noclose');
@@ -1901,7 +1898,7 @@ setTimeout(function(){
             openPopup('/deals/popup/extension_install_overlay.php?pageSource=fbTaggedSinglePage'); 
             checkInstallation();
         }
-    });
+    }
 })();
 
 (function() {
@@ -1912,7 +1909,7 @@ setTimeout(function(){
 
 
 (function postInstallMailLink() {
-    if(qS.utm_source === 'mail_gtsinstall') {
+    if(url.getAQueryParam('utm_source') === 'mail_gtsinstall') {
         popupDataObj = {
             type: "signup"
         };
@@ -3775,8 +3772,8 @@ Modules.$doc.on('click', '.prc-tbl__btn .js-prc-tbl__gts-btn', function(e) {
         // find lowest price store grid:
         $('.prc-grid[data-pricerank=' + lowestPrice + ']').addClass('prc-grid--lwst-price');
         // find visited store grid:
-        if(qS && qS.utm_medium) {
-            $('.prc-grid[data-storename=' + qS.utm_medium + ']').addClass('prc-grid--vstd-store');
+        if(url.getAQueryParam && url.getAQueryParam('utm_medium')) {
+            $('.prc-grid[data-storename=' + url.getAQueryParam('utm_medium') + ']').addClass('prc-grid--vstd-store');
         }
     }());
 
@@ -3857,20 +3854,19 @@ $(document).on("click", ".prc-grid__instl-extnsn-btn", function(e) {
             if(totalTimeElapsed > 120)
                 clearInterval(checkExtensionInterval);
 
-            isPluginInstalled().done(function() {
-
+            if(Modules.isInstalled('plugin_id')) {
                 $form.hide();
                 $form.siblings(".prc-grid__no-stck-scs").fadeIn();
                 $form.siblings(".prc-grid__no-stck-sub").hide();
 
                 clearInterval(checkExtensionInterval);
-            }).fail(function() {
+            } else {
                 if(totalTimeElapsed > 120){
                     $thisButton.html("Add Extension");
                     $thisButton.removeClass("btn--dsbld");
                     $thisButton.addClass("btn--blue");   
                 }
-            });
+            }
         }, 10000);
 });
 
@@ -4191,7 +4187,7 @@ Modules.$doc.on("click", ".js-user-lgt", function(e) {
 // save to list button handlers - end
 
 // Extension install cashback offer for products (incl. mobile category)
-isPluginInstalled().done(function() {
+if(Modules.isInstalled()) {
     if (!$(".prdct-dtl__offr-sctn li").length) {
         $(".prdct-dtl__offr-sctn").hide();
     }
@@ -4204,7 +4200,7 @@ isPluginInstalled().done(function() {
         $(".prc-grid__upcmng-mbl").removeClass("hide");
         $(".prc-grid__instl-extnsn").addClass("hide");
     }
-}).fail(function() {
+} else {
     if ($(".prdct-dtl__ttl").data("page-type") == "nc") {
         if(dataLayer[0]['min-price-store'] === 'amazon') {
             return;
@@ -4235,7 +4231,7 @@ isPluginInstalled().done(function() {
         ].join(""));
         window.ga && ga("send", "event", "Comparables", "comparables_single_pv", "js-log-comparables", { nonInteraction: true });
     }
-});
+}
 
 // Windows App popup event handlers:     
 $(document).on('click', '.js-windows-app', function(e) {
@@ -4830,7 +4826,7 @@ if($('.list-main').length) {
                         params.rows ? ("&rows=" + params.rows) : "",
                         params.discount ? ("&discount=" + params.discount) : "",
                         params.pageName ? ("&pageName=" + params.pageName) : "",
-                        params.source ? ("&source=" + qS.source) : ""
+                        params.source ? ("&source=" + url.getAQueryParam('source')) : ""
                     ].join("");
                 },
                 "productList": MSP.utils.memoize(function(currentParams) {
@@ -6797,7 +6793,7 @@ Modules.$win.scroll(MSP.utils.throttle(function(e) {
 
 
 //When coming for answer ackg email to asker.Clicks on say thanks btn.
-if (qS && qS.ref === "email") {
+if (qS && url.getAQueryParam('ref') === "email") {
     openPopup("/review/qna/popup/thankyou.html");
 }
 
@@ -7182,9 +7178,9 @@ Modules.$doc.ready(function() {
             $ratingInput = $(".usr-rvw-form__rtng-inpt");
         isUserDetailsDisplayed = false;
 
-        if (window.qS && qS.rating) {
-            var inrWidth = parseInt(qS.rating) * 20,
-                rating = parseInt(qS.rating) || 1,
+        if (url.getAQueryParam && url.getAQueryParam('rating')) {
+            var inrWidth = parseInt(url.getAQueryParam('rating')) * 20,
+                rating = parseInt(url.getAQueryParam('rating')) || 1,
                 remarks = ["Terrible", "Bad", "Average", "Good", "Excellent"];
 
             $ratingRemark.data("remark", remarks[rating - 1]);
@@ -7278,9 +7274,9 @@ Modules.$doc.ready(function() {
                 }
 
                 // 1st priority: User Email Query String
-                if (window.qS && qS.user) {
+                if (url.getAQueryParam && url.getAQueryParam('user')) {
                     try {
-                        email_id = atob(qS.user); // throws error if unsuccessful
+                        email_id = atob(url.getAQueryParam('user')); // throws error if unsuccessful
                         doAjax(true);
                     } catch (e) {
                         // Error in reading QS email: (Check for email cookie instead first)
@@ -7311,7 +7307,7 @@ Modules.$doc.ready(function() {
                         type: "POST",
                         url: submit_api,
                         data: {
-                            "mspid": qS.mspid,
+                            "mspid": url.getAQueryParam('mspid'),
                             "title": title,
                             "details": details,
                             "rating_review": rating,
@@ -8306,6 +8302,78 @@ function popoutCloseHandler(e) {
     Popout.closePopout();
     e.preventDefault();
 }
+/* ************** 2. Actions/Events: ************** */
+
+Modules.$doc.on('mouseenter', '.js-tltp', handleMouseEnter);
+Modules.$doc.on('mouseleave', '.js-tltp', removeTooltip);
+
+Modules.$doc.on("click", ".js-msg-box-trgt", showMessageBox);
+Modules.$doc.on("click", ".js-msg-box__cls", hideMessageBox);
+
+/* ************** 4. Functions: ************** */
+
+function handleMouseEnter() {
+    $('.tltp').remove();
+    var $this = $(this),
+        data = $this.data('tooltip'),
+        tooltipDirection = $this.data('tooltip-direction') || "tltp--top-left";
+    if (data === "" || data === undefined) return;
+    $('body').append('<div class="tltp ' + tooltipDirection + '">' + data + '</div>');
+    $tooltip = $('.tltp');
+
+    if ($(this).data('tooltip').length > 50) {
+        $tooltip.css({ 'font-size': '11px', 'line-height': '1.5' });
+    }
+
+    if (tooltipDirection === "tltp--top-rght") {
+        $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
+        $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
+        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
+            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
+            $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
+        }
+    } else if (tooltipDirection === "tltp--top-left") {
+        $tooltip.css('left', $this.offset().left - 4);
+        $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
+        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
+            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
+            $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
+        }
+    } else if (tooltipDirection === "tltp--btm-rght") {
+        $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
+        $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
+        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
+            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
+            $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
+        }
+    } else if (tooltipDirection === "tltp--btm-left") {
+        $tooltip.css('left', $this.offset().left - 4);
+        $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
+        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
+            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
+            $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
+        }
+    } else if (tooltipDirection === "tltp--left") {
+        $tooltip.css('left', $this.offset().left - $tooltip.width() - 30);
+        $tooltip.css('top', $this.offset().top + $this.outerHeight() / 2 - 10);
+    }
+}
+
+function removeTooltip() {
+    $('.tltp').remove();
+}
+
+function showMessageBox(e) {
+    if ($(e.target).hasClass("js-msg-box__cls")) return false;
+
+    $(".msg-box").removeClass("msg-box--show");
+    $(this).find(".msg-box").addClass("msg-box--show");
+}
+
+function hideMessageBox() {
+    $(this).closest(".msg-box").removeClass("msg-box--show");
+    return false;
+}
 /* ************** 1. Classes/Objects/Variables: ************** */
 
 const popupDataObj = {};
@@ -8808,7 +8876,7 @@ function pageLeavePopupBind() {
 function openPageLeaveGTSPopup() {
     if (window.location.pathname.indexOf("/refurbished/") !== 0 && $(".prdct-dtl, .fltr-wrpr1").length) {
         var invalidSources = ["pa-transact", "ps-transact", "browsing_pa_emailer", "browsing_ps_emailer"];
-        if (url.getAQueryParam && invalidSources.indexOf(url.getAQueryParam(utm_source)) === -1) {
+        if (url.getAQueryParam && invalidSources.indexOf(url.getAQueryParam('utm_source')) === -1) {
             setTimeout(function() {
                 $("body").on("mouseleave", function(e) {
                     if (e.pageY < 5 && !Modules.Cookie.get("msp_login") && !$(".pop-up__ovrly, .popup-overlay").length) {
@@ -8846,78 +8914,6 @@ function setPopUpCookie() {
     }, 5000);
 }
 
-/* ************** 2. Actions/Events: ************** */
-
-Modules.$doc.on('mouseenter', '.js-tltp', handleMouseEnter);
-Modules.$doc.on('mouseleave', '.js-tltp', removeTooltip);
-
-Modules.$doc.on("click", ".js-msg-box-trgt", showMessageBox);
-Modules.$doc.on("click", ".js-msg-box__cls", hideMessageBox);
-
-/* ************** 4. Functions: ************** */
-
-function handleMouseEnter() {
-    $('.tltp').remove();
-    var $this = $(this),
-        data = $this.data('tooltip'),
-        tooltipDirection = $this.data('tooltip-direction') || "tltp--top-left";
-    if (data === "" || data === undefined) return;
-    $('body').append('<div class="tltp ' + tooltipDirection + '">' + data + '</div>');
-    $tooltip = $('.tltp');
-
-    if ($(this).data('tooltip').length > 50) {
-        $tooltip.css({ 'font-size': '11px', 'line-height': '1.5' });
-    }
-
-    if (tooltipDirection === "tltp--top-rght") {
-        $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
-        $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
-            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
-            $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
-        }
-    } else if (tooltipDirection === "tltp--top-left") {
-        $tooltip.css('left', $this.offset().left - 4);
-        $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
-            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
-            $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
-        }
-    } else if (tooltipDirection === "tltp--btm-rght") {
-        $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
-        $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
-        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
-            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
-            $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        }
-    } else if (tooltipDirection === "tltp--btm-left") {
-        $tooltip.css('left', $this.offset().left - 4);
-        $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
-        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
-            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
-            $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        }
-    } else if (tooltipDirection === "tltp--left") {
-        $tooltip.css('left', $this.offset().left - $tooltip.width() - 30);
-        $tooltip.css('top', $this.offset().top + $this.outerHeight() / 2 - 10);
-    }
-}
-
-function removeTooltip() {
-    $('.tltp').remove();
-}
-
-function showMessageBox(e) {
-    if ($(e.target).hasClass("js-msg-box__cls")) return false;
-
-    $(".msg-box").removeClass("msg-box--show");
-    $(this).find(".msg-box").addClass("msg-box--show");
-}
-
-function hideMessageBox() {
-    $(this).closest(".msg-box").removeClass("msg-box--show");
-    return false;
-}
 //# sourceMappingURL=all-non-module-components.js.map
 ;
 
