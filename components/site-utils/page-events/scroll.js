@@ -85,7 +85,7 @@ function scrollToSectionNoAnimation() {
         // sending 1/5 of users to video reviews
         // and remaining 4/5 of users to user reviews
         var $this = $(this),
-            msp_uid = Cookie.getCookie("msp_uid");
+            msp_uid = Modules.Cookie.get("msp_uid");
         if (msp_uid % 5 === 0) {
             $this.data("href", "video-reviews");
             window.ga && ga("send", "event", "PDPReviewLink", "click", "video-reviews");

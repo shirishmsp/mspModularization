@@ -54,8 +54,8 @@ $("body").on("click", ".openPopup_rd", function handler(e) {
         } else {
             $popup = $popupCont.find(".popup_rd");
             if ($popup.hasClass("coupon_expand")) {
-                if (getCookie("msp_login") == "1" && getCookie("msp_login_email") && !$.trim($popup.find(".coupon_value").text())) {
-                    $popup.find(".coupon_email").val(getCookie("msp_login_email"));
+                if (Modules.Cookie.get("msp_login") == "1" && Modules.Cookie.get("msp_login_email") && !$.trim($popup.find(".coupon_value").text())) {
+                    $popup.find(".coupon_email").val(Modules.Cookie.get("msp_login_email"));
                     $popup.find(".coupon_form").submit();
                 }
             }
@@ -1145,7 +1145,7 @@ alignPriceCards();
 
 /* A/B Testing; 20% users see cards in Price Table */
 (function() {
-    var mspUid = +getCookie('msp_uid');
+    var mspUid = +Modules.Cookie.get('msp_uid');
     if(mspUid % 10 < 2) { // 20% of users 
         $('.prc-tbl').addClass('cards'); 
         if(mspUid % 10 < 1) { // 10% of users see only cards
@@ -1197,5 +1197,5 @@ $(document).on("click", ".prc-grid__instl-extnsn-btn", function(e) {
 });
 
 // populating users email in notify me widget
-var msp_login_email = getCookie("msp_login_email") || ""
+var msp_login_email = Modules.Cookie.get("msp_login_email") || ""
 $(".prc-grid__no-stck-inpt").val(msp_login_email);

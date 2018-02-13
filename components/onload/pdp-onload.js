@@ -18,7 +18,7 @@
             function checkInstallation() {
                 $('.popup-closebutton').addClass('not-vsbl');
                 $('.popup-overlay').addClass('noclose');
-                if (!getCookie('plugin_id')) { 
+                if (!Modules.Cookie.get('plugin_id')) { 
                     intervalCount++;
                     if (intervalCount <= 180) {
                         setTimeout(checkInstallation, 1000);
@@ -53,7 +53,7 @@
     $("#compare_button").show();
 
     $("body").on("click", "#addtolistbutton", function () {
-        var msp_login = getCookie("msp_login");
+        var msp_login = Modules.Cookie.get("msp_login");
         if (msp_login == 1) {
             $("#addedtolistbutton").css("display", "inline-block");
             $("#addtolistbutton").hide();
@@ -63,7 +63,7 @@
         }
         else {
             var checklogin = setInterval(function () {
-                var msp_login = getCookie("msp_login");
+                var msp_login = Modules.Cookie.get("msp_login");
                 if (msp_login == 1) {
                     clearInterval(checklogin);
                     $("#addtolistbutton").click();

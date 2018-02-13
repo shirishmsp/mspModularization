@@ -1,3 +1,5 @@
+var url = new Url(); // Common for the whole bundle
+
 (function signupDestUrlAppending() {
     var $this = $('.usr-inputbox__optns-link--dlmtr');
     if ($this.length && qS.destUrl) {
@@ -13,8 +15,10 @@
 
 const loginCallbackQueue = [];
 
+var MSP = {};
+
 function loginCallback(fn, context, params) {
-    if (Cookie.getCookie("msp_login") == "1") {
+    if (Modules.Cookie.get("msp_login") == "1") {
         fn.apply(context, params);
     } else {
         loginCallbackQueue.push(function() {
@@ -49,10 +53,10 @@ var extnsnWlcmPage = {};
 if ($(".demo-login").length) {
     extnsnWlcmPage = {
         changeMessage: function() {
-            var pluginInstallSource = getCookie("pluginInstallSource"),
+            var pluginInstallSource = Modules.Cookie.get("pluginInstallSource"),
                 installationMessage = "";
 
-            if (getCookie("msp_login")) {
+            if (Modules.Cookie.get("msp_login")) {
                 installationMessage = "Get Cashback on Every Purchase via MySmartPrice <a class='demo__knw-more' href='http://www.mysmartprice.com/loyalty/?ref=welcome#tabOpen=how_it_works'>Know More</a>";
                 $(".demo-login .demo-signup__form").hide();
                 if (pluginInstallSource && (pluginInstallSource === "deal-comparables" || pluginInstallSource === "pluginCashback")) {
@@ -108,7 +112,7 @@ if ($(".demo-login").length) {
                 }).done(function(msg) {
                     if (msg == "error" || msg.auth.result.msg == 'error') {
                         $errorNode.html("There is some error in signup. Please try after sometime");
-                        if (getCookie('u99rs1deal')) {
+                        if (Modules.Cookie.get('u99rs1deal')) {
                             alert('Unable to login. Please check credentials'); // Alert to bring back focus to current tab (Not GTS tab)
                         }
                     } else {
@@ -197,12 +201,12 @@ function postLogin() {
 function update_ui() {
 
     var defaultLoginName = "My Account",
-        partial_login = getCookie("partial_login"),
-        msp_login = getCookie("msp_login"),
-        new_user = getCookie("new_user"),
-        msp_user_image = getCookie("msp_user_image"),
-        msp_login_name = getCookie("msp_login_name") || "",
-        msp_login_email = getCookie("msp_login_email") || "",
+        partial_login = Modules.Cookie.get("partial_login"),
+        msp_login = Modules.Cookie.get("msp_login"),
+        new_user = Modules.Cookie.get("new_user"),
+        msp_user_image = Modules.Cookie.get("msp_user_image"),
+        msp_login_name = Modules.Cookie.get("msp_login_name") || "",
+        msp_login_email = Modules.Cookie.get("msp_login_email") || "",
         userLinks = [
             '<div class="user-link">',
             '<div class="drpdwn-wdgt__item user-link__rwrds js-open-link" data-open-link="/loyalty">',
@@ -225,7 +229,7 @@ function update_ui() {
     $(".cshbck-str__top-sign").removeClass("hide");
     if (partial_login || msp_login) {
         $(".cshbck-str__top-sign").addClass("hide");
-        if (!getCookie("msp_loyalty_points")) {
+        if (!Modules.Cookie.get("msp_loyalty_points")) {
             $.ajax({
                 url: '/users/get_msp_coins.php',
                 async: false,
@@ -254,9 +258,9 @@ function update_ui() {
     //Loyalty Experiment
     var coinText = "",
         coinSubText = "",
-        loyaltyPoints = $.trim(getCookie("msp_loyalty_points")).replace(/\D/g, "") || 0;
+        loyaltyPoints = $.trim(Modules.Cookie.get("msp_loyalty_points")).replace(/\D/g, "") || 0;
     // Logged in and hideLoyaltyOnBoarded
-    if ((msp_login == "1" || partial_login) && getCookie("hideLoyaltyOnBoarded")) {
+    if ((msp_login == "1" || partial_login) && Modules.Cookie.get("hideLoyaltyOnBoarded")) {
         coinText = '&#8377;<span class="js-lylty-pnts">' + loyaltyPoints + '</span>';
         coinSubText = 'in your account';
     } else { // All other cases do not show amount
@@ -266,7 +270,7 @@ function update_ui() {
 
     var hdrCoinsLoggedIn = [
             '<div class="hdr__user" style="display: block">',
-            '<div class="hdr__call-out' + (getCookie("hideLoyaltyOnBoarded") ? " hdr__call-out--lgd-in" : "") + ' js-lylty-hdr js-open-link" data-need-login="true" data-open-link="/loyalty/">',
+            '<div class="hdr__call-out' + (Modules.Cookie.get("hideLoyaltyOnBoarded") ? " hdr__call-out--lgd-in" : "") + ' js-lylty-hdr js-open-link" data-need-login="true" data-open-link="/loyalty/">',
             '<div class="hdr__call-out-ttl">' + coinText + '</div>',
             '<div class="hdr__call-out-sbttl">' + coinSubText + '</div>',
             '</div>',
@@ -363,13 +367,13 @@ function loginme(msg) {
         wiz_uid = get_uid(),
         wiz_msg = '"' + msg + '"';
 
-    var loyalty_cookie = getCookie('msp_loyalty');
+    var loyalty_cookie = Modules.Cookie.get('msp_loyalty');
     setCookie("msp_login", "1", 365);
 
     if (!loyalty_cookie) {  
         setCookie("msp_loyalty", "1", 365);
     }
-    var msp_login = getCookie("msp_login");
+    var msp_login = Modules.Cookie.get("msp_login");
 
     if (!(msg.auth.login_type == 'facebook' || msg.auth.login_type == 'gplus' || msg.auth.login_type == 'resetpass')) {
         setCookie("msp_login_uid", msg.auth.result.user_id, 365);
@@ -399,19 +403,19 @@ function loginme(msg) {
         if (msg.loyalty.nonmsp_bonus_credited) { // If user haven't any account and eligible for nonmsp bonus
             setCookieMins("nonmsp_bonus_credited", msg.loyalty.result.nonmsp_bonus_credited, 20);
         }
-        if (getCookie("cb_instant")) {
+        if (Modules.Cookie.get("cb_instant")) {
             window.location.href = '/loyalty';
-        } else if (getCookie("u99rs1deal")) {
+        } else if (Modules.Cookie.get("u99rs1deal")) {
             window.location.href = '/loyalty';
             deleteCookie('u99rs1deal');
         } else {
-            if (!getCookie("chrome_extension_welcome") && !qS.destUrl)
+            if (!Modules.Cookie.get("chrome_extension_welcome") && !qS.destUrl)
                 window.location.href = "/loyalty/#tabOpen=how_it_works";
         }
     }
 
     // Temporary - for signup&email capture flow on extension install:
-    if (msg.auth.login_type === "login" && getCookie("cb_instant")) {
+    if (msg.auth.login_type === "login" && Modules.Cookie.get("cb_instant")) {
         window.location.href = '/loyalty';
     }
 }
@@ -459,8 +463,8 @@ Modules.$doc.on("click", ".js-lylty-signup, .js-trck-sign-up", function() {
 // Pre-fill email address from login cookie
 $(document).on("focus", "input.prefill-email", function() {
     var $this = $(this);
-    if (!$this.val() && getCookie("msp_login") == "1")
-        $this.val(getCookie("msp_login_email"));
+    if (!$this.val() && Modules.Cookie.get("msp_login") == "1")
+        $this.val(Modules.Cookie.get("msp_login_email"));
 });
 // Use it till new single page goes live
 
@@ -513,7 +517,7 @@ userFormValidations = (function() {
                 return false;
         },
         redirectLoggedUser: function() {
-            var cookieUrl = getCookie("previousUrl");
+            var cookieUrl = Modules.Cookie.get("previousUrl");
             deleteCookie("previousUrl");
             if (qS.close == "1" && window.opener) {
                     window.opener.postMessage("update_ui","*");
@@ -612,7 +616,7 @@ userFormValidations = (function() {
                             if (!$('.pop-up__cntnr').length) {
                                 // Not popup
                                 logLoginPageEvents("login-success", "MSP Login.");
-                                var rdrctUrl = qS.destUrl || getCookie("previousUrl") || "/";
+                                var rdrctUrl = qS.destUrl || Modules.Cookie.get("previousUrl") || "/";
                                 rdrctUrl = (qS.destUrl && qS.utm_source && qS.utm_source!="bonusapp") ? rdrctUrl + "?utm_source=" + qS.utm_source : rdrctUrl;
                                 window.location.href = rdrctUrl; // Both utm_source & destUrl must be set for redirect.
                                 deleteCookie("previousUrl");
@@ -660,7 +664,7 @@ userFormValidations = (function() {
                     var signupemail_value = emailField.val(),
                         name_value = $('#signup-form__name').val(),
                         signuppassword_value = pwdField.val(),
-                        signup_utm = getCookie("signup-utm") || ((window.qS && qS.fromEducationPopup) ? "education_popup" : qS.utm_source || qS.ref),
+                        signup_utm = Modules.Cookie.get("signup-utm") || ((window.qS && qS.fromEducationPopup) ? "education_popup" : qS.utm_source || qS.ref),
                         signup_token = qS.utm_source == "chrome_extension_notif_nontrans_loyal" ? qS.signup_token : "";
 
                     $.ajax({
@@ -701,7 +705,7 @@ userFormValidations = (function() {
                                     .slideDown();
                                 logLoginPageEvents("signup-error", "Already Registered.");
                             }
-                            if (getCookie('u99rs1deal')) {
+                            if (Modules.Cookie.get('u99rs1deal')) {
                                 alert('Unable to login. Please check credentials'); // Alert to bring back focus to current tab (Not GTS tab)
                             }
                             $("body").animate({ "scrollTop": 0 }, 500);
@@ -738,7 +742,7 @@ userFormValidations = (function() {
                                 if (!$('.pop-up__cntnr').length) {
                                     // Not popup
                                     logLoginPageEvents("signup-success", "success");
-                                    var rdrctUrl = qS.destUrl || getCookie("previousUrl") || "/";
+                                    var rdrctUrl = qS.destUrl || Modules.Cookie.get("previousUrl") || "/";
                                     rdrctUrl = (qS.destUrl && qS.utm_source && qS.utm_source!="bonusapp") ? rdrctUrl + "?utm_source=" + qS.utm_source : rdrctUrl;
                                     window.location.href = rdrctUrl; // Both utm_source & destUrl must be set for redirect.
                                     deleteCookie("previousUrl");
@@ -862,8 +866,8 @@ userFormValidations = (function() {
 
             /* specific to login page & signup page */
             if ($(".algn-wrpr--form-athntctn").length) {
-                if (getCookie("msp_login")) {
-                    var cookieUrl = getCookie("previousUrl");
+                if (Modules.Cookie.get("msp_login")) {
+                    var cookieUrl = Modules.Cookie.get("previousUrl");
                     deleteCookie("previousUrl");
                     if (qS.close == "1" && window.opener) {
                         window.opener.postMessage("update_ui","*");

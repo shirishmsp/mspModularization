@@ -3,10 +3,10 @@ $(document).on('click', '.js-instatab-popup', function(e) {
     e.preventDefault();
     var $this = $(this),
         gtsURL = $this.data('url'),
-        isEmailSet = getCookie('msp_login_email'),
-        isInstatabInstalled = getCookie('instatab');
+        isEmailSet = Modules.Cookie.get('msp_login_email'),
+        isInstatabInstalled = Modules.Cookie.get('instatab');
 
-    var popupCookieVal = getCookie('gtspopup') ? getCookie('gtspopup').split(';') : undefined,
+    var popupCookieVal = Modules.Cookie.get('gtspopup') ? Modules.Cookie.get('gtspopup').split(';') : undefined,
         cookieNumTimes = popupCookieVal ? popupCookieVal[0] : undefined,
         cookieCurMessage = popupCookieVal ? popupCookieVal[1] : undefined,
         isEmailCaptured = popupCookieVal ? popupCookieVal[2] : undefined;

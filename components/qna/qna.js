@@ -58,7 +58,7 @@ var QnA = {
                 url: "/review/qna/submit_user_action.php",
                 data: {
                     entity_type: "q",
-                    email_id: getCookie('msp_login_email'),
+                    email_id: Modules.Cookie.get('msp_login_email'),
                     entity_id: questionId,
                     action: type,
                     source: "desktop_" + dataLayer[0].pagetype
@@ -86,7 +86,7 @@ var QnA = {
                 data: {
                     entity_id: questionId,
                     entity_type: 'q',
-                    email_id: getCookie('msp_login_email'),
+                    email_id: Modules.Cookie.get('msp_login_email'),
                     action: type,
                     source: "desktop_" + dataLayer[0].pagetype
                 }
@@ -110,7 +110,7 @@ var QnA = {
                 data: {
                     entity_id: answerId,
                     entity_type: 'a',
-                    email_id: getCookie('msp_login_email'),
+                    email_id: Modules.Cookie.get('msp_login_email'),
                     action: type,
                     source: "desktop_" + dataLayer[0].pagetype
                 }
@@ -240,12 +240,12 @@ var QnA = {
         }
     },
     prefillEmail: function() {
-        if (getCookie) {
-            $('input[type=email]').val(getCookie('msp_login_email'));
+        if (Modules.Cookie.get) {
+            $('input[type=email]').val(Modules.Cookie.get('msp_login_email'));
         }
     },
     setEmailCookie: function(emailInput) {
-        if (!getCookie('msp_login_email')) {
+        if (!Modules.Cookie.get('msp_login_email')) {
             setCookie("msp_login_email", emailInput, 365);
         }
     },
@@ -287,7 +287,7 @@ var QnA = {
             */
             if (/ans-qstn/.test(hash)) {
                 var q_id = $(".wrt-answr__ttl").data("qid");
-                (getCookie('msp_uid') % 2) ?
+                (Modules.Cookie.get('msp_uid') % 2) ?
                 openPopup("/review/qna/popup/answer_question.php?source=desktop_q_single&q_id=" + q_id):
                     openPopup("/review/qna/popup/fb_answer_question.php?source=desktop_q_single&q_id=" + q_id);
                 //openPopup("/review/qna/popup/answer_question.php?source=desktop_q_single&q_id="+q_id);
@@ -554,7 +554,7 @@ Modules.$win.scroll(MSP.utils.throttle(function(e) {
 
         if (scrollTop <= 0) {
             $subHeader.removeClass('not-vsbl');
-            if ($(".lead-hdr-wrpr").length && !getCookie("msp_lead_hdr_hide")) {
+            if ($(".lead-hdr-wrpr").length && !Modules.Cookie.get("msp_lead_hdr_hide")) {
                 $(".lead-hdr-wrpr").slideDown();
             }
             return;
@@ -565,7 +565,7 @@ Modules.$win.scroll(MSP.utils.throttle(function(e) {
             // Scroll Down
             $header.addClass('hdr--sld');
             $subHeader.addClass('not-vsbl');
-            if ($(".lead-hdr-wrpr").length && !getCookie("msp_lead_hdr_hide")) {
+            if ($(".lead-hdr-wrpr").length && !Modules.Cookie.get("msp_lead_hdr_hide")) {
                 $(".lead-hdr-wrpr").slideUp();
             }
             $(".ad-sdbr").addClass("ad-sdbr--top");
@@ -575,7 +575,7 @@ Modules.$win.scroll(MSP.utils.throttle(function(e) {
                 $subHeader.removeClass('not-vsbl');
                 $header.removeClass('hdr--sld');
                 $(".ad-sdbr").removeClass("ad-sdbr--top");
-                if ($(".lead-hdr-wrpr").length && !getCookie("msp_lead_hdr_hide")) {
+                if ($(".lead-hdr-wrpr").length && !Modules.Cookie.get("msp_lead_hdr_hide")) {
                     $(".lead-hdr-wrpr").slideDown();
                 }
             }

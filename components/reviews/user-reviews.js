@@ -103,9 +103,9 @@ Modules.$doc.ready(function() {
                     details = $(".usr-rvw-form__desc").val(),
                     errorMessage = "There was a problem submitting your review. Please try again.",
                     email_id = "",
-                    mspLoginEmail = getCookie("msp_login_email");
+                    mspLoginEmail = Modules.Cookie.get("msp_login_email");
 
-                if (false && getCookie("msp_login_email") && getCookie("msp_login")) {
+                if (false && Modules.Cookie.get("msp_login_email") && Modules.Cookie.get("msp_login")) {
                     var submit_api = "/msp/review/save_a_review.php";
                 } else {
                     var submit_api = "/msp/review/save_review_basic.php";
@@ -139,7 +139,7 @@ Modules.$doc.ready(function() {
                 }
 
                 function doAjax(qsEmailExists) {
-                    if (!qsEmailExists) email_id = getCookie('msp_login_email');
+                    if (!qsEmailExists) email_id = Modules.Cookie.get('msp_login_email');
 
                     $.ajax({
                         type: "POST",
@@ -207,10 +207,10 @@ Modules.$doc.ready(function() {
         $ratingInput = $(".usr-rvw-form__rtng-inpt");
     isUserDetailsDisplayed = false;
 
-    if (getCookie("msp_login") === "1") {
-        $(".usr-rvw-form__dtls-img").attr("src", getCookie("msp_user_image"));
-        $(".usr-rvw-form__dtls-name").text(getCookie("msp_login_name") || "MySmartPrice User");
-        $(".usr-rvw-form__dtls-email").text(getCookie("msp_login_email"));
+    if (Modules.Cookie.get("msp_login") === "1") {
+        $(".usr-rvw-form__dtls-img").attr("src", Modules.Cookie.get("msp_user_image"));
+        $(".usr-rvw-form__dtls-name").text(Modules.Cookie.get("msp_login_name") || "MySmartPrice User");
+        $(".usr-rvw-form__dtls-email").text(Modules.Cookie.get("msp_login_email"));
         $(".usr-rvw-form__dtls").show();
         isUserDetailsDisplayed = true;
     }
@@ -279,7 +279,7 @@ Modules.$doc.ready(function() {
                         "title": title,
                         "details": details,
                         "rating_review": rating,
-                        "email_id": getCookie("msp_login_email")
+                        "email_id": Modules.Cookie.get("msp_login_email")
                     }
                 }).done(function(response) {
                     response = JSON.parse(response);

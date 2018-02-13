@@ -210,14 +210,14 @@ function widgetFilterButtonHandler(e) {
     //console.log(signupUTM);
     Cookie.setCookieMins("signup-utm", signupUTM, 2);
     if (window.ga) {
-        ga("send", "event", "Loyalty", signupUTM + "clicked", Cookie.getCookie("msp_uid") + "");
+        ga("send", "event", "Loyalty", signupUTM + "clicked", Modules.Cookie.get("msp_uid") + "");
     }
     Popout.closePopout();
 }
 
 function popoutCloseHandler(e) {
     if (window.ga) {
-        ga("send", "event", "Loyalty", "Popout closed clicked", Cookie.getCookie("msp_uid") + "");
+        ga("send", "event", "Loyalty", "Popout closed clicked", Modules.Cookie.get("msp_uid") + "");
     }
     Popout.closePopout();
     e.preventDefault();

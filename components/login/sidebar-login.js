@@ -56,7 +56,7 @@ if ($(".sdbr-login").length) {
                 }).done(function(msg) {
                     if (msg == "error" || msg.auth.result.msg == 'error') {
                         $errorNode.html("There is some error in signup. Please try after sometime");
-                        if (getCookie('u99rs1deal')) {
+                        if (Modules.Cookie.get('u99rs1deal')) {
                             alert('Unable to login. Please check credentials'); // Alert to bring back focus to current tab (Not GTS tab)
                         }
                     } else {

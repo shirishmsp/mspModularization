@@ -34,7 +34,7 @@ setTimeout(() => {
 getAutopopupURL($(".auto-popup-data"));
 
 // Exit intent popup selection (search for plugin_id and not instatab):
-if (location.href.indexOf("/deals/promotions") === -1 && !Cookie.getCookie('plugin_id')) {
+if (location.href.indexOf("/deals/promotions") === -1 && !Modules.Cookie.get('plugin_id')) {
     openPageLeaveGTSPopup();
 }
 
@@ -81,7 +81,7 @@ function openAutoPopup(pageLeave) {
         if ($popupData.length) {
             var popupUrl = $popupData.data("autopopup");
             if (popupUrl) {
-                if ($popupData.data("autopopup-login") && (Cookie.getCookie("msp_login_email") || Cookie.getCookie("msp_login")))
+                if ($popupData.data("autopopup-login") && (Modules.Cookie.get("msp_login_email") || Modules.Cookie.get("msp_login")))
                     return;
 
                 //To be moved to attribute based categorization
@@ -110,7 +110,7 @@ function handlePopupTargetClick() {
         var storeLink = $(this).data("url");
         window.open(storeLink, '_blank');
 
-        if (Cookie.getCookie("msp_login")) {
+        if (Modules.Cookie.get("msp_login")) {
             return true;
         }
         Cookie.setCookieMins("signup-utm", $(this).data("utmsource") || "", 2);
@@ -126,12 +126,12 @@ function handlePopupTargetClick() {
         var cookieName = $this.data("cookiename");
         storeUrl = $this.data('url');
 
-        if (Cookie.getCookie(cookieName)) {
+        if (Modules.Cookie.get(cookieName)) {
             window.open(storeUrl);
             return true;
         }
 
-        if ((Cookie.getCookie('msp_login') || Cookie.getCookie('partial_login')) && ($this.hasClass("js-check-email-cookie") || ($this.hasClass("check-email-cookie")))) {
+        if ((Modules.Cookie.get('msp_login') || Modules.Cookie.get('partial_login')) && ($this.hasClass("js-check-email-cookie") || ($this.hasClass("check-email-cookie")))) {
             window.open(storeUrl);
             return true;
         }
@@ -169,7 +169,7 @@ function chromePluginPopupTarget() {
 
     Cookie.setCookie('autoPopup', '1', 1);
 
-    if (Cookie.getCookie(cookieName) === "true") {
+    if (Modules.Cookie.get(cookieName) === "true") {
         window.open($this.data("url"));
         return false;
     }
@@ -194,8 +194,8 @@ function chromePluginPopupTarget() {
 
 function loyaltyPopupTarget() {
     var $this = $(this),
-        isLoggedIn = Cookie.getCookie("msp_login"),
-        loyaltyOnBoarded = Cookie.getCookie("hideLoyaltyOnBoarded");
+        isLoggedIn = Modules.Cookie.get("msp_login"),
+        loyaltyOnBoarded = Modules.Cookie.get("hideLoyaltyOnBoarded");
         cookieName = $this.data("cookiename"),
         popupUrl = $this.data("href"),
         isMandatory = false;
@@ -203,9 +203,9 @@ function loyaltyPopupTarget() {
     Cookie.setCookieMins('autoPopup', '1', 30);
 
     // Make loyalty GTS popup mandatory in appliances to 50% users (even uids) if logged out
-    if (window.dataLayer && dataLayer[0].category === "appliance" && Cookie.getCookie("msp_uid") % 2 === 0) {
+    if (window.dataLayer && dataLayer[0].category === "appliance" && Modules.Cookie.get("msp_uid") % 2 === 0) {
         isMandatory = true;
-    } else if (Cookie.getCookie(cookieName) === "true") {
+    } else if (Modules.Cookie.get(cookieName) === "true") {
         window.open($this.data("url"));
         return true;
     }
@@ -221,7 +221,7 @@ function loyaltyPopupTarget() {
         }
     }
 
-    if (isMandatory && (isLoggedIn || Cookie.getCookie("partial_login"))) {
+    if (isMandatory && (isLoggedIn || Modules.Cookie.get("partial_login"))) {
         window.open($this.data("url"));
         return true;
     } else if (isLoggedIn) {
@@ -292,7 +292,7 @@ function isPromoPopupShown(popupType) {
 
 
     // promoB has higher priority than promoA
-    if ((Cookie.getCookie('promo_a_shown') && popupType === "PromoA") || (Cookie.getCookie('promo_b_shown') && popupType === "PromoB")) {
+    if ((Modules.Cookie.get('promo_a_shown') && popupType === "PromoA") || (Modules.Cookie.get('promo_b_shown') && popupType === "PromoB")) {
         return true;
     }
 
@@ -322,7 +322,7 @@ function openPopup(popupUrl, popupType) {
         return;
     }
 
-    if (!Cookie.getCookie('test_no_popup')) {
+    if (!Modules.Cookie.get('test_no_popup')) {
         var popupData = getPopupData(popupUrl),
             isForRUI = popupData.indexOf("pop-up__cntnr") > 0;
         
@@ -398,16 +398,16 @@ function openPopup(popupUrl, popupType) {
 }
 
 function openAutoPopupURL(url) {
-    if (Cookie.getCookie('msp_login_email') || Cookie.getCookie('msp_login')) return;
+    if (Modules.Cookie.get('msp_login_email') || Modules.Cookie.get('msp_login')) return;
 
     //To be moved to attribute based categorization
     openPopup(url, "PromoA");
-    var msp_uid = Cookie.getCookie("msp_uid");
-    var msp_vid = Cookie.getCookie("msp_vid");
-    var overall_visits = Cookie.getCookie("num_pages");
-    var session_visits = Cookie.getCookie("visit_num_pages");
-    var gts_count = Cookie.getCookie("gts_count");
-    var transaction_count = Cookie.getCookie("transaction_count");
+    var msp_uid = Modules.Cookie.get("msp_uid");
+    var msp_vid = Modules.Cookie.get("msp_vid");
+    var overall_visits = Modules.Cookie.get("num_pages");
+    var session_visits = Modules.Cookie.get("visit_num_pages");
+    var gts_count = Modules.Cookie.get("gts_count");
+    var transaction_count = Modules.Cookie.get("transaction_count");
     var popup_id = $(".auto-popup-data").data("popup_id");
     var experiment_id = $(".auto-popup-data").data("experimentid");
     var emailValue = encodeURIComponent($(".popup-email").val());
@@ -426,7 +426,7 @@ function openAutoPopupURL(url) {
 
 function getAutopopupURL($dataElement) {
 
-    if (Cookie.getCookie("msp_login") == 1) {
+    if (Modules.Cookie.get("msp_login") == 1) {
         return;
     }
 
@@ -437,28 +437,28 @@ function getAutopopupURL($dataElement) {
 
 
     if ($popupData["first-visit"] === true) {
-        if (Cookie.getCookie("msp_uid") == Cookie.getCookie("msp_vid")) {
+        if (Modules.Cookie.get("msp_uid") == Modules.Cookie.get("msp_vid")) {
             $dataElement.data("popup_id", $popupData["first-visit-id"]);
             openAutoPopupURL($popupData["first-visit-url"]);
             return;
         }
     }
     if ($popupData["repeat-visit"] === true) {
-        if (Cookie.getCookie("msp_uid") != Cookie.getCookie("msp_vid")) {
+        if (Modules.Cookie.get("msp_uid") != Modules.Cookie.get("msp_vid")) {
             $dataElement.data("popup_id", $popupData["repeat-visit-id"]);
             openAutoPopupURL($popupData["repeat-visit-url"]);
             return;
         }
     }
     if ($popupData["pages-visited"] === true) {
-        if (Cookie.getCookie("visit_num_pages") >= $popupData["pages-visited-count"]) {
+        if (Modules.Cookie.get("visit_num_pages") >= $popupData["pages-visited-count"]) {
             $dataElement.data("popup_id", $popupData["pages-visited-id"]);
             openAutoPopupURL($popupData["pages-visited-url"]);
             return;
         }
     }
     if ($popupData["time-spend"] === true) {
-        if (parseInt(Cookie.getCookie("active_time")) >= parseInt($popupData["time-spend-count"])) {
+        if (parseInt(Modules.Cookie.get("active_time")) >= parseInt($popupData["time-spend-count"])) {
             $dataElement.data("popup_id", $popupData["time-spend-id"]);
             openAutoPopupURL($popupData["time-spend-url"]);
             return;
@@ -475,14 +475,14 @@ function getAutopopupURL($dataElement) {
         }
     }
     if ($popupData["gts-made"] === true) {
-        if (Cookie.getCookie("gts_count") >= $popupData["gts-made-count"]) {
+        if (Modules.Cookie.get("gts_count") >= $popupData["gts-made-count"]) {
             $dataElement.data("popup_id", $popupData["gts-made-id"]);
             openAutoPopupURL($popupData["gts-made-url"]);
             return;
         }
     }
     if ($popupData["transaction"] === true) {
-        if (Cookie.getCookie("transaction_count") >= $popupData["time-spend-count"]) {
+        if (Modules.Cookie.get("transaction_count") >= $popupData["time-spend-count"]) {
             $dataElement.data("popup_id", $popupData["transaction-id"]);
             openAutoPopupURL($popupData["transaction-url"]);
             return;
@@ -500,10 +500,10 @@ function pageLeavePopupBind() {
 function openPageLeaveGTSPopup() {
     if (window.location.pathname.indexOf("/refurbished/") !== 0 && $(".prdct-dtl, .fltr-wrpr1").length) {
         var invalidSources = ["pa-transact", "ps-transact", "browsing_pa_emailer", "browsing_ps_emailer"];
-        if (window.qS && invalidSources.indexOf(qS.utm_source) === -1) {
+        if (url.getAQueryParam && invalidSources.indexOf(url.getAQueryParam(utm_source)) === -1) {
             setTimeout(function() {
                 $("body").on("mouseleave", function(e) {
-                    if (e.pageY < 5 && !Cookie.getCookie("msp_login") && !$(".pop-up__ovrly, .popup-overlay").length) {
+                    if (e.pageY < 5 && !Modules.Cookie.get("msp_login") && !$(".pop-up__ovrly, .popup-overlay").length) {
                         openPopup("https://www.mysmartprice.com/loyalty/popup/gts.php?type=pageleave", "PromoB");
                     }
                 });
@@ -530,7 +530,7 @@ function openRefreshPagePopup() {
 
 function setPopUpCookie() {
     setTimeout(function() {
-        if (!Cookie.getCookie('autoPopup')) {
+        if (!Modules.Cookie.get('autoPopup')) {
             var popupUrl = $('[data-autopopup]').data('autopopup');
             openPopup(popupUrl);
             Cookie.setCookie('autoPopup', '1', 1);

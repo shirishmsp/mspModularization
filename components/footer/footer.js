@@ -9,7 +9,7 @@
         if (!MSP.utils.validate.email(_email)) {
             alert('Please enter a valid email address');
         } else {
-            var partiallyLoggedIn = getCookie('partial_login');
+            var partiallyLoggedIn = Modules.Cookie.get('partial_login');
             if (!partiallyLoggedIn) {
                 popupDataObj = {
                     type: "signup"
@@ -22,8 +22,8 @@
     }
 
     if (footerEmailInput.length) {
-        var savedEmail = getCookie('msp_login_email'),
-            loggedIn = getCookie('msp_login');
+        var savedEmail = Modules.Cookie.get('msp_login_email'),
+            loggedIn = Modules.Cookie.get('msp_login');
 
         if (loggedIn) { // Show different message if logged in
             var $ftrLoyaltyInfoHead = $('.js-lylty-info-hdr'),

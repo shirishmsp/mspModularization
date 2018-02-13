@@ -4,7 +4,7 @@ if (window.qS && qS.utm_source) {
 
 (function prefillEmailInputs() {
     var $emailInputs = $("input[name='email']"),
-        userEmail = getCookie("msp_login_email");
+        userEmail = Modules.Cookie.get("msp_login_email");
     if ($emailInputs.length && userEmail) {
         $emailInputs.val(userEmail);
     }
