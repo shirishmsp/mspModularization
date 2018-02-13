@@ -1,6 +1,6 @@
 define(["modules-bundle"],function(Modules){
 
-/* Decide whether to show or hide sidebar ads */
+ /* Decide whether to show or hide sidebar ads */
 ;
 (function sidebarAdsHandler() {
     var sidebarAds = function(gptId) {
@@ -377,6 +377,8 @@ Modules.$doc.ready(function() {
 
     })
 })();
+var url = new Modules.Url(); // Common for the whole bundle
+
 (function signupDestUrlAppending() {
     var $this = $('.usr-inputbox__optns-link--dlmtr');
     if ($this.length && qS.destUrl) {
@@ -8806,7 +8808,7 @@ function pageLeavePopupBind() {
 function openPageLeaveGTSPopup() {
     if (window.location.pathname.indexOf("/refurbished/") !== 0 && $(".prdct-dtl, .fltr-wrpr1").length) {
         var invalidSources = ["pa-transact", "ps-transact", "browsing_pa_emailer", "browsing_ps_emailer"];
-        if (window.qS && invalidSources.indexOf(qS.utm_source) === -1) {
+        if (url.getAQueryParam && invalidSources.indexOf(url.getAQueryParam(utm_source)) === -1) {
             setTimeout(function() {
                 $("body").on("mouseleave", function(e) {
                     if (e.pageY < 5 && !Modules.Cookie.get("msp_login") && !$(".pop-up__ovrly, .popup-overlay").length) {

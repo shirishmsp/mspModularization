@@ -21,6 +21,7 @@
     "babel-preset-env": "^1.6.1",
     "gulp": "^4.0.0",
     "gulp-concat": "^2.6.1",
+    "gulp-replace": "^0.6.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-wrap-amd": "^0.5.0",
     "rollup-plugin-babel": "^3.0.3",

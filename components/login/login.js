@@ -1,4 +1,4 @@
-var url = new Url(); // Common for the whole bundle
+var url = new Modules.Url(); // Common for the whole bundle
 
 (function signupDestUrlAppending() {
     var $this = $('.usr-inputbox__optns-link--dlmtr');

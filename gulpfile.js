@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const concat = require('gulp-concat');
 const wrap = require('gulp-wrap-amd');
 const sourcemaps = require('gulp-sourcemaps');
+const replace = require('gulp-replace');
 
 gulp.task('componentsBundler', function() {
 	return gulp.src(['components/**/*.js'])
@@ -16,6 +17,10 @@ gulp.task('wrapAMD', function() {
 		.pipe(wrap({
 			deps: ['modules-bundle'],
 			params: 'Modules'
+		}))
+		.pipe(replace(/return/, function(match, p1, offset, string) {
+			/* Remove the first return statement added by `wrap` */
+			return '';
 		}))
 		.pipe(gulp.dest('dist'))
 })
