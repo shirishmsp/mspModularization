@@ -1,3 +1,19 @@
+Modules.$doc.on("click", ".js-usr-rvw-rprt-spam", function() {
+    var $this = $(this),
+        reviewId = $this.closest(".usr-rvw__bttm__rvw").data("review-id"),
+        mspId = PriceTable.dataPoints.mspid;
+
+    $.post("/msp/review/post_vote.php", {
+        reviewid: reviewId,
+        mspid: mspId,
+        flag: "report_spam"
+    });
+
+    $this.removeClass("text-link").html("Thank you for reporting!").fadeOut(3000);
+
+    return false;
+});
+
 Modules.$doc.ready(function() {
     if ($(".usr-rvw-form--sngl").length) {
 

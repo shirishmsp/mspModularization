@@ -7,6 +7,7 @@ var autoPopupTimeout = 10000;
 var pageLeaveTimeout = 4000;
 
 var popupCallbackQueue = [];
+var popupQueue = []
 
 /* ************** 2. Actions/Events: ************** */
 
@@ -43,6 +44,35 @@ if (location.href.indexOf("/deals/promotions") === -1 && !Modules.Cookie.get('pl
 
 setPopUpCookie();
 
+Modules.$doc.on("click", ".js-open-link", function() {
+    var $this = $(this),
+        url = $this.data("open-link"),
+        inNewTab = $this.data("new-tab"),
+        needLogin = $this.data("need-login");
+
+    if (!url) return false;
+
+    function openLink() {
+        if (inNewTab === true) {
+            window.open(url);
+        } else {
+            window.location.href = url;
+        }
+    }
+
+    if (needLogin == true) {
+        if (getCookie("new_user")) {
+            openPopup('/users/cp.html');
+            return true;
+        }
+        loginCallback(openLink, window, []);
+    } else {
+        openLink();
+    }
+
+    return false;
+});
+
 /* ************** 4. Functions: ************** */
 
 function closePopup() {
@@ -54,8 +84,8 @@ function closePopup() {
         $('.popup-container').remove();
         $('.popup-closebutton').remove();
     }, 400);
-    while (popupQueue.length > 0) {
-        (popupQueue.shift())();
+    while (popupCallbackQueue.length > 0) {
+        (popupCallbackQueue.shift())();
     }
 }
 
@@ -66,8 +96,8 @@ function closePopup_RUI() {
         $('.pop-up__ovrly').remove();
         $('.pop-up__cntnr').remove();
     }, 300);
-    while (popupQueue.length > 0) {
-        (popupQueue.shift())();
+    while (popupCallbackQueue.length > 0) {
+        (popupCallbackQueue.shift())();
     }
 }
 
