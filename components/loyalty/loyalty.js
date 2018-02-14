@@ -1,10 +1,10 @@
 function loyaltyCounter() {
-    var count = numberWithoutCommas($(".js-lylty-cnt").html());
+    var count = Modules.numberWithoutCommas($(".js-lylty-cnt").html());
     var newCount = count + 1;
 
     var interval = setInterval(function() {
 
-        $(".js-lylty-cnt").html(numberWithCommas(newCount));
+        $(".js-lylty-cnt").html(Modules.numberWithCommas(newCount));
         newCount++;
 
         if (newCount > count + 10) {

@@ -8,6 +8,20 @@ import * as Helpers from './helpers.js';
 
 class Url {
     constructor(url) {
+        if(url) {
+            /* Create a location object when URL is passed (and not page URL) */
+            let parser = document.createElement('a');
+            parser.href = url;
+            url = {
+                protocol: parser.protocol,
+                hostname: parser.hostname,
+                port: parser.port,
+                pathname: parser.pathname,
+                search: parser.search,
+                hash: parser.hash,
+                host: parser.host
+            };
+        }
         this.url = url || window.location;
         this.querySupport = (() => {
             const url = this.url;

@@ -86,7 +86,7 @@ function fetchTopPriceTableData() {
     function pushTopStoresData(idx, store) {
         var _$store = $(store),
             _gtsURL = _$store.find('.js-prc-tbl__gts-btn').attr('data-url'),
-            newUrlObj = new Url(_gtsURL);
+            newUrlObj = new Modules.Url(_gtsURL);
         storesData.push({
             storeName: newUrlObj.getAQueryParam('store'),
             price: _$store.find('.prc-tbl__prc').text().trim(), // saving price as text (rupee + commas)
