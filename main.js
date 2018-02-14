@@ -12,6 +12,3 @@ export * from './modules/utils/social.js';
 export * from './modules/utils/subscription.js';
 export { default as Url } from './modules/utils/url.js';
 export { default as Validator } from './modules/utils/validator.js';
-
-import Url from './modules/utils/url.js';
-console.log(Url.hashParams);

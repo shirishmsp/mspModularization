@@ -23,7 +23,7 @@ if (url.getAQueryParam && url.getAQueryParam('utm_source')) {
 // Mobile number capture popup for users who land on single page
 // from price alert emailer and missed the drop in price
 if (url.getAQueryParam && url.getAQueryParam('utm_campaign') === "PriceAlert") {
-    var _hash = queryString(window.location.hash);
+    var _hash = url.hashParams;
     if (_hash.price) {
         var $mspSingleTitle = $("#mspSingleTitle");
         if ($mspSingleTitle.length) {

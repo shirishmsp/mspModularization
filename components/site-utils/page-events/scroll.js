@@ -20,13 +20,17 @@ function scrollToSectionNoAnimation() {
 
     // on hashchange: act upon the scrollTo and clickElt hash params
     Modules.$win.on('hashchange', function() {
-        hashObj = queryString(decodeURI(window.location.hash));
+        hashObj = url.hashParams;
         if (hashObj.scrollTo) { scrollToLink(hashObj, false); }
     });
 
     // scroll hash handler
     var scrollToLink = function(hashObj, onLoad) {
-        var finalScrollPos = Math.ceil($('[data-id="' + hashObj.scrollTo + '"]').offset().top - $(".sctn--page-nvgtn").height() - 10);
+        var offset = $('[data-id="' + hashObj.scrollTo + '"]').offset(),
+            finalScrollPos = 0;
+        if(offset) {
+            finalScrollPos = Math.ceil(offset.top - $(".sctn--page-nvgtn").height() - 10);
+        }
 
         if (onLoad) {
             $("body").scrollTop(finalScrollPos);

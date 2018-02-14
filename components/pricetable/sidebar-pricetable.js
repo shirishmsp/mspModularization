@@ -85,9 +85,10 @@ function fetchTopPriceTableData() {
 
     function pushTopStoresData(idx, store) {
         var _$store = $(store),
-            _gtsURL = _$store.find('.js-prc-tbl__gts-btn').attr('data-url');
+            _gtsURL = _$store.find('.js-prc-tbl__gts-btn').attr('data-url'),
+            newUrlObj = new Url(_gtsURL);
         storesData.push({
-            storeName: queryString(_gtsURL).store,
+            storeName: newUrlObj.getAQueryParam('store'),
             price: _$store.find('.prc-tbl__prc').text().trim(), // saving price as text (rupee + commas)
             gtsURL: _gtsURL,
             classes: _$store.find('.js-prc-tbl__gts-btn').attr('class').match(/js[^\s]*/g, '').join(' ')

@@ -1849,7 +1849,7 @@ if (url.getAQueryParam && url.getAQueryParam('utm_source')) {
 // Mobile number capture popup for users who land on single page
 // from price alert emailer and missed the drop in price
 if (url.getAQueryParam && url.getAQueryParam('utm_campaign') === "PriceAlert") {
-    var _hash = queryString(window.location.hash);
+    var _hash = url.hashParams;
     if (_hash.price) {
         var $mspSingleTitle = $("#mspSingleTitle");
         if ($mspSingleTitle.length) {
@@ -3961,9 +3961,10 @@ function fetchTopPriceTableData() {
 
     function pushTopStoresData(idx, store) {
         var _$store = $(store),
-            _gtsURL = _$store.find('.js-prc-tbl__gts-btn').attr('data-url');
+            _gtsURL = _$store.find('.js-prc-tbl__gts-btn').attr('data-url'),
+            newUrlObj = new Url(_gtsURL);
         storesData.push({
-            storeName: queryString(_gtsURL).store,
+            storeName: newUrlObj.getAQueryParam('store'),
             price: _$store.find('.prc-tbl__prc').text().trim(), // saving price as text (rupee + commas)
             gtsURL: _gtsURL,
             classes: _$store.find('.js-prc-tbl__gts-btn').attr('class').match(/js[^\s]*/g, '').join(' ')
@@ -7973,13 +7974,17 @@ function scrollToSectionNoAnimation() {
 
     // on hashchange: act upon the scrollTo and clickElt hash params
     Modules.$win.on('hashchange', function() {
-        hashObj = queryString(decodeURI(window.location.hash));
+        hashObj = url.hashParams;
         if (hashObj.scrollTo) { scrollToLink(hashObj, false); }
     });
 
     // scroll hash handler
     var scrollToLink = function(hashObj, onLoad) {
-        var finalScrollPos = Math.ceil($('[data-id="' + hashObj.scrollTo + '"]').offset().top - $(".sctn--page-nvgtn").height() - 10);
+        var offset = $('[data-id="' + hashObj.scrollTo + '"]').offset(),
+            finalScrollPos = 0;
+        if(offset) {
+            finalScrollPos = Math.ceil(offset.top - $(".sctn--page-nvgtn").height() - 10);
+        }
 
         if (onLoad) {
             $("body").scrollTop(finalScrollPos);
@@ -8301,78 +8306,6 @@ function popoutCloseHandler(e) {
     Popout.closePopout();
     e.preventDefault();
 }
-/* ************** 2. Actions/Events: ************** */
-
-Modules.$doc.on('mouseenter', '.js-tltp', handleMouseEnter);
-Modules.$doc.on('mouseleave', '.js-tltp', removeTooltip);
-
-Modules.$doc.on("click", ".js-msg-box-trgt", showMessageBox);
-Modules.$doc.on("click", ".js-msg-box__cls", hideMessageBox);
-
-/* ************** 4. Functions: ************** */
-
-function handleMouseEnter() {
-    $('.tltp').remove();
-    var $this = $(this),
-        data = $this.data('tooltip'),
-        tooltipDirection = $this.data('tooltip-direction') || "tltp--top-left";
-    if (data === "" || data === undefined) return;
-    $('body').append('<div class="tltp ' + tooltipDirection + '">' + data + '</div>');
-    $tooltip = $('.tltp');
-
-    if ($(this).data('tooltip').length > 50) {
-        $tooltip.css({ 'font-size': '11px', 'line-height': '1.5' });
-    }
-
-    if (tooltipDirection === "tltp--top-rght") {
-        $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
-        $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
-            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
-            $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
-        }
-    } else if (tooltipDirection === "tltp--top-left") {
-        $tooltip.css('left', $this.offset().left - 4);
-        $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
-            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
-            $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
-        }
-    } else if (tooltipDirection === "tltp--btm-rght") {
-        $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
-        $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
-        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
-            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
-            $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        }
-    } else if (tooltipDirection === "tltp--btm-left") {
-        $tooltip.css('left', $this.offset().left - 4);
-        $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
-        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
-            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
-            $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
-        }
-    } else if (tooltipDirection === "tltp--left") {
-        $tooltip.css('left', $this.offset().left - $tooltip.width() - 30);
-        $tooltip.css('top', $this.offset().top + $this.outerHeight() / 2 - 10);
-    }
-}
-
-function removeTooltip() {
-    $('.tltp').remove();
-}
-
-function showMessageBox(e) {
-    if ($(e.target).hasClass("js-msg-box__cls")) return false;
-
-    $(".msg-box").removeClass("msg-box--show");
-    $(this).find(".msg-box").addClass("msg-box--show");
-}
-
-function hideMessageBox() {
-    $(this).closest(".msg-box").removeClass("msg-box--show");
-    return false;
-}
 var _gPopStoreUrl = null;
 
 /* ************** 1. Classes/Objects/Variables: ************** */
@@ -8490,7 +8423,7 @@ function handlePopupTargetClick() {
         if (Modules.Cookie.get("msp_login")) {
             return true;
         }
-        Cookie.setCookieMins("signup-utm", $(this).data("utmsource") || "", 2);
+        Modules.Cookie.setCookieMins("signup-utm", $(this).data("utmsource") || "", 2);
     }
 
     if ($this.is(".prdct-dtl__tlbr-prc-alrt")) {
@@ -8517,13 +8450,13 @@ function handlePopupTargetClick() {
             var cookieTimeMins = parseInt($this.data("cookietimemins"), 10),
                 cookieTimeDays = parseInt($this.data("cookietimedays"), 10);
             if (!isNaN(cookieTimeMins)) {
-                Cookie.addCookieMins(cookieName, "true", cookieTimeMins);
+                Modules.Cookie.set(cookieName, "true", cookieTimeMins);
             } else if (!isNaN(cookieTimeDays)) {
-                Cookie.addCookie(cookieName, "true", cookieTimeDays);
+                Modules.Cookie.set(cookieName, "true", cookieTimeDays + "d");
             }
         }
 
-        Cookie.setCookie('autoPopup', '1', 1);
+        Modules.Cookie.set('autoPopup', '1', "1d");
     }
 
     if (!popupUrl || popupUrl == "#" || $this.hasClass("storebutton")) {
@@ -8544,7 +8477,7 @@ function chromePluginPopupTarget() {
         popupUrl = $this.data("href"),
         popupType = $this.data("promo");
 
-    Cookie.setCookie('autoPopup', '1', 1);
+    Modules.Cookie.set('autoPopup', '1', '1d');
 
     if (Modules.Cookie.get(cookieName) === "true") {
         window.open($this.data("url"));
@@ -8556,9 +8489,9 @@ function chromePluginPopupTarget() {
             cookieTimeDays = parseInt($this.data("cookietimedays"), 10);
 
         if (!isNaN(cookieTimeMins)) {
-            Cookie.addCookieMins(cookieName, "true", cookieTimeMins);
+            Modules.Cookie.set(cookieName, "true", cookieTimeMins);
         } else if (!isNaN(cookieTimeDays)) {
-            Cookie.addCookie(cookieName, "true", cookieTimeDays);
+            Modules.Cookie.set(cookieName, "true", cookieTimeDays + 'd');
         }
     }
 
@@ -8577,7 +8510,7 @@ function loyaltyPopupTarget() {
         popupUrl = $this.data("href"),
         isMandatory = false;
 
-    Cookie.setCookieMins('autoPopup', '1', 30);
+    Modules.Cookie.set('autoPopup', '1', 30);
 
     // Make loyalty GTS popup mandatory in appliances to 50% users (even uids) if logged out
     if (window.dataLayer && dataLayer[0].category === "appliance" && Modules.Cookie.get("msp_uid") % 2 === 0) {
@@ -8592,9 +8525,9 @@ function loyaltyPopupTarget() {
             cookieTimeDays = parseInt($this.data("cookietimedays"), 10);
 
         if (!isNaN(cookieTimeMins)) {
-            Cookie.addCookieMins(cookieName, "true", cookieTimeMins);
+            Modules.Cookie.set(cookieName, "true", cookieTimeMins);
         } else if (!isNaN(cookieTimeDays)) {
-            Cookie.addCookie(cookieName, "true", cookieTimeDays);
+            Modules.Cookie.set(cookieName, "true", cookieTimeDays + 'd');
         }
     }
 
@@ -8674,10 +8607,10 @@ function isPromoPopupShown(popupType) {
     }
 
     if (popupType == "PromoA") {
-        Cookie.setCookie('promo_a_shown', 1, 1); // For a day
+        Modules.Cookie.set('promo_a_shown', 1, '1d'); // For a day
     } else if (popupType == "PromoB") {
-        Cookie.setCookie('promo_a_shown', 1, 1); // For a day
-        Cookie.setCookie('promo_b_shown', 1, 1); // For a day
+        Modules.Cookie.set('promo_a_shown', 1, '1d'); // For a day
+        Modules.Cookie.set('promo_b_shown', 1, '1d'); // For a day
     }
     return false;
 }
@@ -8910,11 +8843,83 @@ function setPopUpCookie() {
         if (!Modules.Cookie.get('autoPopup')) {
             var popupUrl = $('[data-autopopup]').data('autopopup');
             openPopup(popupUrl);
-            Cookie.setCookie('autoPopup', '1', 1);
+            Modules.Cookie.set('autoPopup', '1', '1d');
         }
     }, 5000);
 }
 
+/* ************** 2. Actions/Events: ************** */
+
+Modules.$doc.on('mouseenter', '.js-tltp', handleMouseEnter);
+Modules.$doc.on('mouseleave', '.js-tltp', removeTooltip);
+
+Modules.$doc.on("click", ".js-msg-box-trgt", showMessageBox);
+Modules.$doc.on("click", ".js-msg-box__cls", hideMessageBox);
+
+/* ************** 4. Functions: ************** */
+
+function handleMouseEnter() {
+    $('.tltp').remove();
+    var $this = $(this),
+        data = $this.data('tooltip'),
+        tooltipDirection = $this.data('tooltip-direction') || "tltp--top-left";
+    if (data === "" || data === undefined) return;
+    $('body').append('<div class="tltp ' + tooltipDirection + '">' + data + '</div>');
+    $tooltip = $('.tltp');
+
+    if ($(this).data('tooltip').length > 50) {
+        $tooltip.css({ 'font-size': '11px', 'line-height': '1.5' });
+    }
+
+    if (tooltipDirection === "tltp--top-rght") {
+        $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
+        $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
+        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
+            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
+            $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
+        }
+    } else if (tooltipDirection === "tltp--top-left") {
+        $tooltip.css('left', $this.offset().left - 4);
+        $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
+        if ($tooltip.offset().top - Modules.$win.scrollTop() < 0) {
+            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
+            $tooltip.css('top', $this.outerHeight() + $this.offset().top + 10);
+        }
+    } else if (tooltipDirection === "tltp--btm-rght") {
+        $tooltip.css('left', $this.offset().left - $tooltip.outerWidth() + $(this).outerWidth() + 4);
+        $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
+        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
+            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-rght');
+            $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
+        }
+    } else if (tooltipDirection === "tltp--btm-left") {
+        $tooltip.css('left', $this.offset().left - 4);
+        $tooltip.css('top', $this.offset().top + $this.outerHeight() + 10);
+        if (Modules.$win.scrollTop() + Modules.$win.height() - $tooltip.offset().top < 0) {
+            $tooltip.removeClass(tooltipDirection).addClass('tltp--btm-left');
+            $tooltip.css('top', $this.offset().top - $tooltip.outerHeight() - 10);
+        }
+    } else if (tooltipDirection === "tltp--left") {
+        $tooltip.css('left', $this.offset().left - $tooltip.width() - 30);
+        $tooltip.css('top', $this.offset().top + $this.outerHeight() / 2 - 10);
+    }
+}
+
+function removeTooltip() {
+    $('.tltp').remove();
+}
+
+function showMessageBox(e) {
+    if ($(e.target).hasClass("js-msg-box__cls")) return false;
+
+    $(".msg-box").removeClass("msg-box--show");
+    $(this).find(".msg-box").addClass("msg-box--show");
+}
+
+function hideMessageBox() {
+    $(this).closest(".msg-box").removeClass("msg-box--show");
+    return false;
+}
 //# sourceMappingURL=all-non-module-components.js.map
 ;
 

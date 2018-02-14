@@ -7,8 +7,8 @@ import * as Helpers from './helpers.js';
 /* ************** 1. Classes/Objects/Variables: ************** */
 
 class Url {
-    constructor() {
-        this.url = window.location;
+    constructor(url) {
+        this.url = url || window.location;
         this.querySupport = (() => {
             const url = this.url;
             return {

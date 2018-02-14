@@ -115,7 +115,7 @@ function handlePopupTargetClick() {
         if (Modules.Cookie.get("msp_login")) {
             return true;
         }
-        Cookie.setCookieMins("signup-utm", $(this).data("utmsource") || "", 2);
+        Modules.Cookie.setCookieMins("signup-utm", $(this).data("utmsource") || "", 2);
     }
 
     if ($this.is(".prdct-dtl__tlbr-prc-alrt")) {
@@ -142,13 +142,13 @@ function handlePopupTargetClick() {
             var cookieTimeMins = parseInt($this.data("cookietimemins"), 10),
                 cookieTimeDays = parseInt($this.data("cookietimedays"), 10);
             if (!isNaN(cookieTimeMins)) {
-                Cookie.addCookieMins(cookieName, "true", cookieTimeMins);
+                Modules.Cookie.set(cookieName, "true", cookieTimeMins);
             } else if (!isNaN(cookieTimeDays)) {
-                Cookie.addCookie(cookieName, "true", cookieTimeDays);
+                Modules.Cookie.set(cookieName, "true", cookieTimeDays + "d");
             }
         }
 
-        Cookie.setCookie('autoPopup', '1', 1);
+        Modules.Cookie.set('autoPopup', '1', "1d");
     }
 
     if (!popupUrl || popupUrl == "#" || $this.hasClass("storebutton")) {
@@ -169,7 +169,7 @@ function chromePluginPopupTarget() {
         popupUrl = $this.data("href"),
         popupType = $this.data("promo");
 
-    Cookie.setCookie('autoPopup', '1', 1);
+    Modules.Cookie.set('autoPopup', '1', '1d');
 
     if (Modules.Cookie.get(cookieName) === "true") {
         window.open($this.data("url"));
@@ -181,9 +181,9 @@ function chromePluginPopupTarget() {
             cookieTimeDays = parseInt($this.data("cookietimedays"), 10);
 
         if (!isNaN(cookieTimeMins)) {
-            Cookie.addCookieMins(cookieName, "true", cookieTimeMins);
+            Modules.Cookie.set(cookieName, "true", cookieTimeMins);
         } else if (!isNaN(cookieTimeDays)) {
-            Cookie.addCookie(cookieName, "true", cookieTimeDays);
+            Modules.Cookie.set(cookieName, "true", cookieTimeDays + 'd');
         }
     }
 
@@ -202,7 +202,7 @@ function loyaltyPopupTarget() {
         popupUrl = $this.data("href"),
         isMandatory = false;
 
-    Cookie.setCookieMins('autoPopup', '1', 30);
+    Modules.Cookie.set('autoPopup', '1', 30);
 
     // Make loyalty GTS popup mandatory in appliances to 50% users (even uids) if logged out
     if (window.dataLayer && dataLayer[0].category === "appliance" && Modules.Cookie.get("msp_uid") % 2 === 0) {
@@ -217,9 +217,9 @@ function loyaltyPopupTarget() {
             cookieTimeDays = parseInt($this.data("cookietimedays"), 10);
 
         if (!isNaN(cookieTimeMins)) {
-            Cookie.addCookieMins(cookieName, "true", cookieTimeMins);
+            Modules.Cookie.set(cookieName, "true", cookieTimeMins);
         } else if (!isNaN(cookieTimeDays)) {
-            Cookie.addCookie(cookieName, "true", cookieTimeDays);
+            Modules.Cookie.set(cookieName, "true", cookieTimeDays + 'd');
         }
     }
 
@@ -299,10 +299,10 @@ function isPromoPopupShown(popupType) {
     }
 
     if (popupType == "PromoA") {
-        Cookie.setCookie('promo_a_shown', 1, 1); // For a day
+        Modules.Cookie.set('promo_a_shown', 1, '1d'); // For a day
     } else if (popupType == "PromoB") {
-        Cookie.setCookie('promo_a_shown', 1, 1); // For a day
-        Cookie.setCookie('promo_b_shown', 1, 1); // For a day
+        Modules.Cookie.set('promo_a_shown', 1, '1d'); // For a day
+        Modules.Cookie.set('promo_b_shown', 1, '1d'); // For a day
     }
     return false;
 }
@@ -535,7 +535,7 @@ function setPopUpCookie() {
         if (!Modules.Cookie.get('autoPopup')) {
             var popupUrl = $('[data-autopopup]').data('autopopup');
             openPopup(popupUrl);
-            Cookie.setCookie('autoPopup', '1', 1);
+            Modules.Cookie.set('autoPopup', '1', '1d');
         }
     }, 5000);
 }
