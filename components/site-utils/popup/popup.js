@@ -6,7 +6,7 @@ const popupDataObj = {};
 const autoPopupTimeout = 10000;
 const pageLeaveTimeout = 4000;
 
-let popupCallbackQueue = [];
+var popupCallbackQueue = [];
 
 /* ************** 2. Actions/Events: ************** */
 

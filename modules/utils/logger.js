@@ -27,19 +27,27 @@ const _newConsole = {
 	error(...data) {
 		this.worker('error', data);
 	},
-	worker(method, data) {
+	async worker(method, data) {
 		if(!this.envs.prod || method === 'error') {
 			this._console[method](...data);
 		}
 		if(_serverOn) {
-			try {
-				firebase.database().ref(method).update({
-					time: Date.now(),
-					message: data
-				});
-			} catch(e) {
-				/* Firebase: did not log / logged improperly. */
-			}
+			await sendToServer();
+			return 'finished';
+		}
+
+		function sendToServer() {
+			return new Promise(function(resolve, reject) {
+				try {
+					firebase.database().ref(method).update({
+						time: Date.now(),
+						message: data
+					});
+					resolve('Done');
+				} catch(e) {
+					reject('Error with logging server');
+				}
+			});
 		}
 	},
 	declareEnv(type) {
@@ -57,8 +65,7 @@ const _newConsole = {
 					reject('Firebase setup failed');
 				}
 				resolve();
-			}
-			// else if()
+			} // else if() { ... }
 		}); 
 	},
 	switchOnServer() {
