@@ -165,38 +165,37 @@ if(Modules.isInstalled()) {
         $(".prc-grid__upcmng-mbl").removeClass("hide");
         $(".prc-grid__instl-extnsn").addClass("hide");
     }
-} else {
-    if ($(".prdct-dtl__ttl").data("page-type") == "nc") {
-        if(dataLayer[0]['min-price-store'] === 'amazon') {
-            return;
-        }
-        $(".prdct-dtl__coin-wrpr").after([
-            "<div>",
-            $(".prdct-dtl__coin-wrpr").length ? "Extra <strong>upto 25% cashback</strong>" : "<strong>Upto 25% cashback</strong>",
-            " on adding our Chrome extension",
-            " <span class='help-icon js-tltp' data-tooltip='Maximum cashback of &#8377;100'>i</span>",
-            " <span class='text-link js-add-chrome'><strong>Know more</strong></span>",
-            "</div>"
-        ].join(""));
-        ga("send", "event", "NC", "nc_single_pv", "js-log-nc", { nonInteraction: true });
     } else {
-        if(dataLayer[0]['min-price-store'] === 'amazon') {
-            if($('.prdct-dtl__offr-sctn li').length === 0) {
-                $('.prdct-dtl__offr-sctn').remove();
+        if ($(".prdct-dtl__ttl").data("page-type") == "nc") {
+            if(dataLayer[0]['min-price-store'] !== 'amazon') {
+                $(".prdct-dtl__coin-wrpr").after([
+                    "<div>",
+                    $(".prdct-dtl__coin-wrpr").length ? "Extra <strong>upto 25% cashback</strong>" : "<strong>Upto 25% cashback</strong>",
+                    " on adding our Chrome extension",
+                    " <span class='help-icon js-tltp' data-tooltip='Maximum cashback of &#8377;100'>i</span>",
+                    " <span class='text-link js-add-chrome'><strong>Know more</strong></span>",
+                    "</div>"
+                ].join(""));
+                ga("send", "event", "NC", "nc_single_pv", "js-log-nc", { nonInteraction: true });
             }
-            return;
+        } else {
+            if(dataLayer[0]['min-price-store'] === 'amazon') {
+                if($('.prdct-dtl__offr-sctn li').length === 0) {
+                    $('.prdct-dtl__offr-sctn').remove();
+                }
+            } else {
+                $(".prdct-dtl__offr-sctn").append([
+                    "<ul><li>",
+                    $(".prdct-dtl__coin-wrpr").length ? "Extra <strong>upto 25% cashback</strong>" : "<strong>Upto 25% cashback</strong>",
+                    " on adding our Chrome extension",
+                    " <span class='help-icon js-tltp' data-tooltip='Maximum cashback of &#8377;100'>i</span>",
+                    " <span class='text-link js-add-chrome'><strong>Know more</strong></span>",
+                    "</li></ul>"
+                ].join(""));
+                window.ga && ga("send", "event", "Comparables", "comparables_single_pv", "js-log-comparables", { nonInteraction: true });
+            }
         }
-        $(".prdct-dtl__offr-sctn").append([
-            "<ul><li>",
-            $(".prdct-dtl__coin-wrpr").length ? "Extra <strong>upto 25% cashback</strong>" : "<strong>Upto 25% cashback</strong>",
-            " on adding our Chrome extension",
-            " <span class='help-icon js-tltp' data-tooltip='Maximum cashback of &#8377;100'>i</span>",
-            " <span class='text-link js-add-chrome'><strong>Know more</strong></span>",
-            "</li></ul>"
-        ].join(""));
-        window.ga && ga("send", "event", "Comparables", "comparables_single_pv", "js-log-comparables", { nonInteraction: true });
     }
-}
 
 // Windows App popup event handlers:     
 $(document).on('click', '.js-windows-app', function(e) {

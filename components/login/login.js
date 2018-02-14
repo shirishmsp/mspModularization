@@ -13,7 +13,7 @@ var url = new Modules.Url(); // Common for the whole bundle
     }
 })();
 
-const loginCallbackQueue = [];
+var loginCallbackQueue = [];
 
 var MSP = {};
 

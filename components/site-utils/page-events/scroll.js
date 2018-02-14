@@ -76,9 +76,7 @@ function scrollToSectionNoAnimation() {
         if (!hashObj) hashObj = {};
         hashObj.scrollTo = $this.data("href");
 
-        if (generateHash(hashObj) != window.location.hash) {
-            window.location.hash = generateHash(hashObj);
-        }
+        url.hashParams = hashObj;
         scrollToLink(hashObj);
         e.preventDefault();
     });

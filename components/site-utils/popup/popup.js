@@ -2,9 +2,9 @@ var _gPopStoreUrl = null;
 
 /* ************** 1. Classes/Objects/Variables: ************** */
 
-const popupDataObj = {};
-const autoPopupTimeout = 10000;
-const pageLeaveTimeout = 4000;
+var popupDataObj = {};
+var autoPopupTimeout = 10000;
+var pageLeaveTimeout = 4000;
 
 var popupCallbackQueue = [];
 
@@ -17,19 +17,19 @@ Modules.$doc.on('click', ".chrmcshbck-popup-target, .js-chrmcshbck-popup-trgt", 
 Modules.$doc.on('click', ".loyalty-popup-target, .js-lylty-popup-trgt", loyaltyPopupTarget);
 
 /* Old: */
-Modules.$doc.on('click', '.popup-closebutton', () => closePopup());
+Modules.$doc.on('click', '.popup-closebutton', function() { closePopup() });
 Modules.$doc.on('click', '.popup-overlay', handlePopupOverlayClick);
 
 /* New: */
-Modules.$doc.on('click', '.pop-up__cls-btn, .popup-optn__link.usr-inputbox__input--lnk', () => closePopup_RUI());
+Modules.$doc.on('click', '.pop-up__cls-btn, .popup-optn__link.usr-inputbox__input--lnk', function() { closePopup_RUI() });
 Modules.$doc.on('click', '.pop-up__ovrly', handlePopupOverlayClickRUI);
 
 /* autopopup processing start: */
-setTimeout(() => {
+setTimeout(function() {
     openAutoPopup(); // open auto popup after autoPopupTimeout
 }, autoPopupTimeout);
 
-setTimeout(() => {
+setTimeout(function() {
     pageLeavePopupBind(); // bind page leave auto popup after pageLeaveTimeout
 }, pageLeaveTimeout);
 /* autopopup processing end */
