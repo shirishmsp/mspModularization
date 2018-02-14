@@ -161,7 +161,7 @@ function initScrollToTop() {
         $toTop.stop(true, true).fadeOut();
     });
 
-    $win.on("scroll", function() {
+    Modules.$win.on("scroll", function() {
         if ($(this).scrollTop() > 100) {
             if (showScrollToTopDisplay == 'hidden') {
                 showScrollToTopDisplay = 'display';

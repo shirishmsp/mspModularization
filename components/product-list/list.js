@@ -571,7 +571,7 @@ if($('.list-main').length) {
                         params.source ? ("&source=" + url.getAQueryParam('source')) : ""
                     ].join("");
                 },
-                "productList": MSP.utils.memoize(function(currentParams) {
+                "productList": Modules.memoize(function(currentParams) {
                     var dfd = $.Deferred(),
                         query = this.apiQuery(currentParams),
                         _productList = ListPage.services.fetch.productList;
@@ -608,7 +608,7 @@ if($('.list-main').length) {
                     "cacheLimit": 15
                 }),
                 // hourly deals ajax loading
-                "hourlyDeals": MSP.utils.memoize(function(currentParams) {
+                "hourlyDeals": Modules.memoize(function(currentParams) {
                     var dfd = $.Deferred(),
                         query = this.apiQuery(currentParams),
                         _hourlyDeals = ListPage.services.fetch.hourlyDeals;
@@ -1376,8 +1376,7 @@ if($('.list-main').length) {
 
     ;(function goToFilterOnScroll() {
         var $listMain = $('.list-main'),
-            $filter = $('.fltr-wrpr1'),
-            $win = $(window);
+            $filter = $('.fltr-wrpr1');
         if($listMain.length) {
             $listMain.append([
                 '<span class="btn btn--s show-fltr js-show-fltr js-inpg-link" data-href="list-filter">',
@@ -1388,8 +1387,8 @@ if($('.list-main').length) {
             window.onscroll = function(e) {
                 var $showFilter = $('.js-show-fltr'),
                     filterBottom = $filter.offset().top + $filter.outerHeight(),
-                    additionalSpace = $win.height();
-                    scrolledBottom = $win.scrollTop() + $win.height(),
+                    additionalSpace = Modules.$win.height();
+                    scrolledBottom = Modules.$win.scrollTop() + Modules.$win.height(),
                     listMainBottom = $listMain.offset().top + $listMain.outerHeight();
 
                 if (scrolledBottom <= filterBottom + additionalSpace) {

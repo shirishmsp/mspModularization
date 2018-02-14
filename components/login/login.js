@@ -134,7 +134,7 @@ if ($(".demo-login").length) {
             $(".demo-signup__email").change(function() {
                 $(".demo-signup__email").blur(function() {
                     $this = $(this);
-                    if (MSP.utils.validate.email($this.val())) {
+                    if (Modules.Validator.email($this.val())) {
                         $this.removeClass("hghlght-err-fld");
                         !$(".demo-signup__form .hghlght-err-fld").length && $(".demo-signup__form div.error").text("");
                     } else {
@@ -146,7 +146,7 @@ if ($(".demo-login").length) {
             $('.demo-signup__password').on('change', function() {
                 $('.demo-signup__password').on('blur', function() {
                     $this = $(this);
-                    if (MSP.utils.validate.required($this.val())) {
+                    if (Modules.Validator.required($this.val())) {
                         $this.removeClass("hghlght-err-fld");
                         !$(".demo-signup__form .hghlght-err-fld").length && $(".demo-signup__form div.error").text("");
                     } else {
@@ -827,7 +827,7 @@ userFormValidations = (function() {
                     var resetpassword_value = pwdField.val();
 
                     if (resetpassword_value === cnfrmPwdField.val()) {
-                        var qS = queryString(window.location.search),
+                        var qS = url.hashParams,
                             resetemail_value = url.getAQueryParam('email'),
                             userHash = url.getAQueryParam('user');
 
@@ -881,14 +881,14 @@ userFormValidations = (function() {
             $(".login-form__email, .signup-form__email, .forgot-form__email").on("change", function() {
                 $(this).blur(function() {
                     var field = $(this);
-                    isValid = MSP.utils.validate.email(field.val()),
+                    isValid = Modules.Validator.email(field.val()),
                         private.showFieldValidation(field, isValid, "Please enter a valid email address");
                 });
             })
             $(".login-form__pwd").on("change", function() {
                 $(this).blur(function() {
                     var field = $(this);
-                    isValid = MSP.utils.validate.required(field.val()),
+                    isValid = Modules.Validator.required(field.val()),
                         private.showFieldValidation(field, isValid, "Please enter a valid password");
                 });
             })
@@ -899,9 +899,9 @@ userFormValidations = (function() {
                         isValid = false,
                         fieldVal = field.val();
 
-                    if (!(isValid = MSP.utils.validate.required(fieldVal))) {
+                    if (!(isValid = Modules.Validator.required(fieldVal))) {
                         errMsg = "Please enter a valid password";
-                    } else if (!(isValid = MSP.utils.validate.required(fieldVal, { "min": 6 }))) {
+                    } else if (!(isValid = Modules.Validator.required(fieldVal, { "min": 6 }))) {
                         errMsg = "Password should be minimum of 6 characters";
                     }
                     private.showFieldValidation(field, isValid, errMsg);
@@ -920,7 +920,7 @@ userFormValidations = (function() {
                     $error = $(".lgn__err"),
                     $email = $form.find(".lgn__fld--eml .lgn__inpt"),
                     $password = $form.find(".lgn__fld--pswd .lgn__inpt");
-                if (!MSP.utils.validate.email($email.val())) {
+                if (!Modules.Validator.email($email.val())) {
                     $error.text("Please enter a valid email address.").slideDown();
                 } else if ($password.val().length < 6) {
                     $error.text("Please enter a valid password.").slideDown();

@@ -77,7 +77,7 @@ if ($(".sdbr-login").length) {
             $(".sdbr-signup__email").change(function() {
                 $(".sdbr-signup__email").blur(function() {
                     $this = $(this);
-                    if (MSP.utils.validate.email($this.val())) {
+                    if (Modules.Validator.email($this.val())) {
                         $this.removeClass("hghlght-err-fld");
                         !$(".sdbr-signup__form .hghlght-err-fld").length && $(".sdbr-signup__form div.error").text("");
                     } else {
@@ -89,7 +89,7 @@ if ($(".sdbr-login").length) {
             $('.sdbr-signup__password').on('change', function() {
                 $('.sdbr-signup__password').on('blur', function() {
                     $this = $(this);
-                    if (MSP.utils.validate.required($this.val())) {
+                    if (Modules.Validator.required($this.val())) {
                         $this.removeClass("hghlght-err-fld");
                         !$(".sdbr-signup__form .hghlght-err-fld").length && $(".sdbr-signup__form div.error").text("");
                     } else {
@@ -127,7 +127,7 @@ if ($(".sdbr-login").length) {
                 $mainheaderHt = $('.main-hdr-wrpr').outerHeight(),
                 $subheader = $('.sub-hdr'),
 
-                scrlAmnt = $win.scrollTop() + $mainheaderHt;
+                scrlAmnt = Modules.$win.scrollTop() + $mainheaderHt;
 
 
 
@@ -154,7 +154,7 @@ if ($(".sdbr-login").length) {
 
         init: function() {
             this.eventHandlers();
-            $win.scroll(function() {
+            Modules.$win.scroll(function() {
                 sdbrWlcmPage.stickLogin();
             });
         }

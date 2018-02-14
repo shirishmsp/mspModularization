@@ -203,7 +203,7 @@
             });
 
             //IE Fix
-            if (MSP.utils.browser.name === "MSIE" && MSP.utils.browser.version < 9) {
+            if (Modules.Browser.name === "MSIE" && Modules.Browser.version < 9) {
                 $currentSlide.css({
                     'left': prevSlideLeftOffset
                 });
@@ -219,7 +219,7 @@
                 $nextSlide.toggleClass(nextSlideClass + ' mCycleItemCurrent').removeAttr('style');
 
                 //IE Fix
-                if (MSP.utils.browser.name === "MSIE" && MSP.utils.browser.version < 9) {
+                if (Modules.Browser.name === "MSIE" && Modules.Browser.version < 9) {
                     $currentSlide.removeClass('mCycleItemCurrentIE').removeAttr('style');
                     $nextSlide.toggleClass(nextSlideClass + ' mCycleItemCurrentIE').removeAttr('style');
                 }

@@ -396,7 +396,7 @@ var PriceTable = {
                      * MSP.utils.rotateValue => rotate values in a set,
                      * used here to toggle between two values.
                      */
-                    oldOrder = nextOrder = MSP.utils.cycleShift(["asc", "desc"], newOrder);
+                    oldOrder = nextOrder = Modules.cycleShift(["asc", "desc"], newOrder);
                     nextSortby = category + ":" + nextOrder;
 
                     // assign new sort value and class to the column
@@ -521,7 +521,7 @@ var PriceTable = {
 
         ;
         (function locationFilterHandlers() {
-            var isChrome = MSP.utils.browser.name === "chrome",
+            var isChrome = Modules.Browser.name === "Chrome",
                 isLocationStored;
 
             if (navigator.geolocation) {
@@ -902,7 +902,7 @@ var PriceTable = {
         }
     },
     "fetch": {
-        "allTableData": MSP.utils.memoize(function(mspID, color) {
+        "allTableData": Modules.memoize(function(mspID, color) {
             var dfd = $.Deferred(),
                 query = {
                     "mspid": mspID,
@@ -924,7 +924,7 @@ var PriceTable = {
         }, {
             cacheLimit: 10
         }),
-        "cardData": MSP.utils.memoize(function(mspID) {
+        "cardData": Modules.memoize(function(mspID) {
             var dfd = $.Deferred(),
                 query = {
                     "mspid": mspID,
@@ -944,7 +944,7 @@ var PriceTable = {
         }, {
             cacheLimit: 10
         }),
-        "tableByFilter": MSP.utils.memoize(function(type, sort, appliedFilters, location, selectedColor) {
+        "tableByFilter": Modules.memoize(function(type, sort, appliedFilters, location, selectedColor) {
             var dfd = $.Deferred(),
                 query = {
                     "mspid": PriceTable.dataPoints.mspid,
@@ -977,7 +977,7 @@ var PriceTable = {
         }, {
             cacheLimit: 10
         }),
-        "offersPopups": MSP.utils.memoize(function(mspid, color) {
+        "offersPopups": Modules.memoize(function(mspid, color) {
             var dfd = $.Deferred();
             $.ajax({
                 "url": "/msp/offertext_ajax.php",

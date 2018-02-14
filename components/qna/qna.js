@@ -501,7 +501,7 @@ Modules.$doc.on("keyup", ".js-qstn-txt", function() {
 });
 
 //If header is scrollable then dont hide the subheader
-Modules.$win.scroll(MSP.utils.throttle(function(e) {
+Modules.$win.scroll(Modules.throttle(function(e) {
     var scrollTop = Modules.$win.scrollTop(),
         delta = 5,
         $subHeader = $('.sub-hdr'),
@@ -585,13 +585,13 @@ Modules.$win.scroll(MSP.utils.throttle(function(e) {
     }
 
     //Run tasks assigned to Lazy Load which run when scroll position hits the corresponding nodes.
-    MSP.utils.lazyLoad.run();
+    Modules.lazyLoad.run();
 }, 100));
 /* RUI:: reveal new subheader when user scrolls - end */
 
 
 //When coming for answer ackg email to asker.Clicks on say thanks btn.
-if (qS && url.getAQueryParam('ref') === "email") {
+if (url.getAQueryParam && url.getAQueryParam('ref') === "email") {
     openPopup("/review/qna/popup/thankyou.html");
 }
 

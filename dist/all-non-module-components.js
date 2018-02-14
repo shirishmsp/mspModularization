@@ -167,7 +167,7 @@ function toggleDropdownContent() {
     /* Opens Login Popup: To be called only when user is logged out (or partial login) */
     function footerLogin($this) {
         var _email = $this.val();
-        if (!MSP.utils.validate.email(_email)) {
+        if (!Modules.Validator.email(_email)) {
             alert('Please enter a valid email address');
         } else {
             var partiallyLoggedIn = Modules.Cookie.get('partial_login');
@@ -513,7 +513,7 @@ if ($(".demo-login").length) {
             $(".demo-signup__email").change(function() {
                 $(".demo-signup__email").blur(function() {
                     $this = $(this);
-                    if (MSP.utils.validate.email($this.val())) {
+                    if (Modules.Validator.email($this.val())) {
                         $this.removeClass("hghlght-err-fld");
                         !$(".demo-signup__form .hghlght-err-fld").length && $(".demo-signup__form div.error").text("");
                     } else {
@@ -525,7 +525,7 @@ if ($(".demo-login").length) {
             $('.demo-signup__password').on('change', function() {
                 $('.demo-signup__password').on('blur', function() {
                     $this = $(this);
-                    if (MSP.utils.validate.required($this.val())) {
+                    if (Modules.Validator.required($this.val())) {
                         $this.removeClass("hghlght-err-fld");
                         !$(".demo-signup__form .hghlght-err-fld").length && $(".demo-signup__form div.error").text("");
                     } else {
@@ -1206,7 +1206,7 @@ userFormValidations = (function() {
                     var resetpassword_value = pwdField.val();
 
                     if (resetpassword_value === cnfrmPwdField.val()) {
-                        var qS = queryString(window.location.search),
+                        var qS = url.hashParams,
                             resetemail_value = url.getAQueryParam('email'),
                             userHash = url.getAQueryParam('user');
 
@@ -1260,14 +1260,14 @@ userFormValidations = (function() {
             $(".login-form__email, .signup-form__email, .forgot-form__email").on("change", function() {
                 $(this).blur(function() {
                     var field = $(this);
-                    isValid = MSP.utils.validate.email(field.val()),
+                    isValid = Modules.Validator.email(field.val()),
                         private.showFieldValidation(field, isValid, "Please enter a valid email address");
                 });
             })
             $(".login-form__pwd").on("change", function() {
                 $(this).blur(function() {
                     var field = $(this);
-                    isValid = MSP.utils.validate.required(field.val()),
+                    isValid = Modules.Validator.required(field.val()),
                         private.showFieldValidation(field, isValid, "Please enter a valid password");
                 });
             })
@@ -1278,9 +1278,9 @@ userFormValidations = (function() {
                         isValid = false,
                         fieldVal = field.val();
 
-                    if (!(isValid = MSP.utils.validate.required(fieldVal))) {
+                    if (!(isValid = Modules.Validator.required(fieldVal))) {
                         errMsg = "Please enter a valid password";
-                    } else if (!(isValid = MSP.utils.validate.required(fieldVal, { "min": 6 }))) {
+                    } else if (!(isValid = Modules.Validator.required(fieldVal, { "min": 6 }))) {
                         errMsg = "Password should be minimum of 6 characters";
                     }
                     private.showFieldValidation(field, isValid, errMsg);
@@ -1299,7 +1299,7 @@ userFormValidations = (function() {
                     $error = $(".lgn__err"),
                     $email = $form.find(".lgn__fld--eml .lgn__inpt"),
                     $password = $form.find(".lgn__fld--pswd .lgn__inpt");
-                if (!MSP.utils.validate.email($email.val())) {
+                if (!Modules.Validator.email($email.val())) {
                     $error.text("Please enter a valid email address.").slideDown();
                 } else if ($password.val().length < 6) {
                     $error.text("Please enter a valid password.").slideDown();
@@ -1610,7 +1610,7 @@ if ($(".sdbr-login").length) {
             $(".sdbr-signup__email").change(function() {
                 $(".sdbr-signup__email").blur(function() {
                     $this = $(this);
-                    if (MSP.utils.validate.email($this.val())) {
+                    if (Modules.Validator.email($this.val())) {
                         $this.removeClass("hghlght-err-fld");
                         !$(".sdbr-signup__form .hghlght-err-fld").length && $(".sdbr-signup__form div.error").text("");
                     } else {
@@ -1622,7 +1622,7 @@ if ($(".sdbr-login").length) {
             $('.sdbr-signup__password').on('change', function() {
                 $('.sdbr-signup__password').on('blur', function() {
                     $this = $(this);
-                    if (MSP.utils.validate.required($this.val())) {
+                    if (Modules.Validator.required($this.val())) {
                         $this.removeClass("hghlght-err-fld");
                         !$(".sdbr-signup__form .hghlght-err-fld").length && $(".sdbr-signup__form div.error").text("");
                     } else {
@@ -1660,7 +1660,7 @@ if ($(".sdbr-login").length) {
                 $mainheaderHt = $('.main-hdr-wrpr').outerHeight(),
                 $subheader = $('.sub-hdr'),
 
-                scrlAmnt = $win.scrollTop() + $mainheaderHt;
+                scrlAmnt = Modules.$win.scrollTop() + $mainheaderHt;
 
 
 
@@ -1687,7 +1687,7 @@ if ($(".sdbr-login").length) {
 
         init: function() {
             this.eventHandlers();
-            $win.scroll(function() {
+            Modules.$win.scroll(function() {
                 sdbrWlcmPage.stickLogin();
             });
         }
@@ -2175,7 +2175,7 @@ Modules.$doc.on('click', 'body', function(event) {
             });
 
             //IE Fix
-            if (MSP.utils.browser.name === "MSIE" && MSP.utils.browser.version < 9) {
+            if (Modules.Browser.name === "MSIE" && Modules.Browser.version < 9) {
                 $currentSlide.css({
                     'left': prevSlideLeftOffset
                 });
@@ -2191,7 +2191,7 @@ Modules.$doc.on('click', 'body', function(event) {
                 $nextSlide.toggleClass(nextSlideClass + ' mCycleItemCurrent').removeAttr('style');
 
                 //IE Fix
-                if (MSP.utils.browser.name === "MSIE" && MSP.utils.browser.version < 9) {
+                if (Modules.Browser.name === "MSIE" && Modules.Browser.version < 9) {
                     $currentSlide.removeClass('mCycleItemCurrentIE').removeAttr('style');
                     $nextSlide.toggleClass(nextSlideClass + ' mCycleItemCurrentIE').removeAttr('style');
                 }
@@ -2358,7 +2358,7 @@ elementSlider = {
 
         //IE dones not support transitions.
         elementPos = -$startElement.position().left;
-        if (MSP.utils.browser.name === "MSIE" && MSP.utils.browser.version < 9) {
+        if (Modules.Browser.name === "MSIE" && Modules.Browser.version < 9) {
             $elementWrapper.css({
                 "left": elementPos
             });
@@ -2382,7 +2382,7 @@ elementSlider = {
 
     // Select text inside node on clicking it.
     Modules.$doc.on("click", ".js-slct-trgr", function() {
-        MSP.utils.selectText($(this));
+        Modules.selectText($(this));
     });
 
     Modules.$doc.on("click", ".js-sldr__prvs", function() {
@@ -2544,7 +2544,7 @@ elementSlider = {
     var $priceGraph = $("[data-id='price-history']");
     if ($priceGraph.length) {
         var offsetTop = $priceGraph.offset().top;
-        Modules.$win.on("scroll.lazyGraph", MSP.utils.throttle(function () {
+        Modules.$win.on("scroll.lazyGraph", Modules.throttle(function () {
             if (Modules.$win.scrollTop() + window.innerHeight > offsetTop) {
                 Modules.$win.off("scroll.lazyGraph");
                 $.ajax({
@@ -2561,7 +2561,7 @@ elementSlider = {
 })();
 
 if ($(".prc-grph").length) {
-    MSP.utils.lazyLoad.assign({
+    Modules.lazyLoad.assign({
         "node": $(".prc-grph"),
         "isStatic": true,
         "callback": {
@@ -3071,7 +3071,7 @@ var PriceTable = {
                      * MSP.utils.rotateValue => rotate values in a set,
                      * used here to toggle between two values.
                      */
-                    oldOrder = nextOrder = MSP.utils.cycleShift(["asc", "desc"], newOrder);
+                    oldOrder = nextOrder = Modules.cycleShift(["asc", "desc"], newOrder);
                     nextSortby = category + ":" + nextOrder;
 
                     // assign new sort value and class to the column
@@ -3196,7 +3196,7 @@ var PriceTable = {
 
         ;
         (function locationFilterHandlers() {
-            var isChrome = MSP.utils.browser.name === "chrome",
+            var isChrome = Modules.Browser.name === "Chrome",
                 isLocationStored;
 
             if (navigator.geolocation) {
@@ -3577,7 +3577,7 @@ var PriceTable = {
         }
     },
     "fetch": {
-        "allTableData": MSP.utils.memoize(function(mspID, color) {
+        "allTableData": Modules.memoize(function(mspID, color) {
             var dfd = $.Deferred(),
                 query = {
                     "mspid": mspID,
@@ -3599,7 +3599,7 @@ var PriceTable = {
         }, {
             cacheLimit: 10
         }),
-        "cardData": MSP.utils.memoize(function(mspID) {
+        "cardData": Modules.memoize(function(mspID) {
             var dfd = $.Deferred(),
                 query = {
                     "mspid": mspID,
@@ -3619,7 +3619,7 @@ var PriceTable = {
         }, {
             cacheLimit: 10
         }),
-        "tableByFilter": MSP.utils.memoize(function(type, sort, appliedFilters, location, selectedColor) {
+        "tableByFilter": Modules.memoize(function(type, sort, appliedFilters, location, selectedColor) {
             var dfd = $.Deferred(),
                 query = {
                     "mspid": PriceTable.dataPoints.mspid,
@@ -3652,7 +3652,7 @@ var PriceTable = {
         }, {
             cacheLimit: 10
         }),
-        "offersPopups": MSP.utils.memoize(function(mspid, color) {
+        "offersPopups": Modules.memoize(function(mspid, color) {
             var dfd = $.Deferred();
             $.ajax({
                 "url": "/msp/offertext_ajax.php",
@@ -4000,7 +4000,7 @@ function updateSidebarPriceTable() {
     } else {
         $mainCol1.prepend(createSidebarPriceTable(storesInfo));
         $sidebar.css('left', (mainLeft + mainCol3Width) + 'px');
-        Modules.$win.scroll(MSP.utils.throttle(sidebarScrollEvent, 100));
+        Modules.$win.scroll(Modules.throttle(sidebarScrollEvent, 100));
     }
 
     // ********************
@@ -4829,7 +4829,7 @@ if($('.list-main').length) {
                         params.source ? ("&source=" + url.getAQueryParam('source')) : ""
                     ].join("");
                 },
-                "productList": MSP.utils.memoize(function(currentParams) {
+                "productList": Modules.memoize(function(currentParams) {
                     var dfd = $.Deferred(),
                         query = this.apiQuery(currentParams),
                         _productList = ListPage.services.fetch.productList;
@@ -4866,7 +4866,7 @@ if($('.list-main').length) {
                     "cacheLimit": 15
                 }),
                 // hourly deals ajax loading
-                "hourlyDeals": MSP.utils.memoize(function(currentParams) {
+                "hourlyDeals": Modules.memoize(function(currentParams) {
                     var dfd = $.Deferred(),
                         query = this.apiQuery(currentParams),
                         _hourlyDeals = ListPage.services.fetch.hourlyDeals;
@@ -5634,8 +5634,7 @@ if($('.list-main').length) {
 
     ;(function goToFilterOnScroll() {
         var $listMain = $('.list-main'),
-            $filter = $('.fltr-wrpr1'),
-            $win = $(window);
+            $filter = $('.fltr-wrpr1');
         if($listMain.length) {
             $listMain.append([
                 '<span class="btn btn--s show-fltr js-show-fltr js-inpg-link" data-href="list-filter">',
@@ -5646,8 +5645,8 @@ if($('.list-main').length) {
             window.onscroll = function(e) {
                 var $showFilter = $('.js-show-fltr'),
                     filterBottom = $filter.offset().top + $filter.outerHeight(),
-                    additionalSpace = $win.height();
-                    scrolledBottom = $win.scrollTop() + $win.height(),
+                    additionalSpace = Modules.$win.height();
+                    scrolledBottom = Modules.$win.scrollTop() + Modules.$win.height(),
                     listMainBottom = $listMain.offset().top + $listMain.outerHeight();
 
                 if (scrolledBottom <= filterBottom + additionalSpace) {
@@ -6703,7 +6702,7 @@ Modules.$doc.on("keyup", ".js-qstn-txt", function() {
 });
 
 //If header is scrollable then dont hide the subheader
-Modules.$win.scroll(MSP.utils.throttle(function(e) {
+Modules.$win.scroll(Modules.throttle(function(e) {
     var scrollTop = Modules.$win.scrollTop(),
         delta = 5,
         $subHeader = $('.sub-hdr'),
@@ -6787,13 +6786,13 @@ Modules.$win.scroll(MSP.utils.throttle(function(e) {
     }
 
     //Run tasks assigned to Lazy Load which run when scroll position hits the corresponding nodes.
-    MSP.utils.lazyLoad.run();
+    Modules.lazyLoad.run();
 }, 100));
 /* RUI:: reveal new subheader when user scrolls - end */
 
 
 //When coming for answer ackg email to asker.Clicks on say thanks btn.
-if (qS && url.getAQueryParam('ref') === "email") {
+if (url.getAQueryParam && url.getAQueryParam('ref') === "email") {
     openPopup("/review/qna/popup/thankyou.html");
 }
 
@@ -7740,7 +7739,7 @@ function loadVideoReviews() {
 (function lazyLoadVideoReviews() {
     var $videoReview = $('.vdo-rvw-sctn');
     if($videoReview.length) {
-        MSP.utils.lazyLoad.assign({
+        Modules.lazyLoad.assign({
             "node": $videoReview,
             "callback": {
                 "definition": loadVideoReviews,
@@ -7748,7 +7747,7 @@ function loadVideoReviews() {
                 "arguments": []
             }
         });
-        MSP.utils.lazyLoad.run();
+        Modules.lazyLoad.run();
     }
 })();
 /* End lazyload of video review section */
@@ -7915,7 +7914,7 @@ function initScrollToTop() {
         $toTop.stop(true, true).fadeOut();
     });
 
-    $win.on("scroll", function() {
+    Modules.$win.on("scroll", function() {
         if ($(this).scrollTop() > 100) {
             if (showScrollToTopDisplay == 'hidden') {
                 showScrollToTopDisplay = 'display';
@@ -7964,7 +7963,7 @@ if ($(".body-wrpr").length !== 0) { /* Enable new (RUI) scroll functionality */
 
 function scrollToSectionNoAnimation() {
     // onload if hash has a scrollTo param then scroll to section without animation.
-    var hashObj = queryString(decodeURI(window.location.hash));
+    var hashObj = url.hashParams;
     if (hashObj) {
         setTimeout(function() {
             if (hashObj.scrollTo) { scrollToLink(hashObj, true); }
@@ -8010,7 +8009,7 @@ function scrollToSectionNoAnimation() {
     var $pageNav = $(".sctn--page-nvgtn");
     if ($pageNav.length) {
         var stickyPoint = Math.ceil($pageNav.offset().top);
-        Modules.$win.scroll(MSP.utils.throttle(function() {
+        Modules.$win.scroll(Modules.throttle(function() {
             if (Math.ceil(Modules.$win.scrollTop()) > stickyPoint) {
                 $pageNav.addClass("sctn--stcky-nvgtn");
             } else {
@@ -8374,6 +8373,8 @@ function hideMessageBox() {
     $(this).closest(".msg-box").removeClass("msg-box--show");
     return false;
 }
+var _gPopStoreUrl = null;
+
 /* ************** 1. Classes/Objects/Variables: ************** */
 
 const popupDataObj = {};

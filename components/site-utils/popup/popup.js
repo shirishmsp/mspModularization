@@ -1,3 +1,5 @@
+var _gPopStoreUrl = null;
+
 /* ************** 1. Classes/Objects/Variables: ************** */
 
 const popupDataObj = {};

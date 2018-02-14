@@ -124,7 +124,7 @@ function updateSidebarPriceTable() {
     } else {
         $mainCol1.prepend(createSidebarPriceTable(storesInfo));
         $sidebar.css('left', (mainLeft + mainCol3Width) + 'px');
-        Modules.$win.scroll(MSP.utils.throttle(sidebarScrollEvent, 100));
+        Modules.$win.scroll(Modules.throttle(sidebarScrollEvent, 100));
     }
 
     // ********************

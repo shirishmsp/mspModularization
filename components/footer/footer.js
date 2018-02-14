@@ -6,7 +6,7 @@
     /* Opens Login Popup: To be called only when user is logged out (or partial login) */
     function footerLogin($this) {
         var _email = $this.val();
-        if (!MSP.utils.validate.email(_email)) {
+        if (!Modules.Validator.email(_email)) {
             alert('Please enter a valid email address');
         } else {
             var partiallyLoggedIn = Modules.Cookie.get('partial_login');

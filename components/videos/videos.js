@@ -176,7 +176,7 @@ function loadVideoReviews() {
 (function lazyLoadVideoReviews() {
     var $videoReview = $('.vdo-rvw-sctn');
     if($videoReview.length) {
-        MSP.utils.lazyLoad.assign({
+        Modules.lazyLoad.assign({
             "node": $videoReview,
             "callback": {
                 "definition": loadVideoReviews,
@@ -184,7 +184,7 @@ function loadVideoReviews() {
                 "arguments": []
             }
         });
-        MSP.utils.lazyLoad.run();
+        Modules.lazyLoad.run();
     }
 })();
 /* End lazyload of video review section */

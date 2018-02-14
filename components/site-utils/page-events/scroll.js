@@ -10,7 +10,7 @@ if ($(".body-wrpr").length !== 0) { /* Enable new (RUI) scroll functionality */
 
 function scrollToSectionNoAnimation() {
     // onload if hash has a scrollTo param then scroll to section without animation.
-    var hashObj = queryString(decodeURI(window.location.hash));
+    var hashObj = url.hashParams;
     if (hashObj) {
         setTimeout(function() {
             if (hashObj.scrollTo) { scrollToLink(hashObj, true); }
@@ -56,7 +56,7 @@ function scrollToSectionNoAnimation() {
     var $pageNav = $(".sctn--page-nvgtn");
     if ($pageNav.length) {
         var stickyPoint = Math.ceil($pageNav.offset().top);
-        Modules.$win.scroll(MSP.utils.throttle(function() {
+        Modules.$win.scroll(Modules.throttle(function() {
             if (Math.ceil(Modules.$win.scrollTop()) > stickyPoint) {
                 $pageNav.addClass("sctn--stcky-nvgtn");
             } else {

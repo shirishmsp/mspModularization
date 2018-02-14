@@ -2,7 +2,7 @@
     var $priceGraph = $("[data-id='price-history']");
     if ($priceGraph.length) {
         var offsetTop = $priceGraph.offset().top;
-        Modules.$win.on("scroll.lazyGraph", MSP.utils.throttle(function () {
+        Modules.$win.on("scroll.lazyGraph", Modules.throttle(function () {
             if (Modules.$win.scrollTop() + window.innerHeight > offsetTop) {
                 Modules.$win.off("scroll.lazyGraph");
                 $.ajax({
@@ -19,7 +19,7 @@
 })();
 
 if ($(".prc-grph").length) {
-    MSP.utils.lazyLoad.assign({
+    Modules.lazyLoad.assign({
         "node": $(".prc-grph"),
         "isStatic": true,
         "callback": {

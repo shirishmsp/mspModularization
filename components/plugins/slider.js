@@ -62,7 +62,7 @@ elementSlider = {
 
         //IE dones not support transitions.
         elementPos = -$startElement.position().left;
-        if (MSP.utils.browser.name === "MSIE" && MSP.utils.browser.version < 9) {
+        if (Modules.Browser.name === "MSIE" && Modules.Browser.version < 9) {
             $elementWrapper.css({
                 "left": elementPos
             });
@@ -86,7 +86,7 @@ elementSlider = {
 
     // Select text inside node on clicking it.
     Modules.$doc.on("click", ".js-slct-trgr", function() {
-        MSP.utils.selectText($(this));
+        Modules.selectText($(this));
     });
 
     Modules.$doc.on("click", ".js-sldr__prvs", function() {
