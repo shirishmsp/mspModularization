@@ -3,9 +3,10 @@ var _gPopStoreUrl = null;
 /* ************** 1. Classes/Objects/Variables: ************** */
 
 const popupDataObj = {};
-const popupCallbackQueue = [];
 const autoPopupTimeout = 10000;
 const pageLeaveTimeout = 4000;
+
+let popupCallbackQueue = [];
 
 /* ************** 2. Actions/Events: ************** */
 
