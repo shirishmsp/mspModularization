@@ -842,8 +842,6 @@ var PriceTable = {
                     "color": color
                 };
 
-            setServingLocation();
-
             $.ajax({
                 "url": "/mobile/ptrows_details.php",
                 "data": query
